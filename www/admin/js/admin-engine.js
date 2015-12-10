@@ -3,7 +3,7 @@
  */
 $(function () {
     var modal = $('#modal');
-~
+    
     $('body').on('submit', '.ajax-form', function () {
         var form = $(this);
         form.ajaxSubmit({
