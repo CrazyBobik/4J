@@ -19,7 +19,7 @@ $fields = array(
     0 => array(
         'name' => 'side',
         'title' => 'Сторона',
-        'type' => 'select',
+        'type' => 'checkbox',
         'variants' => array(
             0 => 'header',
             1 => 'left',
@@ -51,7 +51,7 @@ $fields = array(
     )
 );
 
-//$dao->addType($title, $name, $fields, false);
+$dao->addType($title, $name, $fields, false);
 
 //echo "\r\n".round(microtime(true) - $start, 3);
 /*

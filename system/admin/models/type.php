@@ -23,13 +23,13 @@ class Admin_Models_Type{
 	}
 
 	public function addType($title, $name, $fields, $seo = false){
-		if($this->typeDAO->createTable($name, $fields, $seo)){
-			$this->typeDAO->writeType($title, $name, $fields, $seo);
-		}
+//		if($this->typeDAO->createTable($name, $fields, $seo)){
+//			$this->typeDAO->writeType($title, $name, $fields, $seo);
+//		}
 
-		$this->genEntity($name, $fields, $seo);
-		$this->genInterface($name);
-		$this->genDAO($name, $fields, $seo);
+//		$this->genEntity($name, $fields, $seo);
+//		$this->genInterface($name);
+//		$this->genDAO($name, $fields, $seo);
 		$this->genMVC($name, $fields, $seo);
 
 		//TODO: удалить файлы, проверить работу =)
@@ -200,8 +200,8 @@ class Admin_Models_Type{
 
 	public function genMVC($name, $fields, $seo){
 		$this->genView($name, $fields, $seo);
-		$this->genModel($name);
-		$this->genController($name, $fields, $seo);
+//		$this->genModel($name);
+//		$this->genController($name, $fields, $seo);
 	}
 
 	public function genView($name, $fields, $seo){
@@ -216,71 +216,83 @@ class Admin_Models_Type{
 		$cnt = count($fields);
 		for ($i = 0; $i < $cnt; $i++){
 			$input = '';
+			$file = '';
 			switch ($fields[$i]['type']){
 				case 'textarea':
-					$input = '<textarea id="'.$name.'_'.$fields[$i]['name'].'" name="'.$fields[$i]['name'].'"
-					  class="text-redactor">{'.$fields[$i]['name'].'_value}</textarea>';
+					$file = file_get_contents(TPL.'/generation/form/textarea.tpl');
+
 					break;
 				case 'checkbox':
+					$file = file_get_contents(TPL.'/generation/form/checkbox.tpl');
+
+					$tmp = '';
 					$cntJ = count($fields[$i]['variants']);
 					for($j = 0; $j < $cntJ; $j++){
-						$input .= '<input type="checkbox" name="'.$fields[$i]['name'].'[]" value="'.$fields[$i]['variants'][$j].'"
-				   {'.$fields[$i]['name'].'_'.$j.'_value} id="'.$name.'_'.$fields[$i]['name'].'_'.$j.'">
-			<label for="'.$name.'_'.$fields[$i]['name'].'_'.$j.'">
-				'.$fields[$i]['variants'][$j].'
-			</label>'."\r\n\t\t\t";
+						$tmp .= "\r\n\t\t\t\t".'<div class="row-variants">'."\r\n\t\t\t\t\t"
+					.'<input type="checkbox" name="'.$fields[$i]['name'].'[]" value="'.$fields[$i]['variants'][$j].'" {'.$fields[$i]['name'].'_'.$j.'_value}
+					 	   id="'.$name.'_'.$fields[$i]['name'].'_'.$j.'" class="in-radio">
+					<label for="'.$name.'_'.$fields[$i]['name'].'_'.$j.'">
+						'.$fields[$i]['variants'][$j].'
+					</label>
+				</div>';
 					}
+					$file = str_replace('{checkbox}', $tmp, $file);
 					break;
 				case 'radio':
+					$file = file_get_contents(TPL.'/generation/form/radio.tpl');
+
+					$tmp = '';
 					$cntJ = count($fields[$i]['variants']);
 					for($j = 0; $j < $cntJ; $j++){
-						$input .= '<input type="radio" name="'.$fields[$i]['name'].'" value="'.$fields[$i]['variants'][$j].'"
-				   {'.$fields[$i]['name'].'_'.$j.'_value} id="'.$name.'_'.$fields[$i]['name'].'_'.$j.'">
+						$input .= '<div class="row-variants"><input type="radio" name="'.$fields[$i]['name'].'" value="'.$fields[$i]['variants'][$j]
+							.'" {'.$fields[$i]['name'].'_'.$j.'_value} id="'.$name.'_'.$fields[$i]['name'].'_'.$j.'" class="in-radio">
 			<label for="'.$name.'_'.$fields[$i]['name'].'_'.$j.'">
 				'.$fields[$i]['variants'][$j].'
-			</label>'."\r\n\t\t\t";
+			</label>
+		</div>'."\r\n\t\t\t";
 					}
+					$file = str_replace('{radio}', $tmp, $file);
 					break;
 				case 'select':
-					$input .= '<select name="'.$fields[$i]['name'].'" id="'.$name.'_'.$fields[$i]['name'].'">'."\r\n";
+					$file = file_get_contents(TPL.'/generation/form/select.tpl');
+
+					$tmp = '';
 					$cntJ = count($fields[$i]['variants']);
 					for($j = 0; $j < $cntJ; $j++){
-						$input .= "\t\t\t\t".'<option value="'.$fields[$i]['variants'][$j].'" {'.$fields[$i]['name'].'_'.$j.'_value}>'
-										.$fields[$i]['variants'][$j].'</option>'."\r\n";
+						$tmp .= "\r\n"."\t\t\t\t\t".'<option value="'.$fields[$i]['variants'][$j].'" {'.$fields[$i]['name'].'_'.$j.'_value}>'
+										.$fields[$i]['variants'][$j].'</option>';
 					}
-					$input .= "\t\t\t".'</select>';
+					$file = str_replace('{option}', $tmp, $file);
 					break;
 				case 'file':
-					$input = '<input type="file" name="'.$fields[$i]['name'].'" value="{'.$fields[$i]['name'].'_value}" id="'.$name.'_'.$fields[$i]['name'].'">';
+					$file = file_get_contents(TPL.'/generation/form/file.tpl');
 					break;
 				case 'hidden':
-					$input = "\t\t".'<input type="hidden" value="{'.$fields[$i]['name'].'_value}" name="'.$fields[$i]['name'].'" id="'.$name.'_'.$fields[$i]['name'].'">';
+					$file = file_get_contents(TPL.'/generation/form/hidden.tpl');
 					break;
 				default:
-					$input = '<input type="text" value="{'.$fields[$i]['name'].'_value}" name="'.$fields[$i]['name'].'" id="'.$name.'_'.$fields[$i]['name'].'">';
+					$file = file_get_contents(TPL.'/generation/form/default.tpl');
+					$file = str_replace('{type}', $fields[$i]['type'], $file);
 			}
 
-			if ($fields[$i]['type'] === 'hidden'){
-				$fieldsHTML .= $input."\r\n";
-			} else {
-				$toReplaceRow = array(
-					'{id}',
-					'{title}',
-					'{field}'
-				);
-				$replaceRow = array(
-					$name.'_'.$fields[$i]['name'],
-					$fields[$i]['title'],
-					$input
-				);
-				$file = file_get_contents(TPL_GEN_TYPE.'/one_field.tpl');
-				$result = str_replace(
-					$toReplaceRow,
-					$replaceRow,
-					$file
-				);
-				$fieldsHTML .= $result;
-			}
+			$toReplaceRow = array(
+				'{id}',
+				'{title}',
+				'{name}',
+				'{value}'
+			);
+			$replaceRow = array(
+				$name.'_'.$fields[$i]['name'],
+				$fields[$i]['title'],
+				$name.'_'.$fields[$i]['name'],
+				'{'.$fields[$i]['name'].'_value}'
+			);
+			$result = str_replace(
+				$toReplaceRow,
+				$replaceRow,
+				$file
+			);
+			$fieldsHTML .= $result;
 		}
 
 		if ($seo){

@@ -5,7 +5,7 @@
 
 {fields}
         <div class="row">
-            <input type="submit" value="Сохранить">
+            <input type="submit" value="Отправить" class="btn btn-green">
         </div>
     </form>
 </div>

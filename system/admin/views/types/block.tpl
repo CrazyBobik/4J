@@ -4,37 +4,60 @@
         
 
         <div class="row">
-            <label for="block_side">Сторона</label>
-            <select name="side" id="block_side">
-				<option value="header" {side_0_value}>header</option>
-				<option value="left" {side_1_value}>left</option>
-				<option value="center" {side_2_value}>center</option>
-				<option value="right" {side_3_value}>right</option>
-				<option value="footer" {side_4_value}>footer</option>
-			</select>
-        </div>
-        <div class="row">
-            <label for="block_text">Текст</label>
-            <textarea id="block_text" name="text"
-					  class="text-redactor">{text_value}</textarea>
-        </div>
-        <div class="row">
-            <label for="block_is_text">Использовать текст</label>
-            <input type="radio" name="is_text" value="Нет"
-				   {is_text_0_value} id="block_is_text_0">
-			<label for="block_is_text_0">
-				Нет
-			</label>
-			<input type="radio" name="is_text" value="Да"
-				   {is_text_1_value} id="block_is_text_1">
-			<label for="block_is_text_1">
-				Да
-			</label>
-			
-        </div>
+            <label class="row-item">Сторона</label>
 
+            <div class="row-item">
+				<div class="row-variants">
+					<input type="checkbox" name="side[]" value="header" {side_0_value}
+					 	   id="block_side_0" class="in-radio">
+					<label for="block_side_0">
+						header
+					</label>
+				</div>
+				<div class="row-variants">
+					<input type="checkbox" name="side[]" value="left" {side_1_value}
+					 	   id="block_side_1" class="in-radio">
+					<label for="block_side_1">
+						left
+					</label>
+				</div>
+				<div class="row-variants">
+					<input type="checkbox" name="side[]" value="center" {side_2_value}
+					 	   id="block_side_2" class="in-radio">
+					<label for="block_side_2">
+						center
+					</label>
+				</div>
+				<div class="row-variants">
+					<input type="checkbox" name="side[]" value="right" {side_3_value}
+					 	   id="block_side_3" class="in-radio">
+					<label for="block_side_3">
+						right
+					</label>
+				</div>
+				<div class="row-variants">
+					<input type="checkbox" name="side[]" value="footer" {side_4_value}
+					 	   id="block_side_4" class="in-radio">
+					<label for="block_side_4">
+						footer
+					</label>
+				</div>
+            </div>
+        </div>
         <div class="row">
-            <input type="submit" value="Сохранить">
+            <label for="block_text" class="row-item">Текст</label>
+
+            <div class="row-item">
+                <textarea class="in in-area" name="block_text" id="block_text">{text_value}</textarea>
+            </div>
+        </div>
+        <label class="row-item">Использовать текст</label>
+
+<div class="row-item">
+    
+</div>
+        <div class="row">
+            <input type="submit" value="Отправить" class="btn btn-green">
         </div>
     </form>
 </div>
