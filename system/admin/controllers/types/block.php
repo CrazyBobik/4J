@@ -11,7 +11,7 @@ class Admin_Controllers_Types_Block extends Ajax{
 	 * @param bool $isAjax
 	 */
 	public function __construct($isAjax = true){
-        parent::__construct($isAjax);
+	    parent::__construct($isAjax);
 		$this->blockModel = new Admin_Models_Types_Block();
     }
 
@@ -22,16 +22,25 @@ class Admin_Controllers_Types_Block extends Ajax{
     public function getBlock($id = null){
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
 
-        $entity = $this->blockModel->getBlock($id);
+        $tree = $this->blockModel->getBlock($id);
+        $entity = new Entity_Block($tree);
 
         $toReplace = array(
+            '{action}',
+            '{tree_title}',
+            '{tree_name}',
+            '{tree_pid}',
             '{id_value}',
             '{side_value}',
 			'{text_value}',
 			'{is_text_value}'
         );
         $replace = array(
-            $entity->getId(),
+            empty($id) ? 'add' : 'update',
+            $tree['title'],
+            $tree['name'],
+            $tree['pid'],
+            $tree['id'],
             $entity->getSide(),
 			$entity->getText(),
 			$entity->getIsText()
@@ -89,12 +98,16 @@ class Admin_Controllers_Types_Block extends Ajax{
     * @return bool
     */
     public function updateBlock($data = array()){
+        $tree = new Entity_Tree();
+        $tree->setId($this->isAjax() ? strip_tags($_POST['id']) : $data['id']);
+        $tree->setTitle($this->isAjax() ? strip_tags($_POST['title']) : $data['tree_title']);
+        $tree->setName($this->isAjax() ? strip_tags($_POST['name']) : $data['tree_name']);
+
         $entity = new Entity_Block();
-        $entity->setId($this->isAjax() ? strip_tags($_POST['id']) : $data['id']);
         $entity->setSide($this->isAjax() ? strip_tags($_POST['side']) : $data['side']);
 		$entity->setText($this->isAjax() ? strip_tags($_POST['text']) : $data['text']);
 		$entity->setIsText($this->isAjax() ? strip_tags($_POST['is_text']) : $data['is_text']);
-        $result = $this->blockModel->updateBlock($entity);
+        $result = $this->blockModel->updateBlock($tree, $entity);
 
         if ($this->isAjax()){
             $this->putAjax($result);

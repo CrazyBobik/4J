@@ -62,7 +62,7 @@ class Admin_Controllers_Type extends Ajax{
 			$tmp['variants'] = array();
 			$tmpCnt = $this->isAjax() ? count($_POST['variants-'.$i]) : count($data['variants-'.$i]);
 			for ($j = 0; $j < $tmpCnt; $j++){
-				$tmp[] = $this->isAjax() ? strip_tags($_POST['variants-'.$i][$j]) : $data['variants-'.$i][$j];
+				$tmp['variants'][] = $this->isAjax() ? strip_tags($_POST['variants-'.$i][$j]) : $data['variants-'.$i][$j];
 			}
 			$tmp['selects'] = $this->isAjax() ? strip_tags($_POST['selects-'.$i]) : $data['selects-'.$i];
 			$tmp['int'] = $this->isAjax() ? intval($_POST['int-'.$i]) == 1 : intval($data['int-'.$i]) == 1;

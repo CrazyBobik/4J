@@ -1,61 +1,52 @@
 <div class="view_type">
-    <form action="/admin/block/updateBlock" method="post" class="ajax-form" enctype="multipart/form-data">
+    <form action="/admin/block/{action}Block" method="post" class="ajax-form" enctype="multipart/form-data">
         <input type="hidden" name="id" id="block_id" value="{id_value}">
         
-
         <div class="row">
-            <label class="row-item">Сторона</label>
+            <label for="tree_title" class="row-item">Титулка в дереве</label>
 
             <div class="row-item">
-				<div class="row-variants">
-					<input type="checkbox" name="side[]" value="header" {side_0_value}
-					 	   id="block_side_0" class="in-radio">
-					<label for="block_side_0">
-						header
-					</label>
-				</div>
-				<div class="row-variants">
-					<input type="checkbox" name="side[]" value="left" {side_1_value}
-					 	   id="block_side_1" class="in-radio">
-					<label for="block_side_1">
-						left
-					</label>
-				</div>
-				<div class="row-variants">
-					<input type="checkbox" name="side[]" value="center" {side_2_value}
-					 	   id="block_side_2" class="in-radio">
-					<label for="block_side_2">
-						center
-					</label>
-				</div>
-				<div class="row-variants">
-					<input type="checkbox" name="side[]" value="right" {side_3_value}
-					 	   id="block_side_3" class="in-radio">
-					<label for="block_side_3">
-						right
-					</label>
-				</div>
-				<div class="row-variants">
-					<input type="checkbox" name="side[]" value="footer" {side_4_value}
-					 	   id="block_side_4" class="in-radio">
-					<label for="block_side_4">
-						footer
-					</label>
-				</div>
+                <input class="in in-text" type="text" name="title" value="{tree_title}" id="tree_title">
+            </div>
+        </div>
+        <div class="row">
+            <label for="tree_name" class="row-item">Название(name) в дереве</label>
+
+            <div class="row-item">
+                <input class="in in-text" type="text" name="name" value="{tree_name}" id="tree_name">
+            </div>
+        </div>
+        <input type="hidden" value="{tree_pid}" name="pid" id="tree_pid">
+
+
+        <div class="row">
+            <label for="block_side" class="row-item">Сторона</label>
+
+            <div class="row-item">
+                <select class="in in-select" name="block_side" id="block_side">
+					<option value="header" {side_0_value}>header</option>
+					<option value="left" {side_1_value}>left</option>
+					<option value="center" {side_2_value}>center</option>
+					<option value="right" {side_3_value}>right</option>
+					<option value="footer" {side_4_value}>footer</option>
+                </select>
             </div>
         </div>
         <div class="row">
             <label for="block_text" class="row-item">Текст</label>
 
             <div class="row-item">
-                <textarea class="in in-area" name="block_text" id="block_text">{text_value}</textarea>
+                <select class="in in-select" name="block_text" id="block_text">
+                </select>
             </div>
         </div>
-        <label class="row-item">Использовать текст</label>
+        <div class="row">
+            <label for="block_is_text" class="row-item">Использовать текст</label>
 
-<div class="row-item">
-    
-</div>
+            <div class="row-item">
+                <input class="in in-text" type="tel" name="block_is_text" value="{is_text_value}" id="block_is_text">
+            </div>
+        </div>
         <div class="row">
             <input type="submit" value="Отправить" class="btn btn-green">
         </div>

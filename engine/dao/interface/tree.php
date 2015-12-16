@@ -11,4 +11,10 @@ interface DAO_Interface_Tree{
 	public function getOne($id, $fields='*');
 
 	public function getChild($id, $types);
+
+	/**
+	 * @param Entity_Tree $tree
+	 * @return bool
+	 */
+	public function updateTree($tree);
 }

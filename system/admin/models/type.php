@@ -30,7 +30,7 @@ class Admin_Models_Type{
 //		$this->genEntity($name, $fields, $seo);
 //		$this->genInterface($name);
 //		$this->genDAO($name, $fields, $seo);
-		$this->genMVC($name, $fields, $seo);
+//		$this->genMVC($name, $fields, $seo);
 
 		//TODO: удалить файлы, проверить работу =)
 		/**Логика MVC
@@ -199,9 +199,9 @@ class Admin_Models_Type{
 	}
 
 	public function genMVC($name, $fields, $seo){
-		$this->genView($name, $fields, $seo);
+//		$this->genView($name, $fields, $seo);
 //		$this->genModel($name);
-//		$this->genController($name, $fields, $seo);
+		$this->genController($name, $fields, $seo);
 	}
 
 	public function genView($name, $fields, $seo){
@@ -209,7 +209,8 @@ class Admin_Models_Type{
 			'{name}',
 			'{class_name}',
 			'{fields}',
-			'{seo}'
+			'{seo}',
+			'{tree}'
 		);
 		$fieldsHTML = '';
 		$seoHTML = '';
@@ -244,12 +245,14 @@ class Admin_Models_Type{
 					$tmp = '';
 					$cntJ = count($fields[$i]['variants']);
 					for($j = 0; $j < $cntJ; $j++){
-						$input .= '<div class="row-variants"><input type="radio" name="'.$fields[$i]['name'].'" value="'.$fields[$i]['variants'][$j]
-							.'" {'.$fields[$i]['name'].'_'.$j.'_value} id="'.$name.'_'.$fields[$i]['name'].'_'.$j.'" class="in-radio">
-			<label for="'.$name.'_'.$fields[$i]['name'].'_'.$j.'">
-				'.$fields[$i]['variants'][$j].'
-			</label>
-		</div>'."\r\n\t\t\t";
+						$tmp .= "\r\n\t\t\t\t".'<div class="row-variants">'."\r\n\t\t\t\t\t"
+							.'<input type="radio" name="'.$fields[$i]['name'].'" value="'.$fields[$i]['variants'][$j]
+							.'" {'.$fields[$i]['name'].'_'.$j.'_value}
+						   id="'.$name.'_'.$fields[$i]['name'].'_'.$j.'" class="in-radio">
+					<label for="'.$name.'_'.$fields[$i]['name'].'_'.$j.'">
+						'.$fields[$i]['variants'][$j].'
+					</label>
+				</div>';
 					}
 					$file = str_replace('{radio}', $tmp, $file);
 					break;
@@ -313,11 +316,14 @@ class Admin_Models_Type{
 			$seoHTML .= '</div>';
 		}
 
+		$tree = $this->genTreeRows();
+
 		$replace = array(
 			$name,
 			ucfirst($name),
 			$fieldsHTML,
-			$seoHTML
+			$seoHTML,
+			$tree
 		);
 		$file = file_get_contents(TPL_GEN_TYPE.'/view.tpl');
 		$result = str_replace(
@@ -395,5 +401,70 @@ class Admin_Models_Type{
 		$file = file_get_contents(TPL_GEN_TYPE.'/controller.tpl');
 		$result = str_replace($toReplace, $replace, $file);
 		file_put_contents(ADMIN.'/controllers/types/'.$name.'.php', $result);
+	}
+
+	private function genTreeRows(){
+		$tree = '';
+		$file = file_get_contents(TPL.'/generation/form/default.tpl');
+		$toReplaceRow = array(
+			'{id}',
+			'{title}',
+			'{name}',
+			'{type}',
+			'{value}'
+		);
+		$replaceRow = array(
+			'tree_title',
+			'Титулка в дереве',
+			'title',
+			'text',
+			'{tree_title}'
+		);
+		$result = str_replace(
+			$toReplaceRow,
+			$replaceRow,
+			$file
+		);
+		$tree .= $result."\r\n";
+		$file = file_get_contents(TPL.'/generation/form/default.tpl');
+		$toReplaceRow = array(
+			'{id}',
+			'{title}',
+			'{name}',
+			'{type}',
+			'{value}'
+		);
+		$replaceRow = array(
+			'tree_name',
+			'Название(name) в дереве',
+			'name',
+			'text',
+			'{tree_name}'
+		);
+		$result = str_replace(
+			$toReplaceRow,
+			$replaceRow,
+			$file
+		);
+		$tree .= $result."\r\n";
+		$file = file_get_contents(TPL.'/generation/form/hidden.tpl');
+		$toReplaceRow = array(
+			'{id}',
+			'{name}',
+			'{value}'
+		);
+		$replaceRow = array(
+			'tree_pid',
+			'pid',
+			'{tree_pid}'
+		);
+		$result = str_replace(
+			$toReplaceRow,
+			$replaceRow,
+			$file
+		);
+		$tree .= $result;
+
+		return $tree;
 	}
 }

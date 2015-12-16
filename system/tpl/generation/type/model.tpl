@@ -5,17 +5,22 @@ class Admin_Models_Types_{class_name}{
 	 * @var DAO_Types_{class_name}
 	 */
     private ${name}DAO;
+    /**
+     * @var DAO_Tree
+     */
+    private $treeDAO;
 
     public function __construct(){
         $this->{name}DAO = new DAO_Types_{class_name}();
+        $this->treeDAO = new DAO_Tree();
     }
 
     /**
     * @param int $id
-    * @return Entity_{class_name}
+    * @return array()
     */
     public function get{class_name}($id){
-        return $this->{name}DAO->getOne($id);
+        return $this->treeDAO->getOne($id, '*', '{name}');
     }
 
 
@@ -27,15 +32,14 @@ class Admin_Models_Types_{class_name}{
     * @return int id
     */
     public function add{class_name}($title, $name, $pid, ${name}){
-        $daoTree = new DAO_Tree();
-        $parent = $daoTree->getOne($pid);
+        $parent = $this->treeDAO->getOne($pid);
         $treeLeaf = new Entity_Tree();
         $treeLeaf->setTitle($title);
-        $treeLeaf->setLink($parent->getLink().'/'.$name);
+        $treeLeaf->setLink($parent['link'].'/'.$name);
         $treeLeaf->setName($name);
         $treeLeaf->setType('{name}');
-        $treeLeaf->setRightKey($parent->getRightKey());
-        $treeLeaf->setLevel($parent->getLevel());
+        $treeLeaf->setRightKey($parent['right_key']);
+        $treeLeaf->setLevel($parent['level']);
         $treeLeaf->setPid($pid);
 
         return $this->{name}DAO->add($treeLeaf, ${name});
@@ -46,10 +50,16 @@ class Admin_Models_Types_{class_name}{
     }
 
     /**
+    * @param Entity_Tree $tree
     * @param Entity_{class_name} ${name}
     * @return bool
     */
-    public function update{class_name}(${name}){
-        return $this->{name}DAO->update(${name});
+    public function update{class_name}($tree, ${name}){
+        $old = new Entity_Tree($this->treeDAO->getOne($tree->getId()));
+        $link = rtrim($old->getLink(), $old->getName()).$tree->getName();
+        $tree->setLink($link);
+        ${name}->setId($old->getTypeId());
+
+        return $this->{name}DAO->update(${name}) && $this->treeDAO->updateTree($tree);
     }
 }

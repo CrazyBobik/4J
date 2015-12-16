@@ -22,14 +22,23 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
     public function get{class_name}($id = null){
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
 
-        $entity = $this->{name}Model->get{class_name}($id);
+        $tree = $this->{name}Model->get{class_name}($id);
+        $entity = new Entity_{class_name}($tree);
 
         $toReplace = array(
+            '{action}',
+            '{tree_title}',
+            '{tree_name}',
+            '{tree_pid}',
             '{id_value}',
             {to_replace}
         );
         $replace = array(
-            $entity->getId(),
+            empty($id) ? 'add' : 'update',
+            $tree['title'],
+            $tree['name'],
+            $tree['pid'],
+            $tree['id'],
             {entity_get}{seo_get}
         );
         $file = file_get_contents(ADMIN.'/views/types/{name}.tpl');
@@ -83,10 +92,14 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
     * @return bool
     */
     public function update{class_name}($data = array()){
+        $tree = new Entity_Tree();
+        $tree->setId($this->isAjax() ? strip_tags($_POST['id']) : $data['id']);
+        $tree->setTitle($this->isAjax() ? strip_tags($_POST['title']) : $data['tree_title']);
+        $tree->setName($this->isAjax() ? strip_tags($_POST['name']) : $data['tree_name']);
+
         $entity = new Entity_{class_name}();
-        $entity->setId($this->isAjax() ? strip_tags($_POST['id']) : $data['id']);
         {entity_set}{seo_set}
-        $result = $this->{name}Model->update{class_name}($entity);
+        $result = $this->{name}Model->update{class_name}($tree, $entity);
 
         if ($this->isAjax()){
             $this->putAjax($result);

@@ -25,7 +25,7 @@ class DAO_Tree extends DAO_MainDAO implements DAO_Interface_Tree{
 		$stmt->bindParam(':value', $id);
 		$stmt->execute();
 
-		return new Entity_Tree($stmt->fetch(PDO::FETCH_ASSOC));
+		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
 	public function getChild($id, $types = array()){
@@ -50,12 +50,36 @@ class DAO_Tree extends DAO_MainDAO implements DAO_Interface_Tree{
 				.implode(' OR ', $wtypes).') ORDER BY t.`left_key`';
 		$stmt = $this->DB->prepare($SQL);
 
-		$lk = $parent->getLeftKey();
-		$rk = $parent->getRightKey();
+		$lk = $parent['left_key'];
+		$rk = $parent['right_key'];
 		$stmt->bindParam(':left_key', $lk);
 		$stmt->bindParam(':right_key', $rk);
 		$stmt->execute();
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+
+	/**
+	 * @param Entity_Tree $tree
+	 * @return bool
+	 */
+	public function updateTree($tree){
+		$id = $tree->getId();
+		$title = $tree->getTitle();
+		$name = $tree->getName();
+		$link = $tree->getLink();
+
+		$stmt = $this->DB->prepare('UPDATE `site_tree` SET
+									`title`=:title,
+									`name`=:name,
+									`link`=:link
+                                    WHERE `id`=:id');
+		$stmt->bindParam(':id', $id);
+		$stmt->bindParam(':title', $title);
+		$stmt->bindParam(':name', $name);
+		$stmt->bindParam(':link', $link);
+
+		return $stmt->execute();
 	}
 }
