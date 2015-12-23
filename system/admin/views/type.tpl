@@ -27,13 +27,36 @@
 
     <div class="fields">{fields}
         <div class="fields-types">
-            <div class="one-type" data-type="text">Текст</div>
-            <div class="one-type" data-type="textarea">Текстовое поле</div>
-            <div class="one-type" data-type="checkbox">Чекбокс</div>
-            <div class="one-type" data-type="select">Селект</div>
-            <div class="one-type" data-type="radio">Радиобокс</div>
-            <div class="one-type" data-type="file">Файл</div>
-            <div class="one-type" data-type="hidden">Скрытое поле</div>
+            <div class="title">Добавить поле:</div>
+
+            <div class="one-type btn btn-green btn-auto" data-type="text">
+                Текст
+                <i class="fa fa-plus"></i>
+            </div>
+            <div class="one-type btn btn-green btn-auto" data-type="textarea">
+                Текстовое поле
+                <i class="fa fa-plus"></i>
+            </div>
+            <div class="one-type btn btn-green btn-auto" data-type="checkbox">
+                Чекбокс
+                <i class="fa fa-plus"></i>
+            </div>
+            <div class="one-type btn btn-green btn-auto" data-type="select">
+                Селект
+                <i class="fa fa-plus"></i>
+            </div>
+            <div class="one-type btn btn-green btn-auto" data-type="radio">
+                Радиобокс
+                <i class="fa fa-plus"></i>
+            </div>
+            <div class="one-type btn btn-green btn-auto" data-type="file">
+                Файл
+                <i class="fa fa-plus"></i>
+            </div>
+            <div class="one-type btn btn-green btn-auto data-type="hidden">
+                Скрытое поле
+                <i class="fa fa-plus"></i>
+            </div>
         </div>
 
         <input type="hidden" name="fields-count" id="fields-count" value="0">

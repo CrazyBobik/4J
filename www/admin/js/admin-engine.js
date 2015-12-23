@@ -92,7 +92,7 @@ function modalOpen(elem){
         success: function (data) {
             $('#modal').show();
             $('#modal-container .context').html(data['context']);
-            $('#modal-container .title').html(data['title']);
+            $('#modal-container .modal-title').html(data['title']);
             $('#modal-container').slideDown(500);
             $('#modal-shadow,#close').show(10).click(function () {
                 $('#modal-container').slideUp(500, function () {
@@ -105,11 +105,11 @@ function modalOpen(elem){
 
 function addFieldForm(name){
     var cnt = parseInt($('#fields-count').val());
-    var html = '<div class="form-filed">' +
+    var html = '<div class="form-filed" data-id="' + cnt + '" style="display: none">' +
         '<div class="del-form-field"><i class="fa fa-times"></i></div>' +
-        '<div class="toggle-form-field"><i class="fa fa-minus"></i></div>' +
+        '<div class="toggle-form-field"><i class="fa fa-plus"></i></div>' +
         '<div class="title">Блок поля ' + cnt + '</div>' +
-        '<div class="form-rows">' +
+        '<div class="form-rows" style="display: none">' +
         '<input type="hidden" name="type-' + cnt + '" value="' + name + '">' +
         '<div class="row">' +
         '<label for="title-' + cnt + '" class="row-item">Титул</label>' +
@@ -151,9 +151,13 @@ function addFieldForm(name){
         '</div>' +
         '</div>' +
         '</div>' +
-        '</div>';
+        '</div>' +
+        '</div>' +
+        '<div class="clear"></div>';
 
     $('.fields-types').before(html);
+    $('.form-filed[data-id="' + cnt + '"]').show(500);
+
     cnt++;
     $('#fields-count').val(cnt);
 }
