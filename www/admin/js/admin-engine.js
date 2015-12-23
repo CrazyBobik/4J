@@ -58,6 +58,21 @@ $(function () {
     modal.on('click', '.add-variants', function(){
         addVariantsRow($(this).data('id'));
     });
+    modal.on('click', '.toggle-form-field', function () {
+        $(this).parent().find('.form-rows').slideToggle();
+
+        var i = $(this).find('i');
+        if(i.hasClass('fa-minus')){
+            i.removeClass('fa-minus');
+            i.addClass('fa-plus');
+        } else{
+            i.removeClass('fa-plus');
+            i.addClass('fa-minus');
+        }
+    });
+    modal.on('click', '.del-form-field,.del-variants', function () {
+        removeParent($(this));
+    });
 });
 
 function showFormResult(clazz, mess, element){
@@ -73,50 +88,68 @@ function modalOpen(elem){
 
     $.ajax({
         url: '/admin/modal/'+method,
-        dataType: 'html',
+        dataType: 'json',
         success: function (data) {
             $('#modal').show();
-            $('#modal-container').html(data).slideDown(500);
-            $('#modal-shadow').show(10).click(function () {
+            $('#modal-container .context').html(data['context']);
+            $('#modal-container .title').html(data['title']);
+            $('#modal-container').slideDown(500);
+            $('#modal-shadow,#close').show(10).click(function () {
                 $('#modal-container').slideUp(500, function () {
                     $('#modal-shadow,#modal').hide('500');
                 });
             });
         }
-    });
+    }, 'json');
 }
 
 function addFieldForm(name){
     var cnt = parseInt($('#fields-count').val());
     var html = '<div class="form-filed">' +
+        '<div class="del-form-field"><i class="fa fa-times"></i></div>' +
+        '<div class="toggle-form-field"><i class="fa fa-minus"></i></div>' +
+        '<div class="title">Блок поля ' + cnt + '</div>' +
+        '<div class="form-rows">' +
         '<input type="hidden" name="type-' + cnt + '" value="' + name + '">' +
         '<div class="row">' +
-        '<label for="title-' + cnt + '">Титул</label>' +
-        '<input type="text" name="title-' + cnt + '" id="title-' + cnt + '">' +
+        '<label for="title-' + cnt + '" class="row-item">Титул</label>' +
+        '<div class="row-item">' +
+        '<input class="in in-text" type="text" name="title-' + cnt + '" id="title-' + cnt + '">' +
+        '</div>' +
         '</div>' +
         '<div class="row">' +
-        '<label for="name-' + cnt + '">Название(name)</label>' +
-        '<input type="text" name="name-' + cnt + '" id="name-' + cnt + '">' +
+        '<label for="name-' + cnt + '" class="row-item">Название(name)</label>' +
+        '<div class="row-item">' +
+        '<input class="in in-text" type="text" name="name-' + cnt + '" id="name-' + cnt + '">' +
+        '</div>' +
         '</div>';
     if (name === 'checkbox' || name === 'radio' || name === 'select'){
         html += '<div class="row">' +
-            '<label for="int-' + cnt + '">Варианты</label>' +
-            '<div class="variants">' +
-            '<div class="row">' +
-            '<input type="radio" name="selects-' + cnt + '" value="0">' +
-            '<input type="text" name="variants-' + cnt + '[]">' +
+            '<label for="int-' + cnt + '" class="row-item">Варианты</label>' +
+            '<div class="row-item">' +
+            '<div class="row-variants">' +
+            '<input class="in-radio" type="radio" name="selects-' + cnt + '" value="0">' +
+            '<input class="in in-text" type="text" name="variants-' + cnt + '[]">' +
             '</div>' +
-            '<div class="add-variants" data-id="' + cnt + '">Еще</div>' +
+            '<div class="add-variants btn btn-green btn-small" data-id="' + cnt + '">' +
+            'Еще <i class="fa fa-plus"></i>' +
+            '</div>' +
             '</div>' +
             '</div>';
     }
 
     html += '<div class="row">' +
-        '<label for="int-' + cnt + '">Integer</label>' +
-        '<input type="radio" name="int-' + cnt + '" id="int-' + cnt + '" value="1">' +
+        '<label class="row-item">Integer</label>' +
+        '<div class="row-item">' +
+        '<div class="row-variants">' +
+        '<input class="in-radio" type="radio" name="int-' + cnt + '" id="int-' + cnt + '" value="1">' +
         '<label for="int-' + cnt + '">Да</label>' +
-        '<input type="radio" name="int-' + cnt + '" id="int-' + cnt + '-no" value="0" checked="checked">' +
+        '</div>' +
+        '<div class="row-variants">' +
+        '<input class="in-radio" type="radio" name="int-' + cnt + '" id="int-' + cnt + '-no" value="0" checked="checked">' +
         '<label for="int-' + cnt + '-no">Нет</label>' +
+        '</div>' +
+        '</div>' +
         '</div>' +
         '</div>';
 
@@ -127,9 +160,16 @@ function addFieldForm(name){
 
 function addVariantsRow(id){
     var val = $('input[name="selects-' + id + '"]').length;
-    var html = '<div class="row">' +
-        '<input type="radio" name="selects-' + id + '" value="' + val + '">' +
-        '<input type="text" name="variants-' + id + '[]">' +
+    var html = '<div class="row-variants">' +
+        '<input class="in-radio" type="radio" name="selects-' + id + '" value="' + val + '">' +
+        '<input class="in in-text" type="text" name="variants-' + id + '[]">' +
+        '<div class="del-variants"><i class="fa fa-times"></i></div>' +
         '</div>';
     $('.add-variants[data-id="' + id + '"]').before(html);
+}
+
+function removeParent(elem){
+    $(elem).parent().hide(500, function () {
+        $(this).remove();
+    });
 }

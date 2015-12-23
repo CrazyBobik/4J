@@ -11,7 +11,10 @@ class Admin_Controllers_Modal extends Ajax{
 	}
 
 	public function addType(){
-		$controller = new Admin_Controllers_Type();
-		$controller->getType();
+		$controller = new Admin_Controllers_Type(false);
+		$data['context'] = $controller->getType();
+		$data['title'] = 'Добавить новый тип';
+
+		$this->putJSON($data);
 	}
 }
