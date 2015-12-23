@@ -21,7 +21,7 @@
         <div id="close">
             <i class="fa fa-times fa-2x"></i>
         </div>
-        <div class="title">
+        <div class="modal-title">
             Титулка модального окна
         </div>
         <div class="context">

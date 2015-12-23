@@ -64,8 +64,21 @@
 .toggle-form-field:hover{
     color: #0f0;
 }
-.form-filed .title{
+.ajax-form .title{
     border-bottom: solid 1px;
+}
+
+.fields-types{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 21px;
+    margin: 15px 0 0;
+}
+.fields-types .title{
+    width: 100%;
+}
+.one-type{
+    margin: 5px;
 }
 
 .in{
