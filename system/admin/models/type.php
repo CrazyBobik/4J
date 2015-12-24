@@ -19,7 +19,11 @@ class Admin_Models_Type{
 	}
 
 	public function getType($id){
-		return new Entity_Type();
+		return $this->typeDAO->getType($id);
+	}
+
+	public function getTypeByName($name){
+		return $this->typeDAO->getTypeByName($name);
 	}
 
 	public function addType($title, $name, $fields, $seo = false){
@@ -199,8 +203,8 @@ class Admin_Models_Type{
 	}
 
 	public function genMVC($name, $fields, $seo){
-//		$this->genView($name, $fields, $seo);
-//		$this->genModel($name);
+		$this->genView($name, $fields, $seo);
+		$this->genModel($name);
 		$this->genController($name, $fields, $seo);
 	}
 
@@ -230,7 +234,7 @@ class Admin_Models_Type{
 					$cntJ = count($fields[$i]['variants']);
 					for($j = 0; $j < $cntJ; $j++){
 						$tmp .= "\r\n\t\t\t\t".'<div class="row-variants">'."\r\n\t\t\t\t\t"
-					.'<input type="checkbox" name="'.$fields[$i]['name'].'[]" value="'.$fields[$i]['variants'][$j].'" {'.$fields[$i]['name'].'_'.$j.'_value}
+					.'<input type="checkbox" name="'.$name.'_'.$fields[$i]['name'].'[]" value="'.$fields[$i]['variants'][$j].'" {'.$fields[$i]['name'].'_'.$j.'_value}
 					 	   id="'.$name.'_'.$fields[$i]['name'].'_'.$j.'" class="in-radio">
 					<label for="'.$name.'_'.$fields[$i]['name'].'_'.$j.'">
 						'.$fields[$i]['variants'][$j].'
@@ -246,7 +250,7 @@ class Admin_Models_Type{
 					$cntJ = count($fields[$i]['variants']);
 					for($j = 0; $j < $cntJ; $j++){
 						$tmp .= "\r\n\t\t\t\t".'<div class="row-variants">'."\r\n\t\t\t\t\t"
-							.'<input type="radio" name="'.$fields[$i]['name'].'" value="'.$fields[$i]['variants'][$j]
+							.'<input type="radio" name="'.$name.'_'.$fields[$i]['name'].'" value="'.$fields[$i]['variants'][$j]
 							.'" {'.$fields[$i]['name'].'_'.$j.'_value}
 						   id="'.$name.'_'.$fields[$i]['name'].'_'.$j.'" class="in-radio">
 					<label for="'.$name.'_'.$fields[$i]['name'].'_'.$j.'">
@@ -366,8 +370,8 @@ class Admin_Models_Type{
 			$to_repl .= '\'{'.$fields[$i]['name'].'_value}\','."\r\n\t\t\t";
 			$entityGet .= '$entity->get'.ucfirst($fields[$i]['name']).'(),'."\r\n\t\t\t";
 			$entitySet .= '$entity->set'.ucfirst($fields[$i]['name'])
-				.'($this->isAjax() ? strip_tags($_POST[\''.$fields[$i]['name'].'\']) : $data[\''
-				.$fields[$i]['name'].'\']);'."\r\n\t\t";
+				.'($this->isAjax() ? strip_tags($_POST[\''.$name.'_'.$fields[$i]['name'].'\']) : $data[\''
+				.$name.'_'.$fields[$i]['name'].'\']);'."\r\n\t\t";
 		}
 		$seoGet = '';
 		$seoSet = '';

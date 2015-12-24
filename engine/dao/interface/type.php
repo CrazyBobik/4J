@@ -7,6 +7,10 @@
  */
 interface DAO_Interface_Type{
 
+	public function getType($id);
+
+	public function getTypeByName($name);
+
 	public function createTable($name, $fields, $seo);
 
 	public function writeType($title, $name, $fields, $seo);

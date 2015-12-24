@@ -53,7 +53,7 @@
                 Файл
                 <i class="fa fa-plus"></i>
             </div>
-            <div class="one-type btn btn-green btn-auto data-type="hidden">
+            <div class="one-type btn btn-green btn-auto" data-type="hidden">
                 Скрытое поле
                 <i class="fa fa-plus"></i>
             </div>

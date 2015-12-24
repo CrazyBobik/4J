@@ -7,6 +7,22 @@
  */
 class DAO_Type extends DAO_MainDAO implements DAO_Interface_Type{
 
+	public function getType($id){
+		$stmt = $this->DB->prepare('SELECT * FROM `site_types` WHERE `id`=:id');
+		$stmt->bindParam(':id', $id);
+		$stmt->execute();
+
+		return new Entity_Type($stmt->fetch(PDO::FETCH_ASSOC));
+	}
+
+	public function getTypeByName($name){
+		$stmt = $this->DB->prepare('SELECT * FROM `site_types` WHERE `name`=:name');
+		$stmt->bindParam(':name', $name);
+		$stmt->execute();
+
+		return new Entity_Type($stmt->fetch(PDO::FETCH_ASSOC));
+	}
+
 	public function createTable($name, $fields, $hasSeo){
 		$f = '';
 		$seo = '';

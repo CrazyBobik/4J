@@ -36,17 +36,30 @@
             <label for="block_text" class="row-item">Текст</label>
 
             <div class="row-item">
-                <select class="in in-select" name="block_text" id="block_text">
-                </select>
+                <textarea class="in in-area" name="block_text" id="block_text">{text_value}</textarea>
             </div>
         </div>
         <div class="row">
-            <label for="block_is_text" class="row-item">Использовать текст</label>
+            <label class="row-item">Использовать текст</label>
 
             <div class="row-item">
-                <input class="in in-text" type="tel" name="block_is_text" value="{is_text_value}" id="block_is_text">
+				<div class="row-variants">
+					<input type="radio" name="block_is_text" value="Да" {is_text_0_value}
+						   id="block_is_text_0" class="in-radio">
+					<label for="block_is_text_0">
+						Да
+					</label>
+				</div>
+				<div class="row-variants">
+					<input type="radio" name="block_is_text" value="Нет" {is_text_1_value}
+						   id="block_is_text_1" class="in-radio">
+					<label for="block_is_text_1">
+						Нет
+					</label>
+				</div>
             </div>
         </div>
+
         <div class="row">
             <input type="submit" value="Отправить" class="btn btn-green">
         </div>

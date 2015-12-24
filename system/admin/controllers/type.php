@@ -53,7 +53,7 @@ class Admin_Controllers_Type extends Ajax{
 		$title = $this->isAjax() ? strip_tags($_POST['title']) : $data['title'];
 		$seo = $this->isAjax() ? intval($_POST['seo']) == 1 : intval($data['seo']) == 1;
 		$json = array();
-		$cnt = $this->isAjax() ? intval($_POST['fields-count']) : $data['fields-count'];
+		$cnt = $this->isAjax() ? count($_POST['cnt']) : count($data['cnt']);
 		for ($i = 0; $i < $cnt; $i++){
 			$tmp = array();
 			$tmp['name'] = $this->isAjax() ? strip_tags($_POST['name-'.$i]) : $data['name-'.$i];
@@ -70,8 +70,7 @@ class Admin_Controllers_Type extends Ajax{
 			$json[] = $tmp;
 		}
 
-		var_dump($json);
-//		$this->typeModel->addType($title, $name, $json, $seo);
+		$this->typeModel->addType($title, $name, $json, $seo);
 
 		$result['error'] = false;
 		$result['mess'] = 'Тип добавлен';

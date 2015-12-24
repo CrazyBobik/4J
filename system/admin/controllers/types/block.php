@@ -45,6 +45,37 @@ class Admin_Controllers_Types_Block extends Ajax{
 			$entity->getText(),
 			$entity->getIsText()
         );
+
+        $typeModel = new Admin_Models_Type();
+        $type = $typeModel->getTypeByName('block');
+        $fields = json_decode($type->getJson(), true);
+        $cnt = count($fields);
+
+        if(empty($id)){
+            for($i = 0; $i < $cnt; $i++){
+                $cntJ = count($fields[$i]['variants']);
+                for($j = 0; $j < $cntJ; $j++){
+                    $toReplace[] = '{'.$fields[$i]['name'].'_'.$j.'_value}';
+                    $replace[] = ($fields[$i]['selects'] == $j) ?
+                        ($fields[$i]['type'] == 'select' ? 'selected="selected"' : 'checked="checked"') :
+                        '';
+                }
+            }
+        } else{
+            for($i = 0; $i < $cnt; $i++){
+                $cntJ = count($fields[$i]['variants']);
+                if ($cntJ > 0){
+                    $str = 'get'.ucfirst($fields[$i]['name']).'()';
+                    $tmp = explode(',', $entity->$str);
+                    for ($j = 0; $j < count($tmp); $j++){
+                        $toReplace[] = '{'.$fields[$i]['name'].'_'.$tmp[$j].'_value}';
+                        $replace[] = $fields[$i]['type'] == 'select'
+                            ? 'selected="selected"' : 'checked="checked"';
+                    }
+                }
+            }
+        }
+
         $file = file_get_contents(ADMIN.'/views/types/block.tpl');
         $result = str_replace($toReplace, $replace, $file);
 
@@ -65,9 +96,9 @@ class Admin_Controllers_Types_Block extends Ajax{
         $pid = $this->isAjax() ? intval($_POST['pid']) : $data['pid'];
 
         $entity = new Entity_Block();
-        $entity->setSide($this->isAjax() ? strip_tags($_POST['side']) : $data['side']);
-		$entity->setText($this->isAjax() ? strip_tags($_POST['text']) : $data['text']);
-		$entity->setIsText($this->isAjax() ? strip_tags($_POST['is_text']) : $data['is_text']);
+        $entity->setSide($this->isAjax() ? strip_tags($_POST['block_side']) : $data['block_side']);
+		$entity->setText($this->isAjax() ? strip_tags($_POST['block_text']) : $data['block_text']);
+		$entity->setIsText($this->isAjax() ? strip_tags($_POST['block_is_text']) : $data['block_is_text']);
         $id = $this->blockModel->addBlock($title, $name, $pid, $entity);
 
         if ($this->isAjax()){
@@ -104,9 +135,9 @@ class Admin_Controllers_Types_Block extends Ajax{
         $tree->setName($this->isAjax() ? strip_tags($_POST['name']) : $data['tree_name']);
 
         $entity = new Entity_Block();
-        $entity->setSide($this->isAjax() ? strip_tags($_POST['side']) : $data['side']);
-		$entity->setText($this->isAjax() ? strip_tags($_POST['text']) : $data['text']);
-		$entity->setIsText($this->isAjax() ? strip_tags($_POST['is_text']) : $data['is_text']);
+        $entity->setSide($this->isAjax() ? strip_tags($_POST['block_side']) : $data['block_side']);
+		$entity->setText($this->isAjax() ? strip_tags($_POST['block_text']) : $data['block_text']);
+		$entity->setIsText($this->isAjax() ? strip_tags($_POST['block_is_text']) : $data['block_is_text']);
         $result = $this->blockModel->updateBlock($tree, $entity);
 
         if ($this->isAjax()){

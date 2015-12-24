@@ -41,6 +41,38 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
             $tree['id'],
             {entity_get}{seo_get}
         );
+
+        $typeModel = new Admin_Models_Type();
+        $type = $typeModel->getTypeByName('{name}');
+        $fields = json_decode($type->getJson(), true);
+        $cnt = count($fields);
+
+        if(empty($id)){
+            for($i = 0; $i < $cnt; $i++){
+                $cntJ = count($fields[$i]['variants']);
+                for($j = 0; $j < $cntJ; $j++){
+                    $toReplace[] = '{'.$fields[$i]['name'].'_'.$j.'_value}';
+                    $replace[] = ($fields[$i]['selects'] == $j) ?
+                        ($fields[$i]['type'] == 'select' ? 'selected="selected"' : 'checked="checked"') :
+                        '';
+                }
+            }
+        } else{
+            for($i = 0; $i < $cnt; $i++){
+                $cntJ = count($fields[$i]['variants']);
+                if ($cntJ > 0){
+                    $str = 'get'.ucfirst($fields[$i]['name']).'()';
+                    $tmp = explode(',', $entity->$str);
+                    for ($j = 0; $j < count($tmp); $j++){
+                        $toReplace[] = '{'.$fields[$i]['name'].'_'.$tmp[$j].'_value}';
+                        $replace[] = ($fields[$i]['selects'] == $tmp[$j]) ?
+                            ($fields[$i]['type'] == 'select' ? 'selected="selected"' : 'checked="checked"') :
+                            '';
+                    }
+                }
+            }
+        }
+
         $file = file_get_contents(ADMIN.'/views/types/{name}.tpl');
         $result = str_replace($toReplace, $replace, $file);
 

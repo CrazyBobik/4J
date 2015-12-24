@@ -71,12 +71,6 @@ $(function () {
         }
     });
     modal.on('click', '.del-form-field,.del-variants', function () {
-        if($(this).hasClass('del-form-field')){
-            var selector = $('#fields-count');
-            var cnt = parseInt(selector.val());
-            cnt--;
-            selector.val(cnt);
-        }
         removeParent($(this));
     });
 });
@@ -117,6 +111,7 @@ function addFieldForm(name){
         '<div class="toggle-form-field"><i class="fa fa-plus"></i></div>' +
         '<div class="title">Блок поля ' + cnt + '</div>' +
         '<div class="form-rows" style="display: none">' +
+        '<input type="hidden" name="cnt[]" value="1">' +
         '<input type="hidden" name="type-' + cnt + '" value="' + name + '">' +
         '<div class="row">' +
         '<label for="title-' + cnt + '" class="row-item">Титул</label>' +

@@ -33,7 +33,7 @@ $fields = array(
     1 => array(
         'name' => 'text',
         'title' => 'Текст',
-        'type' => 'select',
+        'type' => 'textarea',
         'variants' => array(),
         'selects' => '0',
         'int' => false
@@ -41,17 +41,17 @@ $fields = array(
     2 => array(
         'name' => 'is_text',
         'title' => 'Использовать текст',
-        'type' => 'tel',
+        'type' => 'radio',
         'variants' => array(
-            0 => 'Нет',
-            1 => 'Да'
+            0 => 'Да',
+            1 => 'Нет'
         ),
-        'selects' => '0',
+        'selects' => '1',
         'int' => true
     )
 );
 
-$dao->addType($title, $name, $fields, false);
+//$dao->addType($title, $name, $fields, false);
 
 //echo "\r\n".round(microtime(true) - $start, 3);
 /*
