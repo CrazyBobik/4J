@@ -58,10 +58,10 @@ $(function () {
     modal.on('click', '.add-variants', function(){
         addVariantsRow($(this).data('id'));
     });
-    modal.on('click', '.toggle-form-field', function () {
+    modal.on('click', '.toggle-form-field,.form-field .title', function () {
         $(this).parent().find('.form-rows').slideToggle();
 
-        var i = $(this).find('i');
+        var i = $(this).parent().find('.toggle-form-field i');
         if(i.hasClass('fa-minus')){
             i.removeClass('fa-minus');
             i.addClass('fa-plus');
@@ -97,13 +97,13 @@ function modalOpen(elem){
         dataType: 'json',
         success: function (data) {
             $('#modal').show();
-            $('#modal-container .context').html(data['context']);
-            $('#modal-container .modal-title').html(data['title']);
-            $('#modal-container').slideDown(500);
+            var container = $('#modal-container');
+            container.find('.context').html(data['context']);
+            container.find('.modal-title').html(data['title']);
+            container.slideDown(500);
             $('#modal-shadow,#close').show(10).click(function () {
-                $('#modal-container').slideUp(500, function () {
-                    $('#modal-shadow,#modal').hide('500');
-                });
+                $('#modal-container').slideUp(500);
+                $('#modal-shadow,#modal').fadeOut(700);
             });
         }
     }, 'json');
@@ -112,7 +112,7 @@ function modalOpen(elem){
 function addFieldForm(name){
     var selector = $('#fields-count');
     var cnt = parseInt(selector.val());
-    var html = '<div class="form-filed" data-id="' + cnt + '" style="display: none">' +
+    var html = '<div class="form-field" data-id="' + cnt + '" style="display: none">' +
         '<div class="del-form-field"><i class="fa fa-times"></i></div>' +
         '<div class="toggle-form-field"><i class="fa fa-plus"></i></div>' +
         '<div class="title">Блок поля ' + cnt + '</div>' +
@@ -163,7 +163,7 @@ function addFieldForm(name){
         '<div class="clear"></div>';
 
     $('.fields-types').before(html);
-    $('.form-filed[data-id="' + cnt + '"]').show(500);
+    $('.form-field[data-id="' + cnt + '"]').show(500);
 
     cnt++;
     selector.val(cnt);
