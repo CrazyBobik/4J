@@ -73,6 +73,12 @@ $(function () {
     modal.on('click', '.del-form-field,.del-variants', function () {
         removeParent($(this));
     });
+    modal.on('keyup', '.form-field .form-rows .row input', function () {
+        var parent = $(this).parent().parent().parent().parent();
+        var id = parent.data('id');
+        var val = $('#title-' + id).val();
+        parent.find('.title').text(val);
+    });
 });
 
 function showFormResult(clazz, mess, element){
