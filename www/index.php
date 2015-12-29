@@ -12,47 +12,6 @@ require_once ROOT.'/config/config.php';
 
 Bootstrap::init()->start();
 
-$dao = new Admin_Models_Type();
-$title = 'HMVC Блок';
-$name = 'block';
-$fields = array(
-    0 => array(
-        'name' => 'side',
-        'title' => 'Сторона',
-        'type' => 'select',
-        'variants' => array(
-            0 => 'header',
-            1 => 'left',
-            2 => 'center',
-            3 => 'right',
-            4 => 'footer'
-        ),
-        'selects' => '2',
-        'int' => false
-    ),
-    1 => array(
-        'name' => 'text',
-        'title' => 'Текст',
-        'type' => 'textarea',
-        'variants' => array(),
-        'selects' => '0',
-        'int' => false
-    ),
-    2 => array(
-        'name' => 'is_text',
-        'title' => 'Использовать текст',
-        'type' => 'radio',
-        'variants' => array(
-            0 => 'Да',
-            1 => 'Нет'
-        ),
-        'selects' => '1',
-        'int' => true
-    )
-);
-
-//$dao->addType($title, $name, $fields, false);
-
 //echo "\r\n".round(microtime(true) - $start, 3);
 /*
  * INSERT INTO site_tree SET left_key = $right_key, right_key = $right_key + 1, level = $level + 1, title='404', name='404', type='page', pid=2

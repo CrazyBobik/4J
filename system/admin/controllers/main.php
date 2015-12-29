@@ -7,6 +7,16 @@
  */
 class Admin_Controllers_Main extends Controllers_Controller{
 
+	private $blocks = array(
+		array(
+			'name' => 'Blocks_Head',
+			'side' => 'header'
+		),
+		array(
+			'name' => 'Blocks_Menu',
+			'side' => 'left'
+		)
+	);
 	/**
 	 * Admin_Controllers_Main constructor.
 	 */
@@ -27,27 +37,33 @@ class Admin_Controllers_Main extends Controllers_Controller{
 			 * в главном контролере подключаем лейаут и возвращаем все
 			 */
 			if ($result){
-				$layout = $this->getTPL('main');
-				$toReplace = array(
-					'{header}',
-					'{left}',
-					'{center}',
-					'{right}',
-					'{footer}'
-				);
-				$replace = $this->model->getBlocks($result);
-
-				$layout = str_replace($toReplace, $replace, $layout);
-				echo $layout;
+				$this->blocks = $result;
 			} else {
 				if ($controller = $this->model->correctAddr()){
 					$link = Libs_URL::get()->getPiceURL(2);
-					$controller->$link();
+					$this->blocks[] = array(
+						'name' => $controller,
+						'side' => 'center',
+						'method' => $link
+					);
 				} else {
 					header('HTTP/1.0 404 Not Found');
 					header('Location: /404');
 				}
 			}
+
+			$layout = $this->getTPL('main');
+			$toReplace = array(
+				'{header}',
+				'{left}',
+				'{center}',
+				'{right}',
+				'{footer}'
+			);
+			$replace = $this->model->getBlocks($this->blocks);
+
+			$layout = str_replace($toReplace, $replace, $layout);
+			echo $layout;
 		} else {
 			echo $this->getTPL('login');
 		}

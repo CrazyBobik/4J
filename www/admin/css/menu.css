@@ -1,0 +1,16 @@
+nav{
+    width: 200px;
+}
+.menu{
+    margin: 5px 0 5px 10px;
+    position: relative;
+}
+.menu-item{
+    background: #00a3a3;
+}
+.toggle-menu{
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}

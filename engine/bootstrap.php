@@ -27,7 +27,7 @@ class Bootstrap{
 		if (Libs_URL::get()->checkPath('admin')){
 			$this->initAdmin();
 		} else {
-//			$this->initMain();
+			$this->initMain();
 		}
 	}
 

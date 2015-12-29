@@ -7,12 +7,14 @@
     <script src="/user/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
     <script src="/user/js/jquery.form.min.js" type="text/javascript"></script>
     <script src="/admin/js/admin-engine.js" type="text/javascript"></script>
+    <script src="/admin/js/admin-menu.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="/admin/css/style.css">
     <link rel="stylesheet" href="/admin/css/modal.css">
     <link rel="stylesheet" href="/admin/css/form.css">
+    <link rel="stylesheet" href="/admin/css/menu.css">
 </head>
 <body>
 <div id="modal">
@@ -21,12 +23,8 @@
         <div id="close">
             <i class="fa fa-times fa-2x"></i>
         </div>
-        <div class="modal-title">
-            Титулка модального окна
-        </div>
-        <div class="context">
-            <h1>Yana</h1>
-        </div>
+        <div class="modal-title"></div>
+        <div class="context"></div>
     </div>
 </div>
 {header}

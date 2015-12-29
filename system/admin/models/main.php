@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: CrazyBobik
@@ -17,10 +18,8 @@ class Admin_Models_Main{
 			exit();
 		}
 		if ($link == '/admin'){
-			$blocks[] = array(
-				'name' => 'head',
-				'side' => 'header'
-			);
+			$blocks[] = array('name' => 'Blocks_Head', 'side' => 'header');
+			$blocks[] = array('name' => 'Blocks_Menu', 'side' => 'left');
 			return $blocks;
 		}
 
@@ -31,11 +30,14 @@ class Admin_Models_Main{
 		$result = array();
 
 		$count = count($blocks);
-		ob_start();
 		for ($i = 0; $i < $count; $i++){
-			$name = 'Admin_Controllers_Blocks_'.$blocks[$i]['name'];
+			$name = 'Admin_Controllers_'.$blocks[$i]['name'];
 
-			new $name;
+			ob_start();
+			$controller = new $name;
+			if(isset($blocks[$i]['method']) && !empty($blocks[$i]['method'])){
+				$controller->$blocks[$i]['method']();
+			}
 
 			switch ($blocks[$i]['side']){
 				case 'header':
@@ -54,8 +56,8 @@ class Admin_Models_Main{
 					$result[2] .= ob_get_clean();
 					break;
 			}
+			ob_end_clean();
 		}
-		ob_end_clean();
 
 		return $result;
 	}
@@ -63,12 +65,12 @@ class Admin_Models_Main{
 	public function correctAddr(){
 		$link = Libs_URL::get()->getPiceURL(1);
 
-		if(class_exists('Admin_Controllers_'.$link)){
+		if (class_exists('Admin_Controllers_'.$link)){
 			$name = 'Admin_Controllers_'.$link;
-			return new $name();
-		} else if(class_exists('Admin_Controllers_Types_'.$link)){
+			return $link;
+		} else if (class_exists('Admin_Controllers_Types_'.$link)){
 			$name = 'Admin_Controllers_Types_'.$link;
-			return new $name();
+			return 'Types_'.$link;
 		}
 
 		return false;

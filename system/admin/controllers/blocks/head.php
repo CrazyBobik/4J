@@ -3,7 +3,7 @@
 class Admin_Controllers_Blocks_Head extends Controllers_Controller{
 
 	public function index(){
-		$tpl = $this->getTPL('blocks/head');
+		$tpl = $this->getTPL('blocks/head/head');
 		$html = $tpl;
 		$this->render($html);
 	}

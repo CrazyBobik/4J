@@ -23,10 +23,9 @@ class Models_Main{
 		$result = array('left' => '', 'center' => '', 'right' => '');
 
 		$count = count($blocks);
-		ob_start();
 		for ($i = 0; $i < $count; $i++){
+			ob_start();
 			$name = 'Controllers_Blocks_'.$blocks[$i]['name'];
-
 			new $name;
 
 			switch ($blocks[$i]['block_side']){
@@ -40,8 +39,8 @@ class Models_Main{
 					$result['center'] .= ob_get_clean();
 					break;
 			}
+			ob_end_clean();
 		}
-		ob_end_clean();
 
 		return $result;
 	}

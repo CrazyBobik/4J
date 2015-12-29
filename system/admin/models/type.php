@@ -27,14 +27,14 @@ class Admin_Models_Type{
 	}
 
 	public function addType($title, $name, $fields, $seo = false){
-//		if($this->typeDAO->createTable($name, $fields, $seo)){
-//			$this->typeDAO->writeType($title, $name, $fields, $seo);
-//		}
+		if($this->typeDAO->createTable($name, $fields, $seo)){
+			$this->typeDAO->writeType($title, $name, $fields, $seo);
+		}
 
-//		$this->genEntity($name, $fields, $seo);
-//		$this->genInterface($name);
-//		$this->genDAO($name, $fields, $seo);
-//		$this->genMVC($name, $fields, $seo);
+		$this->genEntity($name, $fields, $seo);
+		$this->genInterface($name);
+		$this->genDAO($name, $fields, $seo);
+		$this->genMVC($name, $fields, $seo);
 
 		//TODO: удалить файлы, проверить работу =)
 		/**Логика MVC
