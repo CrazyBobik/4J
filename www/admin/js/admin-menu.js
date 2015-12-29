@@ -3,6 +3,6 @@
  */
 $(function () {
     $('.toggle-menu').on('click', function () {
-        $(this).parent().find('.menu:first').slideToggle(500);
+        $(this).parent().next('.menu').slideToggle(500);
     });
 });

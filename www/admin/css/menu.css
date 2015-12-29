@@ -2,11 +2,12 @@ nav{
     width: 200px;
 }
 .menu{
-    margin: 5px 0 5px 10px;
-    position: relative;
+    margin: 0 0 0 10px;
 }
 .menu-item{
     background: #00a3a3;
+    position: relative;
+    margin: 5px 0;
 }
 .toggle-menu{
     position: absolute;
