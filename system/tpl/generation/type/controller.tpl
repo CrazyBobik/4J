@@ -60,14 +60,17 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
         } else{
             for($i = 0; $i < $cnt; $i++){
                 $cntJ = count($fields[$i]['variants']);
-                if ($cntJ > 0){
-                    $str = 'get'.ucfirst($fields[$i]['name']).'()';
-                    $tmp = explode(',', $entity->$str);
-                    for ($j = 0; $j < count($tmp); $j++){
-                        $toReplace[] = '{'.$fields[$i]['name'].'_'.$tmp[$j].'_value}';
-                        $replace[] = ($fields[$i]['selects'] == $tmp[$j]) ?
-                            ($fields[$i]['type'] == 'select' ? 'selected="selected"' : 'checked="checked"') :
-                            '';
+
+                $str = 'get'.ucfirst($fields[$i]['name']).'()';
+                $arr = explode(',', $entity->$str);
+                for ($j = 0; $j < $cntJ; $j++){
+                    $toReplace[] = '{'.$fields[$i]['name'].'_'.$j.'_value}';
+
+                    if(in_array($fields[$i]['variants'][$j], $arr)){
+                        $replace[] = $fields[$i]['type'] == 'select'
+                        ? 'selected="selected"' : 'checked="checked"';
+                    } else {
+                        $replace[] = '';
                     }
                 }
             }
