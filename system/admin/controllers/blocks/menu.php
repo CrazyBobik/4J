@@ -46,7 +46,7 @@ class Admin_Controllers_Blocks_Menu extends Controllers_Controller{
             } else if($res[$i]['level'] >= $fstLevel){
                 if ($res[$i]['level'] > $level){
                     $menu .= '<div class="toggle-menu">+</div></div>'
-                            .'<div class="menu">'
+                            .'<div class="menu" style="display:none;">'
                             .'<div class="menu-item">'.$res[$i]['title'];
                 } else if ($res[$i]['level'] < $level){
                     $j = $level - $res[$i]['level'] + 1;
