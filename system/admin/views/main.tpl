@@ -28,9 +28,11 @@
     </div>
 </div>
 {header}
+<div class="container">
 {left}
 {center}
 {right}
+</div>
 {footer}
 </body>
 </html>

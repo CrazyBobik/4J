@@ -3,7 +3,8 @@
  */
 $(function () {
     var modal = $('#modal');
-    
+    var center = $('#center');
+
     $('body').on('submit', '.ajax-form', function () {
         var form = $(this);
         form.ajaxSubmit({
@@ -78,6 +79,21 @@ $(function () {
         var id = parent.data('id');
         var val = $('#title-' + id).val();
         parent.find('.title').text(val);
+    });
+
+    center.on('change', '#select-type-leaf', function () {
+        $('#add-tree-leaf-form').slideUp(500);
+        var val = $(this).val();
+
+        if(val !== '') {
+            $.ajax({
+                url: '/admin/' + val + '/get' + val,
+                dataType: 'html',
+                success: function (html) {
+                    $('#add-tree-leaf-form').html(html).slideDown(500);
+                }
+            }, 'html');
+        }
     });
 });
 

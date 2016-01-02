@@ -8,10 +8,14 @@ nav{
     background: #00a3a3;
     position: relative;
     margin: 5px 0;
+    display: flex;
 }
 .toggle-menu{
     position: absolute;
     right: 0;
     top: 0;
+    cursor: pointer;
+}
+.add-tree-leaf{
     cursor: pointer;
 }

@@ -20,6 +20,7 @@ class Admin_Models_Main{
 		if ($link == '/admin'){
 			$blocks[] = array('name' => 'Blocks_Head', 'side' => 'header');
 			$blocks[] = array('name' => 'Blocks_Menu', 'side' => 'left');
+			$blocks[] = array('name' => 'Blocks_Center', 'side' => 'center');
 			return $blocks;
 		}
 
