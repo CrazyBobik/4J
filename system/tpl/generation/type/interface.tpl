@@ -15,6 +15,8 @@ interface DAO_Interface_{class_name}{
 
 	public function delete($id);
 
+	public function deleteFromTable($id);
+
 	/**
 	 * @param Entity_{class_name} ${name}
 	 * @return mixed

@@ -43,17 +43,23 @@ class DAO_Types_Item extends DAO_MainDAO implements DAO_Interface_Item{
 
     public function delete($id){
         $tree = new DAO_Tree();
-        $elem = $tree->getOne($id);
+        $elem = new Entity_Tree($tree->getOne($id));
 
         $elem_id = $elem->getTypeId();
-        $stmt = $this->DB->prepare('DELETE FROM `site_item` WHERE `item_id`=:id');
-        $stmt->bindParam(':id', $elem_id);
-        $q1 = $stmt->execute();
+        $q1 = $this->deleteFromTable($elem_id);
 
         $dao = new Dev_DAO_Tree();
         $q2 = $dao->deleteTree($elem);
 
         return $q1 && $q2;
+    }
+
+    public function deleteFromTable($id){
+        $stmt = $this->DB->prepare('DELETE FROM `site_item` WHERE `item_id`=:id');
+        $stmt->bindParam(':id', $id);
+        $q1 = $stmt->execute();
+
+        return $q1;
     }
 
     /**

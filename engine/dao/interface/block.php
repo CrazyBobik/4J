@@ -15,6 +15,8 @@ interface DAO_Interface_Block{
 
 	public function delete($id);
 
+	public function deleteFromTable($id);
+
 	/**
 	 * @param Entity_Block $block
 	 * @return mixed

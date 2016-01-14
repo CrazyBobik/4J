@@ -27,7 +27,7 @@ class DAO_Types_Block extends DAO_MainDAO implements DAO_Interface_Block{
 
         $side = $block->getSide();
 		$text = $block->getText();
-		$is_text = $block->getIsText();
+		$is_text = $block->getIs_text();
 
         $stmt = $this->DB->prepare('INSERT INTO `site_block`
                                         (`block_side`,`block_text`,`block_is_text`)
@@ -48,17 +48,23 @@ class DAO_Types_Block extends DAO_MainDAO implements DAO_Interface_Block{
 
     public function delete($id){
         $tree = new DAO_Tree();
-        $elem = $tree->getOne($id);
+        $elem = new Entity_Tree($tree->getOne($id));
 
         $elem_id = $elem->getTypeId();
-        $stmt = $this->DB->prepare('DELETE FROM `site_block` WHERE `block_id`=:id');
-        $stmt->bindParam(':id', $elem_id);
-        $q1 = $stmt->execute();
+        $q1 = $this->deleteFromTable($elem_id);
 
         $dao = new Dev_DAO_Tree();
         $q2 = $dao->deleteTree($elem);
 
         return $q1 && $q2;
+    }
+
+    public function deleteFromTable($id){
+        $stmt = $this->DB->prepare('DELETE FROM `site_block` WHERE `block_id`=:id');
+        $stmt->bindParam(':id', $id);
+        $q1 = $stmt->execute();
+
+        return $q1;
     }
 
     /**
@@ -69,7 +75,7 @@ class DAO_Types_Block extends DAO_MainDAO implements DAO_Interface_Block{
         $id = $block->getId();
         $side = $block->getSide();
 		$text = $block->getText();
-		$is_text = $block->getIsText();
+		$is_text = $block->getIs_text();
 
         $stmt = $this->DB->prepare('UPDATE `site_block` SET
                                     `block_side`=:side,

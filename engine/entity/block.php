@@ -39,7 +39,7 @@ class Entity_Block{
         $this->text = $text;
     }
 
-    public function getIsText(){
+    public function getIs_text(){
         return $this->is_text;
     }
 

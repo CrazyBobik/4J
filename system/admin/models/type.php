@@ -310,17 +310,23 @@ class Admin_Models_Type{
         if($seo){
             $seoHTML = '<div class="seo_part">'."\r\n\t\t\t";
             $seoHTML .= '<div class="row">
-				<label for="seo_title">SEO Титулка</label>
-				<input type="text" value="{seo_title_value}" name="seo_title"
-					   id="seo_title">
+				<label for="seo_title" class="row-item">SEO Титулка</label>
+				<div class="row-item">
+				    <input class="in in-text" type="text" value="{seo_title_value}" name="seo_title"
+					        id="seo_title">
+				</div>
 			</div>'."\r\n\t\t\t";
             $seoHTML .= '<div class="row">
-				<label for="seo_keywords">SEO Ключи</label>
-				<textarea name="seo_keywords" id="seo_keywords">{seo_keywords_value}</textarea>
+				<label for="seo_keywords" class="row-item">SEO Ключи</label>
+				<div class="row-item">
+				    <textarea class="in in-area" name="seo_keywords" id="seo_keywords">{seo_keywords_value}</textarea>
+				</div>
 			</div>'."\r\n\t\t\t";
             $seoHTML .= '<div class="row">
-				<label for="seo_description">SEO Описание</label>
-				<textarea name="seo_description" id="seo_description">{seo_description_value}</textarea>
+				<label for="seo_description" class="row-item">SEO Описание</label>
+				<div class="row-item">
+				    <textarea class="in in-area" name="seo_description" id="seo_description">{seo_description_value}</textarea>
+				</div>
 			</div>'."\r\n\t\t";
             $seoHTML .= '</div>';
         }

@@ -15,6 +15,8 @@ interface DAO_Interface_Page{
 
 	public function delete($id);
 
+	public function deleteFromTable($id);
+
 	/**
 	 * @param Entity_Page $page
 	 * @return mixed

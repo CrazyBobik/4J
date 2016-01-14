@@ -44,17 +44,17 @@
 
             <div class="row-item">
 				<div class="row-variants">
-					<input type="radio" name="block_is_text" value="Да" {is_text_0_value}
+					<input type="radio" name="block_is_text" value="Нет" {is_text_0_value}
 						   id="block_is_text_0" class="in-radio">
 					<label for="block_is_text_0">
-						Да
+                        Нет
 					</label>
 				</div>
 				<div class="row-variants">
-					<input type="radio" name="block_is_text" value="Нет" {is_text_1_value}
+					<input type="radio" name="block_is_text" value="Да" {is_text_1_value}
 						   id="block_is_text_1" class="in-radio">
 					<label for="block_is_text_1">
-						Нет
+                        Да
 					</label>
 				</div>
             </div>

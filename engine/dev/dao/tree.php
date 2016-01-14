@@ -60,6 +60,10 @@ class Dev_DAO_Tree extends DAO_MainDAO implements Dev_DAO_Interface_Tree{
 		$rk = $elem->getRightKey();
 		$lk = $elem->getLeftKey();
 
+		$tree = new DAO_Tree();
+		$res = $tree->getChild($elem->getId());
+		$this->deleteChildFromTable($res);
+
 		$del = $this->DB->prepare('DELETE FROM `site_tree`
 									WHERE `left_key`>=:left
 									AND `right_key`<=:right');
@@ -73,8 +77,17 @@ class Dev_DAO_Tree extends DAO_MainDAO implements Dev_DAO_Interface_Tree{
 									WHERE `right_key` > :right');
 		$del->bindParam(':left', $lk);
 		$del->bindParam(':right', $rk);
-		$q2 = $del->execute();
+		$del->execute();
 
-		return $q1 && $q2;
+		return $q1;
+	}
+
+	public function deleteChildFromTable($res){
+		$cnt = count($res);
+		for($i = 0; $i < $cnt; $i++){
+			$strDAO = 'DAO_Types_'.ucfirst($res[$i]['type']);
+			$dao = new $strDAO();
+			$dao->deleteFromTable($res[$i]['type_id']);
+		}
 	}
 }

@@ -61,8 +61,8 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
             for($i = 0; $i < $cnt; $i++){
                 $cntJ = count($fields[$i]['variants']);
 
-                $str = 'get'.ucfirst($fields[$i]['name']).'()';
-                $arr = explode(',', $entity->$str);
+                $str = 'get'.ucfirst($fields[$i]['name']);
+                $arr = explode(',', $entity->$str());
                 for ($j = 0; $j < $cntJ; $j++){
                     $toReplace[] = '{'.$fields[$i]['name'].'_'.$j.'_value}';
 

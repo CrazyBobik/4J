@@ -22,34 +22,27 @@ class Admin_Controllers_Blocks_Menu extends Controllers_Controller{
         $level = $res[0]['level'];
         $fstLevel = $res[0]['level'];
 		for($i = 0; $i < $cnt; $i++){
-            if($res[$i]['level'] == $fstLevel && $res[$i]['level'] == $level){
+            $leaf = new Entity_Tree($res[$i]);
+            if($leaf->getLevel() == $fstLevel && $leaf->getLevel() == $level){
                 if($i > 0){
                     $menu .= '</div></div>';
                 }
                 $menu .= '<div class="menu">'
-                        .'<div class="menu-item">'
-                        .'<div class="add-tree-leaf" data-id="'.$res[$i]['id'].'">Add</div>'
-                        .$res[$i]['title'];
-            } else if($res[$i]['level'] >= $fstLevel){
-                if ($res[$i]['level'] > $level){
+                        .$this->genOnePoint($leaf);
+            } else if($leaf->getLevel() >= $fstLevel){
+                if ($leaf->getLevel() > $level){
                     $menu .= '<div class="toggle-menu">+</div></div>'
                             .'<div class="menu" style="display:none;">'
-                            .'<div class="menu-item">'
-                            .'<div class="add-tree-leaf" data-id="'.$res[$i]['id'].'">Add</div>'
-                            .$res[$i]['title'];
-                } else if ($res[$i]['level'] < $level){
-                    $j = $level - $res[$i]['level'] + 1;
+                            .$this->genOnePoint($leaf);
+                } else if ($leaf->getLevel() < $level){
+                    $j = $level - $leaf->getLevel() + 1;
                     while ($j > 0){
                         $j--;
                         $menu .= '</div>';
                     }
-                    $menu .= '<div class="menu-item">'
-                            .'<div class="add-tree-leaf" data-id="'.$res[$i]['id'].'">Add</div>'
-                            .$res[$i]['title'];
+                    $menu .= $this->genOnePoint($leaf);
                 } else{
-                    $menu .= '</div><div class="menu-item">'
-                            .'<div class="add-tree-leaf" data-id="'.$res[$i]['id'].'">Add</div>'
-                            .$res[$i]['title'];
+                    $menu .= '</div>'.$this->genOnePoint($leaf);
                 }
             } else{
                 throw new ErrorException('Level can\'t be less first level');
@@ -62,13 +55,26 @@ class Admin_Controllers_Blocks_Menu extends Controllers_Controller{
             $menu .= '</div>';
         }
 
-        $res = $this->treeDAO->getOne(Config::$lang);
-        $menu .= '<div class="menu-item">'
-                .'<div class="add-tree-leaf" data-id="'.$res['id'].'">Add</div></div>';
+        $res = new Entity_Tree($this->treeDAO->getOne(Config::$lang));
+        $menu .= '<div class="menu-item" data-id="'.$res->getId().'"
+                                data-type="'.$res->getType().'">'
+                .'<div class="add-tree-leaf">Add</div></div>';
 
 		$html = str_replace('{menu}', $menu, $tpl);
 		$this->render($html);
 	}
+
+    /**
+     * @param Entity_Tree $leaf
+     * @return string
+     */
+    private function genOnePoint(&$leaf){
+        return '<div class="menu-item" data-id="'.$leaf->getId().'"
+                                data-type="'.$leaf->getType().'">'
+                .'<div class="add-tree-leaf">Add</div>'
+                .'<div class="del-tree-leaf" style="background:#0f0">del</div>'
+                .'<div class="update-tree-leaf">'.$leaf->getTitle().'</div>';
+    }
 
 	public function getTPL($name){
 		return file_get_contents(ADMIN.'/views/'.$name.'.tpl');
