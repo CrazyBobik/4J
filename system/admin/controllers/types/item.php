@@ -1,29 +1,29 @@
 <?php
 
-class Admin_Controllers_Types_{class_name} extends Ajax{
+class Admin_Controllers_Types_Item extends Ajax{
 	/**
-	 * @var Admin_Models_Types_{class_name}
+	 * @var Admin_Models_Types_Item
 	 */
-	private ${name}Model;
+	private $itemModel;
 
 	/**
-	 * Admin_Controllers_Types_{class_name} constructor.
+	 * Admin_Controllers_Types_Item constructor.
 	 * @param bool $isAjax
 	 */
 	public function __construct($isAjax = true){
 	    parent::__construct($isAjax);
-		$this->{name}Model = new Admin_Models_Types_{class_name}();
+		$this->itemModel = new Admin_Models_Types_Item();
     }
 
     /**
     * @param int $id
     * @return String
     */
-    public function get{class_name}($id = null){
+    public function getItem($id = null){
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
 
-        $tree = $this->{name}Model->get{class_name}($id);
-        $entity = new Entity_{class_name}($tree);
+        $tree = $this->itemModel->getItem($id);
+        $entity = new Entity_Item($tree);
 
         $toReplace = array(
             '{action}',
@@ -31,7 +31,7 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
             '{tree_name}',
             '{tree_pid}',
             '{id_value}',
-            {to_replace}
+            
         );
         $replace = array(
             empty($id) ? 'add' : 'update',
@@ -39,11 +39,11 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
             $tree['name'],
             empty($id) ? intval($_POST['pid']) : $tree['pid'],
             $tree['id'],
-            {entity_get}{seo_get}
+            
         );
 
         $typeModel = new Admin_Models_Type();
-        $type = $typeModel->getTypeByName('{name}');
+        $type = $typeModel->getTypeByName('item');
         $fields = json_decode($type->getJson(), true);
         $cnt = count($fields);
 
@@ -76,7 +76,7 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
             }
         }
 
-        $file = file_get_contents(ADMIN.'/views/types/{name}.tpl');
+        $file = file_get_contents(ADMIN.'/views/types/item.tpl');
         $result = str_replace($toReplace, $replace, $file);
 
         if ($this->isAjax()){
@@ -90,14 +90,14 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
     * @param array $data
     * @return int id
     */
-    public function add{class_name}($data = array()){
+    public function addItem($data = array()){
         $title = $this->isAjax() ? strip_tags($_POST['title']) : $data['title'];
         $name = $this->isAjax() ? strip_tags($_POST['name']) : $data['name'];
         $pid = $this->isAjax() ? intval($_POST['pid']) : $data['pid'];
 
-        $entity = new Entity_{class_name}();
-        {entity_set}{seo_set}
-        $id = $this->{name}Model->add{class_name}($title, $name, $pid, $entity);
+        $entity = new Entity_Item();
+        
+        $id = $this->itemModel->addItem($title, $name, $pid, $entity);
 
         if ($this->isAjax()){
             $this->putAjax($id);
@@ -110,10 +110,10 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
     * @param int $id
     * @return bool
     */
-    public function delete{class_name}($id = null){
+    public function deleteItem($id = null){
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
 
-        $result = $this->{name}Model->delete{class_name}($id);
+        $result = $this->itemModel->deleteItem($id);
 
         if ($this->isAjax()){
             $this->putAjax($result);
@@ -126,15 +126,15 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
     * @param array $data
     * @return bool
     */
-    public function update{class_name}($data = array()){
+    public function updateItem($data = array()){
         $tree = new Entity_Tree();
         $tree->setId($this->isAjax() ? strip_tags($_POST['id']) : $data['id']);
         $tree->setTitle($this->isAjax() ? strip_tags($_POST['title']) : $data['tree_title']);
         $tree->setName($this->isAjax() ? strip_tags($_POST['name']) : $data['tree_name']);
 
-        $entity = new Entity_{class_name}();
-        {entity_set}{seo_set}
-        $result = $this->{name}Model->update{class_name}($tree, $entity);
+        $entity = new Entity_Item();
+        
+        $result = $this->itemModel->updateItem($tree, $entity);
 
         if ($this->isAjax()){
             $this->putAjax($result);

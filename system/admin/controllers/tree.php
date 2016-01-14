@@ -19,6 +19,7 @@ class Admin_Controllers_Tree extends Ajax{
         $tpl = $this->getTPL('tree/add_leaf');
 
         $toReplace = array(
+            '{pid}',
             '{id}',
             '{title}',
             '{name}',
@@ -35,6 +36,7 @@ class Admin_Controllers_Tree extends Ajax{
         }
 
         $replace = array(
+            intval($_POST['pid']),
             'select-type-leaf',
             'Выберите тип элемента',
             '',

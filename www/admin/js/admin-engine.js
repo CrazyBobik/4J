@@ -88,6 +88,10 @@ $(function () {
         if(val !== '') {
             $.ajax({
                 url: '/admin/' + val + '/get' + val,
+                method: 'POST',
+                data: {
+                    pid: $('#tree-leaf-pid').val()
+                },
                 dataType: 'html',
                 success: function (html) {
                     $('#add-tree-leaf-form').html(html).slideDown(500);

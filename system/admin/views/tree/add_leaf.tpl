@@ -1,3 +1,4 @@
+<input type="hidden" name="tree-leaf-pid" value="{pid}" id="tree-leaf-pid">
 <div class="row">
     <label for="{id}" class="row-item">{title}</label>
 

@@ -11,6 +11,10 @@ $(function () {
 
         $.ajax({
             url: '/admin/tree/getAddLeafForm',
+            data: {
+                pid: val
+            },
+            method: 'POST',
             dataType: 'html',
             success: function (html) {
                 $('#center').html(html);

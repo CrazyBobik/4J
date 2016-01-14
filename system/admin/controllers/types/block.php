@@ -39,7 +39,7 @@ class Admin_Controllers_Types_Block extends Ajax{
             empty($id) ? 'add' : 'update',
             $tree['title'],
             $tree['name'],
-            $tree['pid'],
+            empty($id) ? intval($_POST['pid']) : $tree['pid'],
             $tree['id'],
             $entity->getSide(),
 			$entity->getText(),

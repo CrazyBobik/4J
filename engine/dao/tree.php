@@ -43,11 +43,11 @@ class DAO_Tree extends DAO_MainDAO implements DAO_Interface_Tree{
 			$wtypes[] = 't.`type`=\''.$types[$i].'\'';
 			$fields[$i] = 'ty'.$i.'.*';
 		}
-		$SQL = 'SELECT t.*,'.implode(',', $fields)
+		$SQL = 'SELECT t.*'.(empty($fields) ? '' : ',').implode(',', $fields)
 				.' FROM `site_tree` t '.implode(' ', $joins)
 				.' WHERE t.`left_key`>:left_key
-					AND t.`right_key`<:right_key AND ('
-				.implode(' OR ', $wtypes).') ORDER BY t.`left_key`';
+					AND t.`right_key`<:right_key '.(empty($fields) ? '' : 'AND (')
+				.implode(' OR ', $wtypes).(empty($fields) ? '' : ')').' ORDER BY t.`left_key`';
 		$stmt = $this->DB->prepare($SQL);
 
 		$lk = $parent['left_key'];
