@@ -23,3 +23,10 @@ html, body{
     color: #fff;
     padding: 5px;
 }
+.delete-type{
+    color: #d9d9d9;
+    cursor: pointer;
+}
+.delete-type:hover{
+    color: #f00;
+}

@@ -50,16 +50,65 @@ $(function () {
     });
 
     $('.add-type').on('click', function () {
-        modalOpen($(this));
+        $('#center').slideUp(500);
+        $.ajax({
+            url: '/admin/type/getType',
+            method: 'POST',
+            data: {
+                ajax: 1
+            },
+            dataType: 'html',
+            success: function (html) {
+                setTimeout(function () {
+                    $('#center').html(html).slideDown(500);
+                }, 500);
+            }
+        }, 'html');
+    });
+    center.on('change', '#select-type', function () {
+        var val = $(this).val();
+
+        $.ajax({
+            url: '/admin/type/getType',
+            method: 'POST',
+            data: {
+                id: val,
+                ajax: 1
+            },
+            dataType: 'html',
+            success: function (html) {
+                setTimeout(function () {
+                    $('#center').html(html).slideDown(500);
+                }, 500);
+            }
+        }, 'html');
+    });
+    center.on('click', '.delete-type', function () {
+        if(confirm('Удалить тип?')){
+            var val = $('#select-type').val();
+
+            $.ajax({
+                url: '/admin/type/deleteType',
+                method: 'POST',
+                data: {
+                    id: val,
+                    ajax: 1
+                },
+                dataType: 'html',
+                success: function (html) {
+                    $('#center').html(html);
+                }
+            }, 'html');
+        }
     });
 
-    modal.on('click', '.one-type', function(){
+    center.on('click', '.one-type', function(){
         addFieldForm($(this).data('type'));
     });
-    modal.on('click', '.add-variants', function(){
+    center.on('click', '.add-variants', function(){
         addVariantsRow($(this).data('id'));
     });
-    modal.on('click', '.toggle-form-field,.form-field .title', function () {
+    center.on('click', '.toggle-form-field,.form-field .title', function () {
         $(this).parent().find('.form-rows').slideToggle();
 
         var i = $(this).parent().find('.toggle-form-field i');
@@ -71,10 +120,10 @@ $(function () {
             i.addClass('fa-minus');
         }
     });
-    modal.on('click', '.del-form-field,.del-variants', function () {
+    center.on('click', '.del-form-field,.del-variants', function () {
         removeParent($(this));
     });
-    modal.on('keyup', '.form-field .form-rows .row input', function () {
+    center.on('keyup', '.form-field .form-rows .row input', function () {
         var parent = $(this).parent().parent().parent().parent();
         var id = parent.data('id');
         var val = $('#title-' + id).val();
@@ -90,11 +139,14 @@ $(function () {
                 url: '/admin/' + val + '/get' + val,
                 method: 'POST',
                 data: {
-                    pid: $('#tree-leaf-pid').val()
+                    pid: $('#tree-leaf-pid').val(),
+                    ajax: 1
                 },
                 dataType: 'html',
                 success: function (html) {
-                    $('#add-tree-leaf-form').html(html).slideDown(500);
+                    setTimeout(function () {
+                        $('#add-tree-leaf-form').html(html).slideDown(500);
+                    }, 500);
                 }
             }, 'html');
         }

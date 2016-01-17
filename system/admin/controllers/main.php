@@ -44,7 +44,8 @@ class Admin_Controllers_Main extends Controllers_Controller{
 					$this->blocks[] = array(
 						'name' => $controller,
 						'side' => 'center',
-						'method' => $link
+						'method' => $link,
+						'ajax' => isset($_POST['ajax']) && !empty($_POST['ajax'])
 					);
 				} else {
 					header('HTTP/1.0 404 Not Found');

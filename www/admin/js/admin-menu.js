@@ -29,7 +29,8 @@ $(function () {
         $.ajax({
             url: '/admin/' + type + '/delete' + type,
             data: {
-                id: id
+                id: id,
+                ajax: 1
             },
             method: 'POST',
             dataType: 'html',
@@ -48,7 +49,8 @@ $(function () {
         $.ajax({
             url: '/admin/' + type + '/get' + type,
             data: {
-                id: id
+                id: id,
+                ajax: 1
             },
             method: 'POST',
             dataType: 'html',

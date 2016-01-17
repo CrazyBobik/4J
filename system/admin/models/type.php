@@ -31,6 +31,22 @@ class Admin_Models_Type{
         return $this->typeDAO->getAllTypes();
     }
 
+    public function getAllTypesOption($key = '', $id = 0){
+        $result = '';
+        $res = $this->getAllTypes();
+        $cnt = count($res);
+        for($i = 0; $i < $cnt; $i++){
+            $entity = new Entity_Type($res[$i]);
+            $check = $key == 'id'
+                ? $entity->getId() == $id ? 'selected="selected"' : ''
+                : '';
+            $result .= '<option value="'.($key == 'id' ? $entity->getId() : $entity->getName())
+                .'" '.$check.'>'.$entity->getTitle().'</option>';
+        }
+
+        return $result;
+    }
+
     public function addType($title, $name, $fields, $seo = false){
         if($this->typeDAO->createTable($name, $fields, $seo)){
             $this->typeDAO->writeType($title, $name, $fields, $seo);
@@ -41,7 +57,6 @@ class Admin_Models_Type{
         $this->genDAO($name, $fields, $seo);
         $this->genMVC($name, $fields, $seo);
 
-        //TODO: удалить файлы, проверить работу =)
         /**Логика MVC
          * Есть entity,interface,dao,MVC
          * в interface,dao 4 метода(CRUD)
@@ -52,6 +67,45 @@ class Admin_Models_Type{
          * можно. Результат уходит контролерру.
          * Controller собирает данные и дает модели, решает что делать с результатом
          */
+    }
+
+    public function updateType($id, $title, $name, $fields, $seo = false){
+        //TODO: обновление поля
+        $type = $this->typeDAO->getType($id);
+        $add = $this->diffField(json_decode($type->getJson(), true), $fields);
+        $del = $this->diffField($fields, json_decode($type->getJson(), true));
+        $addSEO = 'hold';
+        if($seo && !$type->getSeo()){
+            $addSEO = 'add';
+        } else if(!$seo && $type->getSeo()){
+            $addSEO = 'del';
+        }
+
+        $this->typeDAO->updateTable($name, $add, $del, $addSEO);
+        $this->typeDAO->updateType($id, $title, $name, $fields, $seo);
+
+        $this->genEntity($name, $fields, $seo);
+        $this->genInterface($name);
+        $this->genDAO($name, $fields, $seo);
+        $this->genMVC($name, $fields, $seo);
+    }
+
+    private function diffField($oldF, $newF){
+        $result = array();
+        $arrOld = array();
+
+        $cnt = count($oldF);
+        for($i = 0; $i < $cnt; $i++){
+            $arrOld[] = $oldF[$i]['name'];
+        }
+        $cnt = count($newF);
+        for($i = 0; $i < $cnt; $i++){
+            if(!in_array($newF[$i]['name'], $arrOld)){
+                $result[] = $newF[$i];
+            }
+        }
+
+        return $result;
     }
 
     public function genEntity($name, $fields, $seo){
@@ -225,8 +279,6 @@ class Admin_Models_Type{
         $seoHTML = '';
         $cnt = count($fields);
         for($i = 0; $i < $cnt; $i++){
-            $input = '';
-            $file = '';
             switch($fields[$i]['type']){
                 case 'textarea':
                     $file = file_get_contents(TPL.'/generation/form/textarea.tpl');
@@ -481,5 +533,116 @@ class Admin_Models_Type{
         $tree .= $result;
 
         return $tree;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function deleteType($id){
+        $type = $this->typeDAO->getType($id);
+        $id = $type->getId();
+        if(empty($id)){
+            return false;
+        }
+
+        $r1 = $this->deleteFromDB($type);
+        $r2 = $this->deleteFromFileSystem($type);
+
+        return $r1 && $r2;
+    }
+
+    /**
+     * @param Entity_Type $type
+     * @return bool
+     */
+    private function deleteFromDB(&$type){
+        $r1 = $this->typeDAO->dropTable($type->getName());
+        $r2 = $this->typeDAO->deleteType($type->getId());
+
+        return $r1 && $r2;
+    }
+
+    /**
+     * @param Entity_Type $type
+     * @return bool
+     */
+    private function deleteFromFileSystem(&$type){
+        $r1 = unlink(ENTITY.'/'.$type->getName().'.php');
+        $r2 = unlink(DAO.'/interface/'.$type->getName().'.php');
+        $r3 = unlink(DAO.'/types/'.$type->getName().'.php');
+        $r4 = unlink(ADMIN.'/views/types/'.$type->getName().'.tpl');
+        $r5 = unlink(ADMIN.'/models/types/'.$type->getName().'.php');
+        $r6 = unlink(ADMIN.'/controllers/types/'.$type->getName().'.php');
+
+        return $r1 && $r2 && $r3 && $r4 && $r5 && $r6;
+    }
+
+    public function genFields($fields){
+        $fieldsHTML = '';
+        $cnt = count($fields);
+        for($i = 0; $i < $cnt; $i++){
+            $fieldsHTML .= '<div class="form-field" data-id="'.$i.'">'.
+                '<div class="del-form-field"><i class="fa fa-times"></i></div>'.
+                '<div class="toggle-form-field"><i class="fa fa-plus"></i></div>'.
+                '<div class="title">'.$fields[$i]['title'].'</div>'.
+                '<div class="form-rows" style="display: none">'.
+                '<input type="hidden" name="cnt[]" value="1">'.
+                '<input type="hidden" name="type-'.$i.'" value="'.$fields[$i]['type'].'">'.
+                '<div class="row">'.
+                '<label for="title-'.$i.'" class="row-item">Титул</label>'.
+                '<div class="row-item">'.
+                '<input class="in in-text" type="text" name="title-'.$i.'" id="title-'.$i.'" value="'.$fields[$i]['title'].'">'.
+                '</div>'.
+                '</div>'.
+                '<div class="row">'.
+                '<label for="name-'.$i.'" class="row-item">Название(name)</label>'.
+                '<div class="row-item">'.
+                '<input class="in in-text" type="text" name="name-'.$i.'" id="name-'.$i.'" value="'.$fields[$i]['name'].'">'.
+                '</div>'.
+                '</div>';
+            if ($fields[$i]['type'] === 'checkbox' ||
+                $fields[$i]['type'] === 'radio' || $fields[$i]['type'] === 'select'){
+                $fieldsHTML .= '<div class="row">'.
+                    '<label for="int-'.$i.'" class="row-item">Варианты</label>'.
+                    '<div class="row-item">';
+
+                $cntJ = count($fields[$i]['variants']);
+                for($j = 0; $j < $cntJ; $j++){
+                    $fieldsHTML .= '<div class="row-variants">'.
+                    '<input class="in-radio" type="radio" name="selects-'.$i.'" value="'.$j.'" '
+                        .($j == $fields[$i]['selects'] ? 'checked="checked"' : '').'>'.
+                    '<input class="in in-text" type="text" name="variants-'.$i.'[]" value="'
+                        .$fields[$i]['variants'][$j].'">'.
+                    '</div>';
+                }
+
+                $fieldsHTML .= '<div class="add-variants btn btn-green btn-small" data-id="'.$i.'">'.
+                    'Еще <i class="fa fa-plus"></i>'.
+                    '</div>'.
+                    '</div>'.
+                    '</div>';
+            }
+            $fieldsHTML .= '<div class="row">'.
+                '<label class="row-item">Integer</label>'.
+                '<div class="row-item">'.
+                '<div class="row-variants">'.
+                '<input class="in-radio" type="radio" name="int-'.$i.'" id="int-'.$i.'" value="1" '
+                .($fields[$i]['int'] ? 'checked="checked"' : '').'>'.
+                '<label for="int-'.$i.'">Да</label>'.
+                '</div>'.
+                '<div class="row-variants">'.
+                '<input class="in-radio" type="radio" name="int-'.$i.'" id="int-'.$i.'-no" value="0" '
+                .($fields[$i]['int'] ? '' : 'checked="checked"').'>'.
+                '<label for="int-'.$i.'-no">Нет</label>'.
+                '</div>'.
+                '</div>'.
+                '</div>'.
+                '</div>'.
+                '</div>'.
+                '<div class="clear"></div>';
+        }
+
+        return $fieldsHTML;
     }
 }

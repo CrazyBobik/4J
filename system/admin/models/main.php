@@ -35,9 +35,9 @@ class Admin_Models_Main{
 			$name = 'Admin_Controllers_'.$blocks[$i]['name'];
 
 			ob_start();
-			$controller = new $name;
+			$controller = new $name($blocks[$i]['ajax']);
 			if(isset($blocks[$i]['method']) && !empty($blocks[$i]['method'])){
-				$controller->$blocks[$i]['method']();
+				echo $controller->$blocks[$i]['method']();
 			}
 
 			switch ($blocks[$i]['side']){

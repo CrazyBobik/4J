@@ -1,5 +1,6 @@
 <div class="view_type">
     <form action="/admin/page/{action}Page" method="post" class="ajax-form" enctype="multipart/form-data">
+        <input type="hidden" name="ajax" value="1">
         <input type="hidden" name="id" id="page_id" value="{id_value}">
         <div class="seo_part">
 			<div class="row">

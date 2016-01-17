@@ -1,5 +1,18 @@
 <form action="/admin/type/{action}Type" class="ajax-form" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ajax" value="1">
     <input type="hidden" name="id" id="type_id" value="{id_value}">
+
+    <div class="row">
+        <label for="select-type" class="row-item">Тип</label>
+
+        <div class="row-item">
+            <select class="in in-select" name="select-type" id="select-type">
+                <option>Новый</option>
+                {option}
+            </select>
+            {delete}
+        </div>
+    </div>
     <div class="row">
         <label for="type-title" class="row-item">Титул</label>
 
@@ -59,7 +72,7 @@
             </div>
         </div>
 
-        <input type="hidden" name="fields-count" id="fields-count" value="0">
+        <input type="hidden" name="fields-count" id="fields-count" value="{fields-count}">
     </div>
 
     <div class="row">

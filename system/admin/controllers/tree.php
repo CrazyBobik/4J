@@ -28,12 +28,7 @@ class Admin_Controllers_Tree extends Ajax{
         $option = '<option value="">Выбрать</option>';
 
         $typeModel = new Admin_Models_Type();
-        $res = $typeModel->getAllTypes();
-        $cnt = count($res);
-        for($i = 0; $i < $cnt; $i++){
-            $entity = new Entity_Type($res[$i]);
-            $option .= '<option value="'.$entity->getName().'">'.$entity->getTitle().'</option>';
-        }
+        $option .= $typeModel->getAllTypesOption();
 
         $replace = array(
             intval($_POST['pid']),

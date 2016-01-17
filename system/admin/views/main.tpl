@@ -30,7 +30,9 @@
 {header}
 <div class="container">
 {left}
-{center}
+    <div id="center">
+        {center}
+    </div>
 {right}
 </div>
 {footer}

@@ -1,5 +1,6 @@
 <div class="view_type">
     <form action="/admin/block/{action}Block" method="post" class="ajax-form" enctype="multipart/form-data">
+        <input type="hidden" name="ajax" value="1">
         <input type="hidden" name="id" id="block_id" value="{id_value}">
         
         <div class="row">
