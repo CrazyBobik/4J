@@ -22,6 +22,9 @@ class Admin_Controllers_Type extends Ajax{
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
 
         $entity = $this->typeModel->getType($id);
+        if(!$entity){
+            $entity = new Entity_Type();
+        }
         $toReplace = array(
             '{action}',
             '{option}',

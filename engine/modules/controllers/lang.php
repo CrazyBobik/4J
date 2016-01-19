@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: CrazyBobik
@@ -6,23 +7,31 @@
  * Time: 17:53
  */
 class Modules_Controllers_Lang{
-	private $langModel;
+    private $langModel;
 
-	/**
-	 * Modules_Controllers_Lang constructor.
-	 */
-	public function __construct(){
-		$this->langModel = new Modules_Models_Lang();
-	}
+    /**
+     * Modules_Controllers_Lang constructor.
+     */
+    public function __construct(){
+        $this->langModel = new Modules_Models_Lang();
+    }
 
-	/**
-	 * @return Entity_Tree[]
-	 */
-	public function getLangs(){
-		return $this->langModel->getLangs();
-	}
+    /**
+     * @return Entity_Tree[]
+     */
+    public function getLangs(){
+        return $this->langModel->getLangs();
+    }
 
-	public function genLangHTML(){
-		return $this->langModel->genLangHTML();
-	}
+    public function genLangHTML(){
+        return $this->langModel->genLangHTML();
+    }
+
+    public function setAdminLang($lang){
+        return $this->langModel->setAdminLang($lang);
+    }
+
+    public function setConfigs(){
+        return $this->langModel->setConfigs();
+    }
 }

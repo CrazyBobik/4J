@@ -12,11 +12,7 @@ class Entity_Type{
 	private $seo = 0;
 	private $json = '';
 
-	/**
-	 * Entity_Type constructor.
-	 * @param null $res
-	 */
-	public function __construct($res = null){
+	public function init($res){
 		$this->id = $res['id'];
 		$this->title = $res['title'];
 		$this->name = $res['name'];

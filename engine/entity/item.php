@@ -4,7 +4,7 @@ class Entity_Item{
 	private $id;
 	
 
-	public function __construct($res = null){
+	public function init($res){
 		$this->id = $res['item_id'];
         
     }

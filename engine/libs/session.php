@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: CrazyBobik
@@ -6,47 +7,56 @@
  * Time: 21:07
  */
 class Libs_Session{
-	private static $init = null;
+    private static $init = null;
 
-	/**
-	 * Libs_Session constructor.
-	 */
-	private function __construct(){
-		session_start();
-	}
+    /**
+     * Libs_Session constructor.
+     */
+    private function __construct(){
+        session_start();
+    }
 
-	private function __clone(){}
+    private function __clone(){
+    }
 
-	public static function start(){
-		if (self::$init == null){
-			self::$init = new self();
-		}
+    public static function start(){
+        if(self::$init == null){
+            self::$init = new self();
+        }
 
-		return self::$init;
-	}
+        return self::$init;
+    }
 
-	public function setParam($name, $value){
-		$_SESSION[$name] = $value;
-	}
+    public function setParam($name, $value){
+        if(isset($name) && isset($value)){
+            $_SESSION[$name] = $value;
+            return true;
+        } else{
+            return false;
+        }
+    }
 
-	public function getParam($name){
-		if (isset($_SESSION[$name]))
-			return $_SESSION[$name];
-		else
-			return false;
-	}
+    public function getParam($name){
+        if(isset($_SESSION[$name]))
+            return $_SESSION[$name];
+        else
+            return false;
+    }
 
-	public function deleteParam($name){
-		if(isset($_SESSION[$name])){
-			unset($_SESSION[$name]);
-		}
-	}
+    public function deleteParam($name){
+        if(isset($_SESSION[$name])){
+            unset($_SESSION[$name]);
+            return true;
+        } else{
+            return false;
+        }
+    }
 
-	public function destroySession(){
-		return session_destroy();
-	}
+    public function destroySession(){
+        die(session_destroy());
+    }
 
-	public function isAdmin(){
-		return $this->getParam('admin_id');
-	}
+    public function isAdmin(){
+        return $this->getParam('admin_id');
+    }
 }

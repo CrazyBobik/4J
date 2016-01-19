@@ -22,7 +22,8 @@ class Admin_Controllers_Blocks_Menu extends Controllers_Controller{
         $level = $res[0]['level'];
         $fstLevel = $res[0]['level'];
 		for($i = 0; $i < $cnt; $i++){
-            $leaf = new Entity_Tree($res[$i]);
+            $leaf = new Entity_Tree();
+            $leaf->init($res[$i]);
             if($leaf->getLevel() == $fstLevel && $leaf->getLevel() == $level){
                 if($i > 0){
                     $menu .= '</div></div>';
@@ -55,7 +56,8 @@ class Admin_Controllers_Blocks_Menu extends Controllers_Controller{
             $menu .= '</div>';
         }
 
-        $res = new Entity_Tree($this->treeDAO->getOne(Config::$lang));
+        $res = new Entity_Tree();
+        $res->init($this->treeDAO->getOne(Config::$lang));
         $menu .= '<div class="menu-item" data-id="'.$res->getId().'"
                                 data-type="'.$res->getType().'">'
                 .'<div class="add-tree-leaf">Add</div></div>';

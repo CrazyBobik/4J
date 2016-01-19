@@ -11,7 +11,7 @@ class DAO_Types_{class_name} extends DAO_MainDAO implements DAO_Interface_{class
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        return new Entity_{class_name}($stmt->fetch(PDO::FETCH_ASSOC));
+        return $stmt->fetchObject('Entity_{class_name}');
     }
 
     /**
@@ -43,7 +43,8 @@ class DAO_Types_{class_name} extends DAO_MainDAO implements DAO_Interface_{class
 
     public function delete($id){
         $tree = new DAO_Tree();
-        $elem = new Entity_Tree($tree->getOne($id));
+        $elem = new Entity_Tree();
+        $elem->init($tree->getOne($id));
 
         $elem_id = $elem->getTypeId();
         $q1 = $this->deleteFromTable($elem_id);

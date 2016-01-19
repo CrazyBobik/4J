@@ -17,11 +17,7 @@ class Entity_Tree{
 	private $level = 0;
 	private $pid = 0;
 
-	/**
-	 * Entity_Tree constructor.
-	 * @param $res
-	 */
-	public function __construct($res = null){
+	public function init($res){
 		$this->id = $res['id'];
 		$this->title = $res['title'];
 		$this->link = $res['link'];

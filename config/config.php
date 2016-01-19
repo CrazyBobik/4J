@@ -8,6 +8,7 @@
 defined('ENGINE') || define('ENGINE', realpath(ROOT.'/engine'));
 defined('ENTITY') || define('ENTITY', realpath(ENGINE.'/entity'));
 defined('DAO') || define('DAO', realpath(ENGINE.'/dao'));
+defined('MODULES') || define('MODULES', realpath(ENGINE.'/modules'));
 defined('MVC') || define('MVC', realpath(ROOT.'/system/mvc'));
 defined('TPL') || define('TPL', realpath(ROOT.'/system/tpl'));
 defined('TPL_GEN_TYPE') || define('TPL_GEN_TYPE', realpath(TPL.'/generation/type'));

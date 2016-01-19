@@ -11,7 +11,7 @@ class DAO_Types_Block extends DAO_MainDAO implements DAO_Interface_Block{
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        return new Entity_Block($stmt->fetch(PDO::FETCH_ASSOC));
+        return $stmt->fetchObject('Entity_Block');
     }
 
     /**
@@ -48,7 +48,8 @@ class DAO_Types_Block extends DAO_MainDAO implements DAO_Interface_Block{
 
     public function delete($id){
         $tree = new DAO_Tree();
-        $elem = new Entity_Tree($tree->getOne($id));
+        $elem = new Entity_Tree();
+        $elem->init($tree->getOne($id));
 
         $elem_id = $elem->getTypeId();
         $q1 = $this->deleteFromTable($elem_id);

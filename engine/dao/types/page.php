@@ -43,7 +43,8 @@ class DAO_Types_Page extends DAO_MainDAO implements DAO_Interface_Page{
 
     public function delete($id){
         $tree = new DAO_Tree();
-        $elem = new Entity_Tree($tree->getOne($id));
+        $elem = new Entity_Tree();
+        $elem->init($tree->getOne($id));
 
         $elem_id = $elem->getTypeId();
         $q1 = $this->deleteFromTable($elem_id);

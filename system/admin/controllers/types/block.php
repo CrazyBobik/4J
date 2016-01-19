@@ -23,7 +23,8 @@ class Admin_Controllers_Types_Block extends Ajax{
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
 
         $tree = $this->blockModel->getBlock($id);
-        $entity = new Entity_Block($tree);
+        $entity = new Entity_Block();
+        $entity->init($tree);
 
         $toReplace = array(
             '{action}',

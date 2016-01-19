@@ -151,6 +151,24 @@ $(function () {
             }, 'html');
         }
     });
+
+    $('.lang-btn').on('click', function () {
+        var lang = $(this).data('lang');
+
+        $.ajax({
+            url: '/admin/helpers/changeLang',
+            method: 'POST',
+            data:{
+                ajax: 1,
+                lang: lang
+            },
+            success: function (result) {
+                if(result) {
+                    location.reload();
+                }
+            }
+        });
+    });
 });
 
 function showFormResult(clazz, mess, element){

@@ -23,7 +23,8 @@ class Admin_Controllers_Types_Item extends Ajax{
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
 
         $tree = $this->itemModel->getItem($id);
-        $entity = new Entity_Item($tree);
+        $entity = new Entity_Item();
+        $entity->init($tree);
 
         $toReplace = array(
             '{action}',

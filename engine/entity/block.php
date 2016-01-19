@@ -7,12 +7,11 @@ class Entity_Block{
 	private $is_text = 0;
 	
 
-	public function __construct($res = null){
+	public function init($res){
 		$this->id = $res['block_id'];
         $this->side = $res['block_side'];
 		$this->text = $res['block_text'];
 		$this->is_text = $res['block_is_text'];
-		
     }
 
     public function getId(){

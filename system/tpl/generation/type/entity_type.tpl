@@ -4,7 +4,7 @@ class Entity_{class_name}{
 	private $id;
 	{fields}
 
-	public function __construct($res = null){
+	public function init($res){
 		$this->id = $res['{name}_id'];
         {fields_init}
     }

@@ -55,7 +55,8 @@ class Admin_Models_Types_Block{
     * @return bool
     */
     public function updateBlock($tree, $block){
-        $old = new Entity_Tree($this->treeDAO->getOne($tree->getId()));
+        $old = new Entity_Tree();
+        $old->init($this->treeDAO->getOne($tree->getId()));
         $link = rtrim($old->getLink(), $old->getName()).$tree->getName();
         $tree->setLink($link);
         $block->setId($old->getTypeId());

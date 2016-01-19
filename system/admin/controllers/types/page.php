@@ -23,7 +23,8 @@ class Admin_Controllers_Types_Page extends Ajax{
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
 
         $tree = $this->pageModel->getPage($id);
-        $entity = new Entity_Page($tree);
+        $entity = new Entity_Page();
+        $entity->init($tree);
 
         $toReplace = array(
             '{action}',

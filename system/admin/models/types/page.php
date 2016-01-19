@@ -55,7 +55,8 @@ class Admin_Models_Types_Page{
     * @return bool
     */
     public function updatePage($tree, $page){
-        $old = new Entity_Tree($this->treeDAO->getOne($tree->getId()));
+        $old = new Entity_Tree();
+        $old->init($this->treeDAO->getOne($tree->getId()));
         $link = rtrim($old->getLink(), $old->getName()).$tree->getName();
         $tree->setLink($link);
         $page->setId($old->getTypeId());

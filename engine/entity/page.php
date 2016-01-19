@@ -7,7 +7,7 @@ class Entity_Page{
 	private $seoDescription = '';
 	
 
-	public function __construct($res = null){
+	public function init($res){
 		$this->id = $res['page_id'];
         $this->seoTitle = $res['page_seo_title'];
 		$this->seoKeywords = $res['page_seo_keywords'];

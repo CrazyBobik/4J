@@ -67,11 +67,11 @@ class Admin_Models_Main{
 		$link = Libs_URL::get()->getPiceURL(1);
 
 		if (class_exists('Admin_Controllers_'.$link)){
-			$name = 'Admin_Controllers_'.$link;
 			return $link;
 		} else if (class_exists('Admin_Controllers_Types_'.$link)){
-			$name = 'Admin_Controllers_Types_'.$link;
 			return 'Types_'.$link;
+		} else if (class_exists('Admin_Controllers_Blocks_'.$link)){
+			return 'Blocks_'.$link;
 		}
 
 		return false;

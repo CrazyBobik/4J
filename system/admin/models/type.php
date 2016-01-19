@@ -36,12 +36,11 @@ class Admin_Models_Type{
         $res = $this->getAllTypes();
         $cnt = count($res);
         for($i = 0; $i < $cnt; $i++){
-            $entity = new Entity_Type($res[$i]);
             $check = $key == 'id'
-                ? $entity->getId() == $id ? 'selected="selected"' : ''
+                ? $res[$i]->getId() == $id ? 'selected="selected"' : ''
                 : '';
-            $result .= '<option value="'.($key == 'id' ? $entity->getId() : $entity->getName())
-                .'" '.$check.'>'.$entity->getTitle().'</option>';
+            $result .= '<option value="'.($key == 'id' ? $res[$i]->getId() : $res[$i]->getName())
+                .'" '.$check.'>'.$res[$i]->getTitle().'</option>';
         }
 
         return $result;
@@ -72,6 +71,9 @@ class Admin_Models_Type{
     public function updateType($id, $title, $name, $fields, $seo = false){
         //TODO: обновление поля
         $type = $this->typeDAO->getType($id);
+        if(!$type){
+            throw new Exception('Такого типа не существует пока =)');
+        }
         $add = $this->diffField(json_decode($type->getJson(), true), $fields);
         $del = $this->diffField($fields, json_decode($type->getJson(), true));
         $addSEO = 'hold';

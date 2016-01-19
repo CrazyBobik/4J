@@ -13,7 +13,7 @@ class DAO_Type extends DAO_MainDAO implements DAO_Interface_Type{
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        return new Entity_Type($stmt->fetch(PDO::FETCH_ASSOC));
+        return $stmt->fetchObject('Entity_Type');
     }
 
     public function getTypeByName($name){
@@ -21,14 +21,17 @@ class DAO_Type extends DAO_MainDAO implements DAO_Interface_Type{
         $stmt->bindParam(':name', $name);
         $stmt->execute();
 
-        return new Entity_Type($stmt->fetch(PDO::FETCH_ASSOC));
+        return $stmt->fetchObject('Entity_Type');
     }
 
+    /**
+     * @return Entity_Type[]
+     */
     public function getAllTypes(){
 		$stmt = $this->DB->prepare('SELECT * FROM `site_types` ORDER BY `title` ASC');
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Entity_Type');
     }
 
     public function createTable($name, $fields, $hasSeo){

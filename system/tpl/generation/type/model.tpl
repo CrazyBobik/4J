@@ -55,7 +55,8 @@ class Admin_Models_Types_{class_name}{
     * @return bool
     */
     public function update{class_name}($tree, ${name}){
-        $old = new Entity_Tree($this->treeDAO->getOne($tree->getId()));
+        $old = new Entity_Tree();
+        $old->init($this->treeDAO->getOne($tree->getId()));
         $link = rtrim($old->getLink(), $old->getName()).$tree->getName();
         $tree->setLink($link);
         ${name}->setId($old->getTypeId());
