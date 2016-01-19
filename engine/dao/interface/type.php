@@ -15,9 +15,13 @@ interface DAO_Interface_Type{
 
 	public function createTable($name, $fields, $seo);
 
+	public function updateTable($name, $add, $del, $addSEO);
+
 	public function dropTable($name);
 
 	public function writeType($title, $name, $fields, $seo);
+
+	public function updateType($id, $title, $name, $fields, $seo);
 
 	public function deleteType($id);
 }
