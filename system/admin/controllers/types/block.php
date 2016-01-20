@@ -124,7 +124,18 @@ class Admin_Controllers_Types_Block extends Ajax{
         }
 
         if ($this->isAjax()){
-            $this->putAjax($id);
+			$json = array();
+            if($id){
+				$json['error'] = false;
+				$json['mess'] = 'Добавлено';
+				$json['tout'] = 0;
+				$json['callback'] = 'function callback(){reloadMenu();}';
+			} else{
+				$json['error'] = true;
+				$json['mess'] = 'Ошибка';
+			}
+
+			$this->putJSON($json);
         }
 
         return $id;
@@ -163,7 +174,18 @@ class Admin_Controllers_Types_Block extends Ajax{
         $result = $this->blockModel->updateBlock($tree, $entity);
 
         if ($this->isAjax()){
-            $this->putAjax($result);
+			$json = array();
+			if($result){
+				$json['error'] = false;
+				$json['mess'] = 'Добавлено';
+				$json['tout'] = 0;
+				$json['callback'] = 'function callback(){reloadMenu();}';
+			} else{
+				$json['error'] = true;
+				$json['mess'] = 'Ошибка';
+			}
+
+			$this->putJSON($json);
         }
 
         return $result;

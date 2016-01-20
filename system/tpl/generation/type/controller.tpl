@@ -101,7 +101,18 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
         $id = $this->{name}Model->add{class_name}($title, $name, $pid, $entity);
 
         if ($this->isAjax()){
-            $this->putAjax($id);
+            $json = array();
+            if($id){
+                $json['error'] = false;
+                $json['mess'] = 'Добавлено';
+                $json['tout'] = 0;
+                $json['callback'] = 'function callback(){reloadMenu();}';
+            } else{
+                $json['error'] = true;
+                $json['mess'] = 'Ошибка';
+            }
+
+            $this->putJSON($json);
         }
 
         return $id;
@@ -138,7 +149,18 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
         $result = $this->{name}Model->update{class_name}($tree, $entity);
 
         if ($this->isAjax()){
-            $this->putAjax($result);
+            $json = array();
+            if($result){
+                $json['error'] = false;
+                $json['mess'] = 'Добавлено';
+                $json['tout'] = 0;
+                $json['callback'] = 'function callback(){reloadMenu();}';
+            } else{
+                $json['error'] = true;
+                $json['mess'] = 'Ошибка';
+            }
+
+            $this->putJSON($json);
         }
 
         return $result;

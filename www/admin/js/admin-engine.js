@@ -23,7 +23,9 @@ $(function () {
                     clazz = 'error';
                 } else {
                     clazz = 'success';
-                    form.clearForm();
+                    if (result.clear === undefined || result.clear == true){
+                        form.clearForm();
+                    }
                 }
 
                 showFormResult(clazz, result.mess, element);

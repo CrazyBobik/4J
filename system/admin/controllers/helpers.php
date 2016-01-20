@@ -19,4 +19,10 @@ class Admin_Controllers_Helpers extends Ajax{
 
         $this->putAjax($langM->setAdminLang(strip_tags($_POST['lang'])));
     }
+
+    public function reloadMenu(){
+        $menu = new Admin_Models_Blocks_Menu();
+
+        $this->putAjax($menu->genMenuHTML());
+    }
 }

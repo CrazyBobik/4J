@@ -2,11 +2,12 @@
  * Created by CrazyBobik on 29.12.2015.
  */
 $(function () {
-    $('.toggle-menu').on('click', function () {
+    var menu = $('nav');
+    menu.on('click', '.toggle-menu', function () {
         $(this).parent().next('.menu').slideToggle(500);
     });
 
-    $('.add-tree-leaf').on('click', function () {
+    menu.on('click', '.add-tree-leaf', function () {
         var val = $(this).parent().data('id');
 
         $.ajax({
@@ -22,7 +23,7 @@ $(function () {
         }, 'html');
     });
 
-    $('.del-tree-leaf').on('click', function () {
+    menu.on('click', '.del-tree-leaf', function () {
         var id = $(this).parent().data('id');
         var type = $(this).parent().data('type');
 
@@ -35,14 +36,12 @@ $(function () {
             method: 'POST',
             dataType: 'html',
             success: function (html) {
-                if(html){
-                    alert('ydaleno');
-                }
+                reloadMenu();
             }
         }, 'html');
     });
 
-    $('.update-tree-leaf').on('click', function () {
+    menu.on('click', '.update-tree-leaf', function () {
         var id = $(this).parent().data('id');
         var type = $(this).parent().data('type');
 
@@ -60,3 +59,16 @@ $(function () {
         }, 'html');
     });
 });
+
+function reloadMenu(){
+    $.ajax({
+        url: '/admin/helpers/reloadMenu',
+        method: 'POST',
+        data:{
+            ajax: 1
+        },
+        success: function (result) {
+            $('nav').html(result);
+        }
+    });
+}
