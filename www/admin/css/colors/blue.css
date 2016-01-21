@@ -1,0 +1,15 @@
+#head,
+.logo{
+    color: #fff;
+}
+.logo,
+.main-menu-toggle:hover,
+.side-bar-item:hover{
+    background-color: #367fa9;
+}
+.logo:hover{
+    background-color: #357ca5;
+}
+.head-bar{
+    background-color: #3c8dbc;
+}

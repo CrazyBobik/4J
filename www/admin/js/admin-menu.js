@@ -3,6 +3,7 @@
  */
 $(function () {
     var menu = $('nav');
+
     menu.on('click', '.toggle-menu', function () {
         $(this).parent().next('.menu').slideToggle(500);
     });
@@ -57,6 +58,10 @@ $(function () {
                 $('#center').html(html);
             }
         }, 'html');
+    });
+
+    $('.dropdown-click').on('click', function () {
+        $(this).parent('.side-bar-item').find('.dropdown-menu').slideToggle(500);
     });
 });
 

@@ -1,8 +1,21 @@
+*{
+    box-sizing: border-box;
+}
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
 html, body{
     margin: 0;
     min-height: 100%;
     height: 1px;
 }
+body{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
 .float-left{
     float: left;
 }
@@ -12,17 +25,172 @@ html, body{
 .clear{
     clear: both;
 }
-.top-line{
-    background: #65ff37;
-    display: flex;
-    justify-content: flex-end;
+.link{
+    cursor: pointer;
 }
+
+#container{
+    /* Позиционирование */
+    position: relative;
+
+    /* Блочная модель */
+    min-height: 100%;
+
+    /* Типографика */
+
+    /* Отображение */
+
+    /* Прочее */
+    overflow: hidden;
+}
+#head{
+    /*Позиционирование*/
+    z-index: 1000;
+    /*Блочная модель*/
+    height: 50px;
+    /*Типографика*/
+    /*Отображение*/
+    background: #ff0;
+    /*Прочее*/
+}
+#body{
+    display: flex;
+}
+#main-menu{
+    z-index: 860;
+
+    width: 230px;
+    min-width: 230px;
+}
+#main-menu-bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 50px;
+    z-index: -1;
+
+    width: inherit;
+    min-height: 100%;
+
+    background: #0f0;
+}
+#center{
+    z-index: 800;
+
+    padding: 0 0 50px;
+    width: 100%;
+
+    background: #00f;
+}
+#settings{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 50px;
+    z-index: 900;
+
+    display: none;
+    width: 230px;
+    min-height: 100%;
+
+    background: #f00;
+}
+#footer-buffer{
+    min-width: 1px;
+    height: 50px;
+}
+#footer{
+    position: relative;
+    z-index: 850;
+
+    margin-top: -50px;
+    margin-left: 230px;
+
+    height: 50px;
+
+    color: #fff;
+
+    background: #000;
+}
+
+.logo{
+    padding: 0 15px;
+    display: block;
+    width: 230px;
+    height: 50px;
+
+    font-size: 25px;
+    line-height: 50px;
+    text-align: center;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 300;
+
+    -webkit-transition: width .3s ease-in-out;
+    -o-transition: width .3s ease-in-out;
+    transition: width .3s ease-in-out;
+    overflow: hidden;
+}
+.logo-mini{
+    display: none;
+}
+.logo-lg{
+    display: block;
+}
+.head-bar{
+    margin-left: 230px;
+
+    min-height: 50px;
+
+    font-size: 20px;
+
+    -webkit-transition: margin-left .3s ease-in-out;
+    -o-transition: margin-left .3s ease-in-out;
+    transition: margin-left .3s ease-in-out;
+}
+.main-menu-toggle{
+    padding: 14px;
+    height: 50px;
+    cursor: pointer;
+}
+.side-bar{
+    display: flex;
+    height: 50px;
+}
+.side-bar-item{
+    position: relative;
+    padding: 15px;
+    cursor: pointer;
+}
+.dropdown-hover:hover + .dropdown-menu,
+.dropdown-hover + .dropdown-menu:hover{
+    top: 100%;
+    opacity: 1;
+}
+.dropdown-hover + .dropdown-menu{
+    top: 140%;
+    display: block;
+
+    opacity: 0;
+    -webkit-transition: all .5s ease-in-out 0.2s, opacity .3s ease-in-out 0.2s;
+    -o-transition: all .5s ease-in-out 0.2s, opacity .3s ease-in-out 0.2s;
+    transition: all .5s ease-in-out 0.2s, opacity .3s ease-in-out 0.2s;
+}
+.dropdown-menu{
+    position: absolute;
+    top: 50px;
+    right: 0;
+    z-index: 1100;
+    display: none;
+}
+
+
 .add-type{
     cursor: pointer;
     background: #acacac;
     color: #fff;
     padding: 5px;
 }
+
 .delete-type{
     color: #d9d9d9;
     cursor: pointer;

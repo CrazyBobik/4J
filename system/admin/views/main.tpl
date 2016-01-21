@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/admin/css/modal.css">
     <link rel="stylesheet" href="/admin/css/form.css">
     <link rel="stylesheet" href="/admin/css/menu.css">
+    <link rel="stylesheet" href="/admin/css/colors/blue.css">
 </head>
 <body>
 <div id="modal">
@@ -27,14 +28,57 @@
         <div class="context"></div>
     </div>
 </div>
-{header}
-<div class="container">
-{left}
-    <div id="center">
-        {center}
+
+<div id="container">
+    <header id="head">
+        <a href="/admin" class="logo float-left">
+            <div class="logo-mini">
+                <b>A</b>4J
+            </div>
+
+            <div class="logo-lg">
+                <b>Admin</b>4J
+            </div>
+        </a>
+
+        <div class="head-bar">
+            <div class="main-menu-toggle float-left">
+                <i class="fa fa-bars"></i>
+            </div>
+
+            <div class="side-bar float-right">
+                <div class="side-bar-item">
+                    <div class="dropdown-hover">
+                        <img class="user-logo" src="" alt="">
+                        Admin
+                    </div>
+                    <div class="dropdown-menu">
+                        ta-da
+                    </div>
+                </div>
+
+                <div class="side-bar-item">
+                    <i class="fa fa-cog"></i>
+                </div>
+            </div>
+        </div>
+        {header}
+    </header>
+    <div id="body">
+        <nav id="main-menu">
+            <div id="main-menu-bg"></div>
+            {left}
+        </nav>
+        <main id="center">
+            {center}
+        </main>
     </div>
-{right}
+    <div id="settings">
+        {right}
+    </div>
 </div>
-{footer}
+<footer id="footer">
+    {footer}
+</footer>
 </body>
 </html>
