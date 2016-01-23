@@ -47,32 +47,30 @@
             </div>
 
             <div class="side-bar float-right">
-                <div class="side-bar-item">
-                    <div class="dropdown-hover">
-                        <img class="user-logo" src="" alt="">
-                        Admin
-                    </div>
-                    <div class="dropdown-menu">
-                        ta-da
-                    </div>
+                <div class="side-bar-item dropdown-hover">
+                    <img class="user-logo" src="" alt="">
+                    Admin
+                </div>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/admin/exit">
+                        <i class="fa fa-sign-out float-right"></i>
+                        Exit
+                    </a>
                 </div>
 
-                <div class="side-bar-item">
+                <div class="side-bar-item toggle-config">
                     <i class="fa fa-cog"></i>
                 </div>
             </div>
         </div>
-        {header}
+        <!-- {header} -->
     </header>
-    <div id="body">
-        <nav id="main-menu">
-            <div id="main-menu-bg"></div>
-            {left}
-        </nav>
-        <main id="center">
-            {center}
-        </main>
-    </div>
+    <nav id="main-menu">
+        {left}
+    </nav>
+    <main id="center">
+        {center}
+    </main>
     <div id="settings">
         {right}
     </div>

@@ -39,6 +39,7 @@ body{
     /* Типографика */
 
     /* Отображение */
+    background-color: #ecf0f5;
 
     /* Прочее */
     overflow: hidden;
@@ -50,37 +51,37 @@ body{
     height: 50px;
     /*Типографика*/
     /*Отображение*/
-    background: #ff0;
     /*Прочее*/
 }
 #body{
     display: flex;
 }
 #main-menu{
-    z-index: 860;
-
-    width: 230px;
-    min-width: 230px;
-}
-#main-menu-bg{
     position: absolute;
     top: 0;
     left: 0;
     margin-top: 50px;
-    z-index: -1;
+    z-index: 860;
 
-    width: inherit;
+    width: 230px;
     min-height: 100%;
 
-    background: #0f0;
+    -webkit-transition: width .3s ease-in-out;
+    -moz-transition: width .3s ease-in-out;
+    -o-transition: width .3s ease-in-out;
+    transition: width .3s ease-in-out;
 }
 #center{
     z-index: 800;
+    margin-left: 230px;
 
     padding: 0 0 50px;
     width: 100%;
 
-    background: #00f;
+    -webkit-transition: margin-left .3s ease-in-out;
+    -moz-transition: margin-left .3s ease-in-out;
+    -o-transition: margin-left .3s ease-in-out;
+    transition: margin-left .3s ease-in-out;
 }
 #settings{
     position: absolute;
@@ -89,11 +90,16 @@ body{
     margin-top: 50px;
     z-index: 900;
 
-    display: none;
-    width: 230px;
+    width: 0;
     min-height: 100%;
 
-    background: #f00;
+    color: #fff;
+
+    background: #222d32;
+
+    -webkit-transition: width .3s ease-in-out;
+    -o-transition: width .3s ease-in-out;
+    transition: width .3s ease-in-out;
 }
 #footer-buffer{
     min-width: 1px;
@@ -101,16 +107,22 @@ body{
 }
 #footer{
     position: relative;
-    z-index: 850;
-
     margin-top: -50px;
     margin-left: 230px;
+    z-index: 850;
 
+    padding: 15px;
     height: 50px;
 
-    color: #fff;
+    color: #444;
 
-    background: #000;
+    border-top: 1px solid #d2d6de;
+    background: #fff;
+
+    -webkit-transition: margin-left .3s ease-in-out;
+    -moz-transition: margin-left .3s ease-in-out;
+    -o-transition: margin-left .3s ease-in-out;
+    transition: margin-left .3s ease-in-out;
 }
 
 .logo{
@@ -132,6 +144,7 @@ body{
 }
 .logo-mini{
     display: none;
+    font-size: 20px;
 }
 .logo-lg{
     display: block;
@@ -163,24 +176,35 @@ body{
 }
 .dropdown-hover:hover + .dropdown-menu,
 .dropdown-hover + .dropdown-menu:hover{
-    top: 100%;
+    top: 50px;
     opacity: 1;
+    visibility: visible;
 }
 .dropdown-hover + .dropdown-menu{
-    top: 140%;
+    top: 75px;
     display: block;
+    visibility: hidden;
 
     opacity: 0;
-    -webkit-transition: all .5s ease-in-out 0.2s, opacity .3s ease-in-out 0.2s;
-    -o-transition: all .5s ease-in-out 0.2s, opacity .3s ease-in-out 0.2s;
-    transition: all .5s ease-in-out 0.2s, opacity .3s ease-in-out 0.2s;
+    -webkit-transition: all .5s ease-in-out 0.2s, opasity .3s ease-in-out 0.2s;
+    -o-transition: all .5s ease-in-out 0.2s, opasity .3s ease-in-out 0.2s;
+    transition: all .5s ease-in-out 0.2s, opasity .3s ease-in-out 0.2s;
 }
 .dropdown-menu{
     position: absolute;
     top: 50px;
-    right: 0;
+    margin-left: -150px;
     z-index: 1100;
     display: none;
+    width: 150px;
+}
+.dropdown-item{
+    padding: 15px;
+    display: block;
+
+    border-top: solid 1px #fff;
+
+    cursor: pointer;
 }
 
 

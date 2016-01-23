@@ -2,7 +2,10 @@
  * Created by CrazyBobik on 29.12.2015.
  */
 $(function () {
-    var menu = $('nav');
+    var head = $('#head');
+    var menu = $('#main-menu');
+    var center = $('#center');
+    var foot = $('#footer');
 
     menu.on('click', '.toggle-menu', function () {
         $(this).parent().next('.menu').slideToggle(500);
@@ -61,7 +64,45 @@ $(function () {
     });
 
     $('.dropdown-click').on('click', function () {
-        $(this).parent('.side-bar-item').find('.dropdown-menu').slideToggle(500);
+        $(this).next('.dropdown-menu').slideToggle(500);
+    });
+
+    $('.toggle-config').on({
+        mouseenter: function () {
+            $(this).find('.fa-cog').addClass('fa-spin');
+        },
+        mouseleave: function () {
+            $(this).find('.fa-cog').removeClass('fa-spin');
+        },
+        click: function () {
+            var sett = $('#settings');
+            if(parseInt(sett.css('width')) == 0) {
+                sett.css('width', '230px');
+            } else{
+                sett.css('width', '0');
+            }
+        }
+    });
+    $('.main-menu-toggle').on('click', function () {
+        if(parseInt(menu.css('width')) == 50) {
+            menu.css('width', '230px');
+            $('.logo').css({'width': '230px', 'padding': '0 7px'});
+            $('.logo-mini').fadeOut(200, function () {
+                $('.logo-lg').fadeIn(200);
+            });
+            foot.css('margin-left', '230px');
+            center.css('margin-left', '230px');
+            $('.head-bar').css('margin-left', '230px');
+        } else{
+            menu.css('width', '50px');
+            $('.logo').css({'width': '50px', 'padding': '0 7px'});
+            $('.logo-lg').fadeOut(200, function () {
+                $('.logo-mini').fadeIn(200);
+            });
+            foot.css('margin-left', '50px');
+            center.css('margin-left', '50px');
+            $('.head-bar').css('margin-left', '50px');
+        }
     });
 });
 
