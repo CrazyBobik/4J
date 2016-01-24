@@ -31,8 +31,7 @@ class Modules_Models_Lang{
 		$cnt = count($res);
 		for($i = 0; $i < $cnt; $i++){
 			$toReplace = array(
-				'{lang}',
-				'{title}'
+				'{lang}'
 			);
 			$replace = array(
 				$res[$i]->getLink(),

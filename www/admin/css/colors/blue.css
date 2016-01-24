@@ -1,7 +1,8 @@
 #head,
 .logo,
 .dropdown-item,
-#main-menu{
+#main-menu,
+.main-menu-item:hover{
     color: #fff;
 }
 .logo,
@@ -17,6 +18,18 @@
 .dropdown-item{
     background-color: #3c8dbc;
 }
-#main-menu{
+#main-menu,
+.toggle-sub-menu{
     background-color: #222d32;
+}
+.main-menu-head{
+    color: #4b646f;
+    background-color: #1a2226;
+}
+.main-menu-item{
+    color: #b8c7ce;
+}
+.main-menu-item:hover,
+.toggle-sub-menu:hover{
+    background-color:#1e282c;
 }

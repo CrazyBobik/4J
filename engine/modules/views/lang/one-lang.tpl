@@ -1,3 +1,3 @@
-<div class="lang-btn" data-lang="{lang}">
-    {title}
+<div class="dropdown-item" data-lang="{lang}">
+    {lang}
 </div>

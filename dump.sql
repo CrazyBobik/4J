@@ -22,13 +22,15 @@ CREATE TABLE IF NOT EXISTS `site_block` (
   `block_text` varchar(10000) NOT NULL,
   `block_is_text` char(3) NOT NULL,
   PRIMARY KEY (`block_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы mysite.site_block: ~1 rows (приблизительно)
+-- Дамп данных таблицы mysite.site_block: ~3 rows (приблизительно)
 DELETE FROM `site_block`;
 /*!40000 ALTER TABLE `site_block` DISABLE KEYS */;
 INSERT INTO `site_block` (`block_id`, `block_side`, `block_text`, `block_is_text`) VALUES
-	(1, 'center', '', 'Нет');
+	(1, 'center', '', 'Нет'),
+	(2, 'center', '', 'Нет'),
+	(3, 'center', '', 'Нет');
 /*!40000 ALTER TABLE `site_block` ENABLE KEYS */;
 
 
@@ -36,14 +38,15 @@ INSERT INTO `site_block` (`block_id`, `block_side`, `block_text`, `block_is_text
 CREATE TABLE IF NOT EXISTS `site_item` (
   `item_id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы mysite.site_item: ~2 rows (приблизительно)
+-- Дамп данных таблицы mysite.site_item: ~3 rows (приблизительно)
 DELETE FROM `site_item`;
 /*!40000 ALTER TABLE `site_item` DISABLE KEYS */;
 INSERT INTO `site_item` (`item_id`) VALUES
 	(1),
-	(2);
+	(2),
+	(3);
 /*!40000 ALTER TABLE `site_item` ENABLE KEYS */;
 
 
@@ -54,13 +57,14 @@ CREATE TABLE IF NOT EXISTS `site_page` (
   `page_seo_keywords` varchar(250) NOT NULL,
   `page_seo_description` varchar(250) NOT NULL,
   PRIMARY KEY (`page_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы mysite.site_page: ~1 rows (приблизительно)
+-- Дамп данных таблицы mysite.site_page: ~2 rows (приблизительно)
 DELETE FROM `site_page`;
 /*!40000 ALTER TABLE `site_page` DISABLE KEYS */;
 INSERT INTO `site_page` (`page_id`, `page_seo_title`, `page_seo_keywords`, `page_seo_description`) VALUES
-	(1, '', '', '');
+	(1, '', '', ''),
+	(2, '', '', '');
 /*!40000 ALTER TABLE `site_page` ENABLE KEYS */;
 
 
@@ -77,16 +81,20 @@ CREATE TABLE IF NOT EXISTS `site_tree` (
   `level` tinyint(4) NOT NULL DEFAULT '0',
   `pid` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы mysite.site_tree: ~4 rows (приблизительно)
+-- Дамп данных таблицы mysite.site_tree: ~8 rows (приблизительно)
 DELETE FROM `site_tree`;
 /*!40000 ALTER TABLE `site_tree` DISABLE KEYS */;
 INSERT INTO `site_tree` (`id`, `title`, `link`, `name`, `type`, `type_id`, `left_key`, `right_key`, `level`, `pid`) VALUES
-	(1, 'Русский', 'ru', 'lang', '', 0, 1, 46, 1, 0),
-	(2, 'Страницы', 'ru/pages', 'pages', 'item', 2, 2, 45, 2, 1),
-	(3, 'Главная', 'ru/pages/main', 'main', 'page', 1, 3, 32, 3, 2),
-	(4, 'Главный блок', 'ru/pages/main/main', 'main', 'block', 1, 4, 17, 4, 3);
+	(1, 'Русский', 'ru', 'lang', '', 0, 1, 54, 1, 0),
+	(2, 'Страницы', 'ru/pages', 'pages', 'item', 2, 2, 51, 2, 1),
+	(3, 'Главная', 'ru/pages/main', 'main', 'page', 1, 3, 36, 3, 2),
+	(4, 'Главный блок', 'ru/pages/main/main', 'main', 'block', 1, 4, 17, 4, 3),
+	(5, 'test', 'ru/pages/main/test', 'test', 'block', 2, 32, 33, 4, 3),
+	(6, 'test', 'ru/pages/main/test', 'test', 'block', 3, 34, 35, 4, 3),
+	(7, 'test2', 'ru/pages/test', 'test', 'page', 2, 49, 50, 3, 2),
+	(8, 'test3', 'ru/test3', 'test3', 'item', 3, 52, 53, 2, 1);
 /*!40000 ALTER TABLE `site_tree` ENABLE KEYS */;
 
 
@@ -98,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `site_types` (
   `seo` tinyint(1) NOT NULL DEFAULT '0',
   `json` varchar(1000) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы mysite.site_types: ~3 rows (приблизительно)
 DELETE FROM `site_types`;

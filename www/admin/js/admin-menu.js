@@ -7,12 +7,19 @@ $(function () {
     var center = $('#center');
     var foot = $('#footer');
 
-    menu.on('click', '.toggle-menu', function () {
-        $(this).parent().next('.menu').slideToggle(500);
+    menu.on('click', '.toggle-sub-menu', function () {
+        $(this).parent().next('.sub-menu').slideToggle(500);
+        if($(this).hasClass('up')){
+            $(this).removeClass('up');
+            $(this).find('.fa').css('transform', 'rotate(0)');
+        } else{
+            $(this).addClass('up');
+            $(this).find('.fa').css('transform', 'rotate(180deg)');
+        }
     });
 
     menu.on('click', '.add-tree-leaf', function () {
-        var val = $(this).parent().data('id');
+        var val = $(this).data('id');
 
         $.ajax({
             url: '/admin/tree/getAddLeafForm',
@@ -46,8 +53,8 @@ $(function () {
     });
 
     menu.on('click', '.update-tree-leaf', function () {
-        var id = $(this).parent().data('id');
-        var type = $(this).parent().data('type');
+        var id = $(this).data('id');
+        var type = $(this).data('type');
 
         $.ajax({
             url: '/admin/' + type + '/get' + type,
@@ -91,8 +98,12 @@ $(function () {
                 $('.logo-lg').fadeIn(200);
             });
             foot.css('margin-left', '230px');
-            center.css('margin-left', '230px');
+            center.css('padding-left', '230px');
+            $('.main-menu-head').slideDown(300);
+            $('.main-menu-item span').fadeIn(300);
+            $('.toggle-sub-menu').fadeIn(300);
             $('.head-bar').css('margin-left', '230px');
+            $('.sub-menu').slideDown(300);
         } else{
             menu.css('width', '50px');
             $('.logo').css({'width': '50px', 'padding': '0 7px'});
@@ -100,8 +111,12 @@ $(function () {
                 $('.logo-mini').fadeIn(200);
             });
             foot.css('margin-left', '50px');
-            center.css('margin-left', '50px');
+            center.css('padding-left', '50px');
+            $('.main-menu-head').slideUp(300);
+            $('.main-menu-item span').fadeOut(300);
+            $('.toggle-sub-menu').fadeOut(300);
             $('.head-bar').css('margin-left', '50px');
+            $('.sub-menu').slideUp(300);
         }
     });
 });

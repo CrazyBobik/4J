@@ -68,7 +68,7 @@ class Admin_Controllers_Main extends Controllers_Controller{
             );
             $replace = $this->model->getBlocks($this->blocks);
 
-//            $layout = str_replace($toReplace, $replace, $layout);
+            $layout = str_replace($toReplace, $replace, $layout);
             echo $layout;
         } else{
             echo $this->getTPL('login');

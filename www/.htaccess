@@ -16,7 +16,7 @@ RewriteCond %{REQUEST_URI} ^/ajax.*$
 RewriteRule ^.*$ ajax.php [L]
 
 RewriteCond %{REQUEST_URI} !^/ajax/
-RewriteRule !\.(js|ico|gif|jpg|png|css|zip|xml)$ index.php [L]
+RewriteRule !\.(js|ico|gif|jpg|png|css|zip|xml|otf|eot|svg|ttf|woff|woff2)$ index.php [L]
 
 Options -Indexes
 
