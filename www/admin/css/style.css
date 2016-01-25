@@ -217,11 +217,8 @@ body{
 }
 .main-menu-item{
     position: relative;
-    padding: 12px 5px 12px 15px;
     display: block;
-    text-overflow: clip;
     white-space: nowrap;
-    overflow: hidden;
     border-left: 3px solid transparent;
     cursor: pointer;
 }
@@ -239,7 +236,15 @@ body{
 .main-menu-item:hover:after{
     transform: scale(1,1);
 }
-.main-menu-item > .fa{
+.main-menu-btn{
+    position: relative;
+    z-index: 100;
+    padding: 12px 5px 12px 15px;
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.main-menu-btn > .fa{
     width: 20px;
 }
 .toggle-sub-menu{
@@ -259,12 +264,36 @@ body{
 }
 .main-menu-panel{
     position: absolute;
-    right: -42px;
-    margin-top: -42px;
-    display: none;
-    width: 42px;
+    right: 0;
+    top: 0;
+    display: flex;
+    width: 0;
     height: 42px;
+    font-size: 24px;
     overflow: hidden;
+    transition: right .3s ease-in-out, width .3s ease-in-out;
+}
+.main-menu-item:hover .main-menu-panel{
+    right: -84px;
+    width: 84px;
+}
+.panel-elem{
+    padding: 8px 11px;
+    width: 42px;
+}
+.panel-elem.add-tree-leaf{
+    background-color: #0b0;
+}
+.panel-elem.add-tree-leaf:hover{
+    background-color: #0d0;
+    color: #D2FFD2;
+}
+.panel-elem.del-tree-leaf{
+    background-color: #b00;
+}
+.panel-elem.del-tree-leaf:hover{
+    background-color: #d00;
+    color: #FFDFDF;
 }
 
 

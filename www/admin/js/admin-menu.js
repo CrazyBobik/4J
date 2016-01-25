@@ -19,7 +19,7 @@ $(function () {
     });
 
     menu.on('click', '.add-tree-leaf', function () {
-        var val = $(this).data('id');
+        var val = $(this).parent().data('id');
 
         $.ajax({
             url: '/admin/tree/getAddLeafForm',
@@ -53,8 +53,8 @@ $(function () {
     });
 
     menu.on('click', '.update-tree-leaf', function () {
-        var id = $(this).data('id');
-        var type = $(this).data('type');
+        var id = $(this).parent().data('id');
+        var type = $(this).parent().data('type');
 
         $.ajax({
             url: '/admin/' + type + '/get' + type,
