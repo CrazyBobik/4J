@@ -19,7 +19,6 @@
     background-color: #3c8dbc;
 }
 #main-menu,
-.toggle-sub-menu,
 .main-menu-panel{
     background-color: #222d32;
 }
@@ -31,7 +30,9 @@
     color: #b8c7ce;
 }
 .main-menu-item:hover,
-.main-menu-item:hover .toggle-sub-menu,
 .main-menu-panel:hover{
     background-color:#1e282c;
+}
+.sub-menu{
+    background-color: #2c3b41;
 }

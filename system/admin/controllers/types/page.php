@@ -108,7 +108,18 @@ class Admin_Controllers_Types_Page extends Ajax{
         $id = $this->pageModel->addPage($title, $name, $pid, $entity);
 
         if ($this->isAjax()){
-            $this->putAjax($id);
+            $json = array();
+            if($id){
+                $json['error'] = false;
+                $json['mess'] = 'Добавлено';
+                $json['tout'] = 0;
+                $json['callback'] = 'function callback(){reloadMenu();}';
+            } else{
+                $json['error'] = true;
+                $json['mess'] = 'Ошибка';
+            }
+
+            $this->putJSON($json);
         }
 
         return $id;

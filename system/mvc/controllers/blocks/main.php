@@ -3,7 +3,7 @@
 class Controllers_Blocks_Main extends Controllers_Controller{
 
 	public function index(){
-		$tpl = $this->getTPL('blocks/main');
+		$tpl = $this->getTPL('blocks/main/main');
 		$html = $tpl;
 		$this->render($html);
 	}

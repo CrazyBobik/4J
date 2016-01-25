@@ -8,12 +8,14 @@
  */
 class Admin_Models_Blocks_Menu{
     private $treeDAO;
+    private $views;
 
     /**
      * Admin_Models_Blocks_Menu constructor.
      */
     public function __construct(){
         $this->treeDAO = new DAO_Tree();
+        $this->views = ADMIN.'/views/blocks/menu';
     }
 
 
@@ -62,7 +64,7 @@ class Admin_Models_Blocks_Menu{
         $res->init($this->treeDAO->getOne(Config::$lang));
         $res->setTitle('Новый элемент');
 
-        return $this->genOnePoint($res, 'fa-plus', 'add-tree-leaf');
+        return $this->genOnePoint($res, 'fa-plus', 'add-tree-leaf', '', false);
     }
 
     /**
@@ -71,7 +73,7 @@ class Admin_Models_Blocks_Menu{
      * @param string $clazz
      * @return string
      */
-    private function genOnePoint(&$leaf, $fa = '', $clazz = '', $subMenu = ''){
+    private function genOnePoint(&$leaf, $fa = '', $clazz = '', $subMenu = '', $panel = true){
         $toggle = '<div class="toggle-sub-menu float-right"><i class="fa fa-chevron-down"></i></div>';
         $toReplace = array(
             '{class}',
@@ -80,7 +82,8 @@ class Admin_Models_Blocks_Menu{
             '{faIcon}',
             '{title}',
             '{toggle}',
-            '{subMenu}'
+            '{subMenu}',
+            '{panel}'
         );
         $replace = array(
             $clazz,
@@ -89,9 +92,10 @@ class Admin_Models_Blocks_Menu{
             $fa,
             $leaf->getTitle(),
             $subMenu === '' ? '' : $toggle,
-            $subMenu
+            $subMenu,
+            $panel ? file_get_contents($this->views.'/panel.tpl') : ''
         );
-        $file = file_get_contents(ADMIN.'/views/blocks/menu/one-item.tpl');
+        $file = file_get_contents($this->views.'/one-item.tpl');
 
         return str_replace($toReplace, $replace, $file);
     }

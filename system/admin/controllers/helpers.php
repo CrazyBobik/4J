@@ -21,8 +21,11 @@ class Admin_Controllers_Helpers extends Ajax{
     }
 
     public function reloadMenu(){
-        $menu = new Admin_Models_Blocks_Menu();
+        ob_start();
+        new Admin_Controllers_Blocks_Menu();
+        $menu = ob_get_clean();
+        ob_end_clean();
 
-        $this->putAjax($menu->genMenuHTML());
+        $this->putAjax($menu);
     }
 }

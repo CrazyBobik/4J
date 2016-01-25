@@ -19,7 +19,7 @@ $(function () {
     });
 
     menu.on('click', '.add-tree-leaf', function () {
-        var val = $(this).parent().data('id');
+        var val = $(this).closest('.main-menu-item').data('id');
 
         $.ajax({
             url: '/admin/tree/getAddLeafForm',
@@ -35,21 +35,23 @@ $(function () {
     });
 
     menu.on('click', '.del-tree-leaf', function () {
-        var id = $(this).parent().data('id');
-        var type = $(this).parent().data('type');
+        if(confirm('Вы уверены что хотите удалить этот элемент?')) {
+            var id = $(this).closest('.main-menu-item').data('id');
+            var type = $(this).closest('.main-menu-item').data('type');
 
-        $.ajax({
-            url: '/admin/' + type + '/delete' + type,
-            data: {
-                id: id,
-                ajax: 1
-            },
-            method: 'POST',
-            dataType: 'html',
-            success: function (html) {
-                reloadMenu();
-            }
-        }, 'html');
+            $.ajax({
+                url: '/admin/' + type + '/delete' + type,
+                data: {
+                    id: id,
+                    ajax: 1
+                },
+                method: 'POST',
+                dataType: 'html',
+                success: function (html) {
+                    reloadMenu();
+                }
+            }, 'html');
+        }
     });
 
     menu.on('click', '.update-tree-leaf', function () {

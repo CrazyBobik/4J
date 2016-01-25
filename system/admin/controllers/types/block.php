@@ -106,7 +106,7 @@ class Admin_Controllers_Types_Block extends Ajax{
 		$entity->setIsText($this->isAjax() ? strip_tags($_POST['block_is_text']) : $data['block_is_text']);
         $id = $this->blockModel->addBlock($title, $name, $pid, $entity);
 
-        if($id && !file_exists(ADMIN.'/controllers/blocks/'.$name.'.php')){
+        if($id && !file_exists(MVC.'/controllers/blocks/'.$name.'.php')){
             $file = file_get_contents(TPL_GEN_HMVC.'/controller.tpl');
             $toReplace = array(
                 '{class_name}',
@@ -117,10 +117,10 @@ class Admin_Controllers_Types_Block extends Ajax{
                 $name
             );
             $result = str_replace($toReplace, $replace, $file);
-            file_put_contents(ADMIN.'/controllers/blocks/'.$name.'.php', $result);
+            file_put_contents(MVC.'/controllers/blocks/'.$name.'.php', $result);
 
-            mkdir(ADMIN.'/views/blocks/'.$name);
-            file_put_contents(ADMIN.'/views/blocks/'.$name.'/'.$name.'.tpl', '');
+            mkdir(MVC.'/views/blocks/'.$name);
+            file_put_contents(MVC.'/views/blocks/'.$name.'/'.$name.'.tpl', '');
         }
 
         if ($this->isAjax()){
