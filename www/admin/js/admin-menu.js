@@ -86,15 +86,16 @@ $(function () {
         click: function () {
             var sett = $('#settings');
             if(parseInt(sett.css('width')) == 0) {
-                sett.css('width', '230px');
+                sett.css({'width': '230px'});
             } else{
-                sett.css('width', '0');
+                sett.css({'width': '0'});
             }
         }
     });
     $('.main-menu-toggle').on('click', function () {
         if(parseInt(menu.css('width')) == 50) {
             menu.css('width', '230px');
+            $('#main-menu-bg').css('width', '230px');
             $('.logo').css({'width': '230px', 'padding': '0 7px'});
             $('.logo-mini').fadeOut(200, function () {
                 $('.logo-lg').fadeIn(200);
@@ -108,6 +109,7 @@ $(function () {
             $('.sub-menu').slideDown(300);
         } else{
             menu.css('width', '50px');
+            $('#main-menu-bg').css('width', '50px');
             $('.logo').css({'width': '50px', 'padding': '0 7px'});
             $('.logo-lg').fadeOut(200, function () {
                 $('.logo-mini').fadeIn(200);

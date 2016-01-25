@@ -2,7 +2,10 @@
 .logo,
 .dropdown-item,
 #main-menu,
-.main-menu-item:hover{
+.main-menu-item:hover,
+#settings,
+.one-tab:hover,
+.one-tab.active{
     color: #fff;
 }
 .logo,
@@ -18,19 +21,27 @@
 .dropdown-item{
     background-color: #3c8dbc;
 }
-#main-menu,
-.main-menu-panel{
+#main-menu-bg,
+.main-menu-panel,
+#settings,
+.one-tab.active,
+.one-tab:hover.active{
     background-color: #222d32;
 }
-.main-menu-head{
+.main-menu-head {
     color: #4b646f;
+}
+.main-menu-head,
+.one-tab{
     background-color: #1a2226;
 }
-.main-menu-item{
+.main-menu-item,
+.one-tab{
     color: #b8c7ce;
 }
 .main-menu-item:hover,
-.main-menu-panel:hover{
+.main-menu-panel:hover,
+.one-tab:hover{
     background-color:#1e282c;
 }
 .sub-menu{

@@ -46,6 +46,7 @@ body{
 }
 #head{
     /*Позиционирование*/
+    position: relative;
     z-index: 1000;
     /*Блочная модель*/
     height: 50px;
@@ -57,15 +58,27 @@ body{
     display: flex;
 }
 #main-menu{
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
-    margin-top: 50px;
+    /*margin-top: 50px;*/
     z-index: 860;
 
     width: 230px;
     min-height: 100%;
 
+    -webkit-transition: width .3s ease-in-out;
+    -moz-transition: width .3s ease-in-out;
+    -o-transition: width .3s ease-in-out;
+    transition: width .3s ease-in-out;
+}
+#main-menu-bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 850;
+    width: 230px;
+    min-height: 100%;
     -webkit-transition: width .3s ease-in-out;
     -moz-transition: width .3s ease-in-out;
     -o-transition: width .3s ease-in-out;
@@ -87,15 +100,13 @@ body{
     position: absolute;
     top: 0;
     right: 0;
-    margin-top: 50px;
+    padding-top: 50px;
     z-index: 900;
 
     width: 0;
     min-height: 100%;
 
-    color: #fff;
-
-    background: #222d32;
+    font-size: 18px;
 
     -webkit-transition: width .3s ease-in-out;
     -o-transition: width .3s ease-in-out;
@@ -313,6 +324,22 @@ body{
 .panel-elem.del-tree-leaf:hover{
     background-color: #d00;
     color: #FFDFDF;
+}
+
+
+.configs-tabs{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 41px;
+}
+.one-tab{
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+.tab-context{
+    display: none;
 }
 
 

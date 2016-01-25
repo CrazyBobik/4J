@@ -16,6 +16,10 @@ class Admin_Controllers_Main extends Controllers_Controller{
         array(
             'name' => 'Blocks_Menu',
             'side' => 'left'
+        ),
+        array(
+            'name' => 'Blocks_SettingsPanel',
+            'side' => 'right'
         )
     );
 

@@ -8,6 +8,7 @@
     <script src="/user/js/jquery.form.min.js" type="text/javascript"></script>
     <script src="/admin/js/admin-engine.js" type="text/javascript"></script>
     <script src="/admin/js/admin-menu.js" type="text/javascript"></script>
+    <script src="/admin/js/admin-configs.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="/admin/plugins/font-awesome-4.5.0/css/font-awesome.min.css">
 
@@ -33,14 +34,18 @@
     <header id="head">
         {header}
     </header>
-    <nav id="main-menu">
-        {left}
-    </nav>
-    <main id="center">
-        {center}
-    </main>
-    <div id="settings">
-        {right}
+    <div class="wrapper">
+        <div id="main-menu-bg"></div>
+        <nav id="main-menu" class="float-left">
+            {left}
+        </nav>
+        <main id="center">
+            {center}
+        </main>
+        <div id="settings">
+            {right}
+        </div>
+        <div class="clear"></div>
     </div>
 </div>
 <footer id="footer">
