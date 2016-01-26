@@ -1,3 +1,6 @@
 <div class="tab-context" data-id="3">
-    third
+    <div class="tab-context-btn add-type">
+        <i class="fa fa-plus"></i>
+        Добавить тип
+    </div>
 </div>

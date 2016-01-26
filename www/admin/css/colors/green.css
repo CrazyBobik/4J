@@ -15,19 +15,20 @@
 .main-menu-toggle:hover,
 .side-bar-item:hover,
 .dropdown-item:hover{
-    background-color: #367fa9;
+    background-color: #008d4c;
 }
 .logo:hover{
-    background-color: #357ca5;
+    background-color: #008749;
 }
 .head-bar,
 .dropdown-item{
-    background-color: #3c8dbc;
+    background-color: #00a65a;
 }
 .main-menu-item:after{
-    border-color: #3c8dbc;
+    border-color: #00a65a;
 }
 #main-menu-bg,
+.main-menu-panel,
 #settings,
 .one-tab.active,
 .one-tab:hover.active,
@@ -48,7 +49,6 @@
 .tab-context-btn{
     color: #b8c7ce;
 }
-.main-menu-panel,
 .main-menu-item:hover,
 .main-menu-item:hover .toggle-sub-menu,
 .main-menu-panel:hover,

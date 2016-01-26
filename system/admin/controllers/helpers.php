@@ -28,4 +28,9 @@ class Admin_Controllers_Helpers extends Ajax{
 
         $this->putAjax($menu);
     }
+
+    public function setStyle(){
+        $style = strip_tags($_POST['color']);
+        Libs_Session::start()->setParam('style', $style);
+    }
 }

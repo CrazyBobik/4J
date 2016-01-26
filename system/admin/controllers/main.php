@@ -62,7 +62,7 @@ class Admin_Controllers_Main extends Controllers_Controller{
                 }
             }
 
-            $layout = $this->getTPL('main');
+            $layout = $this->getLayoutWithStyle();
             $toReplace = array(
                 '{header}',
                 '{left}',
@@ -81,5 +81,16 @@ class Admin_Controllers_Main extends Controllers_Controller{
 
     public function getTPL($name){
         return file_get_contents(ADMIN.'/views/'.$name.'.tpl');
+    }
+
+    public function getLayoutWithStyle(){
+        $layout = $this->getTPL('main');
+        $style = Libs_Session::start()->getParam('style');
+        if(!$style){
+            $style = 'blue';
+        }
+        $layout = str_replace('{style}', $style, $layout);
+
+        return $layout;
     }
 }

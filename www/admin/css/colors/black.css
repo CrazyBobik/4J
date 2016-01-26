@@ -1,7 +1,7 @@
 #head,
 .logo,
 .dropdown-item{
-    color: #fff;
+    color: #000;
 }
 #main-menu,
 .main-menu-item:hover,
@@ -15,17 +15,17 @@
 .main-menu-toggle:hover,
 .side-bar-item:hover,
 .dropdown-item:hover{
-    background-color: #367fa9;
+    background-color: #f8f8f8;
 }
 .logo:hover{
-    background-color: #357ca5;
+    background-color: #f0f0f0;
 }
 .head-bar,
 .dropdown-item{
-    background-color: #3c8dbc;
+    background-color: #fff;
 }
 .main-menu-item:after{
-    border-color: #3c8dbc;
+    border-color: #fff;
 }
 #main-menu-bg,
 #settings,

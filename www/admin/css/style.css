@@ -222,7 +222,7 @@ body{
 .main-menu-head{
     padding: 10px 15px;
     font-size: 12px;
-    text-overflow: clip;
+    text-overflow:  ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -238,7 +238,7 @@ body{
     left: 0;
     width: 100%;
     height: 100%;
-    border-left: 3px solid #3c8dbc;
+    border-left: 3px solid;
     transform: scale(1,0);
     transition: transform .3s ease-in-out;
     content: '';
@@ -249,8 +249,8 @@ body{
 .main-menu-btn{
     position: relative;
     z-index: 100;
-    padding: 12px 5px 12px 15px;
-    text-overflow: clip;
+    padding: 12px 27px 12px 15px;
+    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -303,7 +303,7 @@ body{
     padding: 8px 11px;
     display: none;
     width: 0;
-    transition: width .3s ease-in-out;
+    transition: width .3s ease-in-out, color .3s ease-in-out, background-color .3s ease-in-out;
 }
 .main-menu-panel:hover .arr-hover{
     display: none;
@@ -312,6 +312,7 @@ body{
     padding: 6px 0;
 }
 .panel-elem.add-tree-leaf{
+    color: #fff;
     background-color: #0b0;
 }
 .panel-elem.add-tree-leaf:hover{
@@ -319,6 +320,7 @@ body{
     color: #D2FFD2;
 }
 .panel-elem.del-tree-leaf{
+    color: #fff;
     background-color: #b00;
 }
 .panel-elem.del-tree-leaf:hover{
@@ -341,13 +343,13 @@ body{
 .tab-context{
     display: none;
 }
-
-
-.add-type{
+.tab-context-btn{
+    padding: 10px 5px 10px 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     cursor: pointer;
-    background: #acacac;
-    color: #fff;
-    padding: 5px;
+    transition: color .3s ease-in-out, background-color .3s ease-in-out;
 }
 
 .delete-type{
@@ -357,3 +359,90 @@ body{
 .delete-type:hover{
     color: #f00;
 }
+
+
+.style-btn{
+    float: left;
+    margin: 5px 7px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity .3s ease-in-out;
+}
+.style-btn:hover,
+.style-btn.active{
+    opacity: 1;
+}
+.style-title{
+    margin-top: 7px;
+    width: 100%;
+    text-align: center;
+    font-size: 17px;
+}
+.style-head-left{
+    width: 30px;
+    height: 10px;
+}
+.style-head-right{
+    width: 70px;
+    height: 10px;
+}
+.style-context-left{
+    width: 30px;
+    height: 45px;
+}
+.style-context-right{
+    width: 70px;
+    height: 45px;
+    background: #fff;
+}
+
+.blue .style-head-left{background-color: #367fa9;}
+.blue .style-head-right{background-color: #3c8dbc;}
+.blue .style-context-left{background-color: #222d32;}
+
+.black .style-head-left{background-color: #fff;}
+.black .style-head-right{background-color: #fff;}
+.black .style-context-left{background-color: #222d32;}
+
+.purple .style-head-left{background-color: #555299;}
+.purple .style-head-right{background-color: #605ca8;}
+.purple .style-context-left{background-color: #222d32;}
+
+.green .style-head-left{background-color: #008d4c;}
+.green .style-head-right{background-color: #00a65a;}
+.green .style-context-left{background-color: #222d32;}
+
+.red .style-head-left{background-color: #d73925;}
+.red .style-head-right{background-color: #dd4b39;}
+.red .style-context-left{background-color: #222d32;}
+
+.yellow .style-head-left{background-color: #e08e0b;}
+.yellow .style-head-right{background-color: #f39c12;}
+.yellow .style-context-left{background-color: #222d32;}
+
+.blue-light .style-head-left{background-color: #367fa9;}
+.blue-light .style-head-right{background-color: #3c8dbc;}
+.blue-light .style-context-left{background-color: #f9fafc;}
+
+.black-light .style-head-left{background-color: #fff;}
+.black-light .style-head-right{background-color: #fff;}
+.black-light .style-context-left{background-color: #f9fafc;}
+
+.purple-light .style-head-left{background-color: #555299;}
+.purple-light .style-head-right{background-color: #605ca8;}
+.purple-light .style-context-left{background-color: #f9fafc;}
+
+.green-light .style-head-left{background-color: #008d4c;}
+.green-light .style-head-right{background-color: #00a65a;}
+.green-light .style-context-left{background-color: #f9fafc;}
+
+.red-light .style-head-left{background-color: #d73925;}
+.red-light .style-head-right{background-color: #dd4b39;}
+.red-light .style-context-left{background-color: #f9fafc;}
+
+.yellow-light .style-head-left{background-color: #e08e0b;}
+.yellow-light .style-head-right{background-color: #f39c12;}
+.yellow-light .style-context-left{background-color: #f9fafc;}

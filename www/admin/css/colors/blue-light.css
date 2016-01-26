@@ -1,14 +1,14 @@
-#head,
-.logo,
-.dropdown-item{
-    color: #fff;
-}
-#main-menu,
 .main-menu-item:hover,
-#settings,
 .one-tab:hover,
 .one-tab.active,
+#settings,
 .tab-context-btn:hover{
+    color: #000;
+}
+#head,
+.logo,
+.dropdown-item,
+#main-menu{
     color: #fff;
 }
 .logo,
@@ -33,29 +33,34 @@
 .one-tab:hover.active,
 .toggle-sub-menu,
 .tab-context-btn{
-    background-color: #222d32;
+    background-color: #f9fafc;
 }
 .main-menu-head {
-    color: #4b646f;
+    color: #848484;
 }
 .main-menu-head,
 .one-tab,
 .tab-context-btn:hover{
-    background-color: #1a2226;
+    background-color: #eeeff1;
 }
 .main-menu-item,
 .one-tab,
 .tab-context-btn{
-    color: #b8c7ce;
+    color: #444;
 }
 .main-menu-panel,
 .main-menu-item:hover,
 .main-menu-item:hover .toggle-sub-menu,
 .main-menu-panel:hover,
 .one-tab:hover{
-    background-color:#1e282c;
+    background-color: #f0f0f0;
 }
 .sub-menu,
 .sub-menu .toggle-sub-menu{
-    background-color: #2c3b41;
+    background-color: #f4f4f5;
+}
+
+#main-menu-bg,
+#main-menu{
+    border-right: solid 1px #C7C7C7;
 }

@@ -51,22 +51,6 @@ $(function () {
         return false;
     });
 
-    $('.add-type').on('click', function () {
-        $('#center').slideUp(500);
-        $.ajax({
-            url: '/admin/type/getType',
-            method: 'POST',
-            data: {
-                ajax: 1
-            },
-            dataType: 'html',
-            success: function (html) {
-                setTimeout(function () {
-                    $('#center').html(html).slideDown(500);
-                }, 500);
-            }
-        }, 'html');
-    });
     center.on('change', '#select-type', function () {
         var val = $(this).val();
 
@@ -275,5 +259,11 @@ function addVariantsRow(id){
 function removeParent(elem){
     $(elem).parent().hide(500, function () {
         $(this).remove();
+    });
+}
+
+function changeCenter(html){
+    $('#center').fadeOut(300, function () {
+        $(this).html(html).fadeIn(300);
     });
 }

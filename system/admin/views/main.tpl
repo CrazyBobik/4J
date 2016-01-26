@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/admin/css/modal.css">
     <link rel="stylesheet" href="/admin/css/form.css">
     <link rel="stylesheet" href="/admin/css/menu.css">
-    <link rel="stylesheet" href="/admin/css/colors/blue.css">
+    <link rel="stylesheet" href="/admin/css/colors/{style}.css">
 </head>
 <body>
 <div id="modal">

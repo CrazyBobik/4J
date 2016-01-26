@@ -29,7 +29,7 @@ $(function () {
             method: 'POST',
             dataType: 'html',
             success: function (html) {
-                $('#center').html(html);
+                changeCenter(html);
             }
         }, 'html');
     });
@@ -67,31 +67,15 @@ $(function () {
             method: 'POST',
             dataType: 'html',
             success: function (html) {
-                $('#center').html(html);
+                changeCenter(html);
             }
         }, 'html');
     });
 
     $('.dropdown-click').on('click', function () {
-        $(this).next('.dropdown-menu').slideToggle(500);
+        $(this).next('.dropdown-menu').slideToggle(300);
     });
 
-    $('.toggle-config').on({
-        mouseenter: function () {
-            $(this).find('.fa-cog').addClass('fa-spin');
-        },
-        mouseleave: function () {
-            $(this).find('.fa-cog').removeClass('fa-spin');
-        },
-        click: function () {
-            var sett = $('#settings');
-            if(parseInt(sett.css('width')) == 0) {
-                sett.css({'width': '230px'});
-            } else{
-                sett.css({'width': '0'});
-            }
-        }
-    });
     $('.main-menu-toggle').on('click', function () {
         if(parseInt(menu.css('width')) == 50) {
             menu.css('width', '230px');
