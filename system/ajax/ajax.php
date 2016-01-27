@@ -28,4 +28,22 @@ class Ajax{
 	public function isAjax(){
 		return $this->isAjax;
 	}
+
+	public function uploadFile($name){
+		$fileWorker = new Libs_FileWorker();
+		$nameFile = $fileWorker->uploadFile($name);
+		if ($nameFile === false){
+			$json = array('error' => true, 'mess' => 'Ошибка загрузки файла');
+			$this->putJSON($json);
+		}
+		if(isset($_POST[$name.'_old']) && !empty($_POST[$name.'_old'])){
+			if (empty($nameFile)){
+				$nameFile = strip_tags($_POST[$name.'_old']);
+			} else{
+				$fileWorker->removeFile(strip_tags($_POST[$name.'_old']));
+			}
+		}
+
+		return $nameFile;
+	}
 }

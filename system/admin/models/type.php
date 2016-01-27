@@ -345,13 +345,15 @@ class Admin_Models_Type{
                 '{id}',
                 '{title}',
                 '{name}',
-                '{value}'
+                '{value}',
+                '{namePrev}'
             );
             $replaceRow = array(
                 $name.'_'.$fields[$i]['name'],
                 $fields[$i]['title'],
                 $name.'_'.$fields[$i]['name'],
-                '{'.$fields[$i]['name'].'_value}'
+                '{'.$fields[$i]['name'].'_value}',
+                ucfirst($fields[$i]['name'])
             );
             $result = str_replace(
                 $toReplaceRow,
@@ -434,9 +436,22 @@ class Admin_Models_Type{
         for($i = 0; $i < $cnt; $i++){
             $to_repl .= '\'{'.$fields[$i]['name'].'_value}\','."\r\n\t\t\t";
             $entityGet .= '$entity->get'.ucfirst($fields[$i]['name']).'(),'."\r\n\t\t\t";
-            $entitySet .= '$entity->set'.ucfirst($fields[$i]['name'])
-                .'($this->isAjax() ? strip_tags($_POST[\''.$name.'_'.$fields[$i]['name'].'\']) : $data[\''
-                .$name.'_'.$fields[$i]['name'].'\']);'."\r\n\t\t";
+
+            if($fields[$i]['type'] === 'file'){
+                $to_repl .= '\'{prevImg'.ucfirst($fields[$i]['name']).'}\','."\r\n\t\t\t";
+                $entityGet .= '$entity->get'.ucfirst($fields[$i]['name'])
+                    .'() === \'\' || $entity->get'.ucfirst($fields[$i]['name']).'() === null '."\r\n\t\t\t\t"
+                    .' ? \'\' : \'<img src="/upload/\'.$entity->get'.ucfirst($fields[$i]['name'])
+                    .'().\'">\','."\r\n\t\t\t";
+                $entitySet .= '$entity->set'.ucfirst($fields[$i]['name'])
+                    .'($this->isAjax() ? $this->uploadFile(\''.$name.'_'.$fields[$i]['name'].'\') : $data[\''
+                    .$name.'_'.$fields[$i]['name'].'\']);'."\r\n\t\t";
+
+            } else{
+                $entitySet .= '$entity->set'.ucfirst($fields[$i]['name'])
+                    .'($this->isAjax() ? strip_tags($_POST[\''.$name.'_'.$fields[$i]['name'].'\']) : $data[\''
+                    .$name.'_'.$fields[$i]['name'].'\']);'."\r\n\t\t";
+            }
         }
         $seoGet = '';
         $seoSet = '';

@@ -109,6 +109,10 @@
     max-width: 95%;
     min-height: 150px;
 }
+.prev-img img{
+    margin: 5px 0;
+    max-width: 100%;
+}
 
 .btn{
     width: 140px;

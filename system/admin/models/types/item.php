@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Models_Types_Item{
+class Admin_Models_Types_Item extends Parents_Model{
     /**
 	 * @var DAO_Types_Item
 	 */

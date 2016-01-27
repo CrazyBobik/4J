@@ -152,7 +152,7 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
             $json = array();
             if($result){
                 $json['error'] = false;
-                $json['mess'] = 'Добавлено';
+                $json['mess'] = 'Обновлено';
                 $json['tout'] = 0;
                 $json['callback'] = 'function callback(){reloadMenu();}';
             } else{

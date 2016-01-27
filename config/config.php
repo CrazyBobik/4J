@@ -17,6 +17,8 @@ defined('AJAX') || define('AJAX', realpath(ROOT.'/system/ajax'));
 defined('ADMIN') || define('ADMIN', realpath(ROOT.'/system/admin'));
 defined('SYSTEM') || define('SYSTEM', realpath(ROOT.'/system'));
 defined('CONFIG') || define('CONFIG', realpath(ROOT.'/config'));
+defined('WWW') || define('WWW', realpath(ROOT.'/www'));
+defined('UPLOAD') || define('UPLOAD', realpath(WWW.'/upload'));
 
 class Config{
 	public static $DB = array(
