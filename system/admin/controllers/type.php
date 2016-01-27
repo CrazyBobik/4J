@@ -43,7 +43,7 @@ class Admin_Controllers_Type extends Ajax{
         $replace = array(
             empty($id) ? 'add' : 'update',
             $option,
-            empty($id) ? '' : '<i class="fa fa-times delete-type"></i>',
+            empty($id) ? '' : '<i class="fa fa-times del delete-type"></i>',
             $entity->getId(),
             $entity->getTitle(),
             $entity->getName(),

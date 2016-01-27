@@ -124,6 +124,11 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
     */
     public function delete{class_name}($id = null){
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
+        $tree = $this->{name}Model->get{class_name}($id);
+        $entity = new Entity_{class_name}();
+        $entity->init($tree);
+
+        {deleteImg}
 
         $result = $this->{name}Model->delete{class_name}($id);
 

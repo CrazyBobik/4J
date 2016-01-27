@@ -137,6 +137,11 @@ $(function () {
             }, 'html');
         }
     });
+    center.on('click', '.delete-img', function () {
+        var name = $(this).data('name');
+        $('#' + name).val('');
+        $('.prev-img[data-name="' + name + '"]').slideUp(300);
+    });
 
     $('.lang-btn').on('click', function () {
         var lang = $(this).data('lang');

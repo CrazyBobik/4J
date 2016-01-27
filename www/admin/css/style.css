@@ -352,11 +352,11 @@ body{
     transition: color .3s ease-in-out, background-color .3s ease-in-out;
 }
 
-.delete-type{
+.del{
     color: #d9d9d9;
     cursor: pointer;
 }
-.delete-type:hover{
+.del:hover{
     color: #f00;
 }
 

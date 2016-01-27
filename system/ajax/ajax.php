@@ -5,7 +5,7 @@
  * Date: 11.10.2015
  * Time: 12:25
  */
-class Ajax{
+class Ajax extends Parents_MainController{
 
 	protected $isAjax;
 

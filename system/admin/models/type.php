@@ -427,11 +427,13 @@ class Admin_Models_Type{
             '{entity_get}',
             '{seo_get}',
             '{entity_set}',
-            '{seo_set}'
+            '{seo_set}',
+            '{deleteImg}'
         );
         $to_repl = '';
         $entityGet = '';
         $entitySet = '';
+        $delImg = '';
         $cnt = count($fields);
         for($i = 0; $i < $cnt; $i++){
             $to_repl .= '\'{'.$fields[$i]['name'].'_value}\','."\r\n\t\t\t";
@@ -446,7 +448,7 @@ class Admin_Models_Type{
                 $entitySet .= '$entity->set'.ucfirst($fields[$i]['name'])
                     .'($this->isAjax() ? $this->uploadFile(\''.$name.'_'.$fields[$i]['name'].'\') : $data[\''
                     .$name.'_'.$fields[$i]['name'].'\']);'."\r\n\t\t";
-
+                $delImg .= '$this->removeFile($entity->get'.ucfirst($fields[$i]['name']).'());'."\r\n\t\t";
             } else{
                 $entitySet .= '$entity->set'.ucfirst($fields[$i]['name'])
                     .'($this->isAjax() ? strip_tags($_POST[\''.$name.'_'.$fields[$i]['name'].'\']) : $data[\''
@@ -480,7 +482,8 @@ class Admin_Models_Type{
             $entityGet,
             $seoGet,
             $entitySet,
-            $seoSet
+            $seoSet,
+            $delImg
         );
         $file = file_get_contents(TPL_GEN_TYPE.'/controller.tpl');
         $result = str_replace($toReplace, $replace, $file);
