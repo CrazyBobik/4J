@@ -171,8 +171,8 @@ class Admin_Controllers_Types_Block extends Ajax{
         $entity->setSide($this->isAjax() ? strip_tags($_POST['block_side']) : $data['block_side']);
 		$entity->setText($this->isAjax() ? strip_tags($_POST['block_text']) : $data['block_text']);
 		$entity->setIsText($this->isAjax() ? strip_tags($_POST['block_is_text']) : $data['block_is_text']);
-        $result = $this->blockModel->updateBlock($tree, $entity);
-
+//        $result = $this->blockModel->updateBlock($tree, $entity);
+var_dump(strip_tags($_POST['block_text']));
         if ($this->isAjax()){
 			$json = array();
 			if($result){

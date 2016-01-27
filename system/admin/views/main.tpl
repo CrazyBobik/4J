@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="/admin/css/form.css">
     <link rel="stylesheet" href="/admin/css/menu.css">
     <link rel="stylesheet" href="/admin/css/colors/{style}.css">
+
+
+    <script src='http://cdn.tinymce.com/4/tinymce.min.js'></script>
 </head>
 <body>
 <div id="modal">

@@ -270,5 +270,8 @@ function removeParent(elem){
 function changeCenter(html){
     $('#center').fadeOut(300, function () {
         $(this).html(html).fadeIn(300);
+        tinymce.init({
+            selector: 'textarea'
+        });
     });
 }
