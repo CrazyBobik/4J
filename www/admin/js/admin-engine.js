@@ -160,6 +160,16 @@ $(function () {
             }
         });
     });
+
+
+
+
+
+    center.on('click', '.image', function(){
+        var val = $(this).attr('src');
+        val = '<img src="' + val + '">';
+        tinymce.activeEditor.execCommand('mceInsertContent', false, val);
+    });
 });
 
 function showFormResult(clazz, mess, element){
@@ -270,8 +280,16 @@ function removeParent(elem){
 function changeCenter(html){
     $('#center').fadeOut(300, function () {
         $(this).html(html).fadeIn(300);
+
         tinymce.init({
-            selector: 'textarea'
+            selector: 'textarea',
+            plugins : 'autolink autoresize link image lists preview table code wordcount',
+            autoresize_min_height: 250,
+            autoresize_max_height: 500,
+            image_dimensions: false
+        });
+        $('textarea').each(function(){
+            $(this).closest('.row').find('.row-item').css('width', '100%');
         });
     });
 }

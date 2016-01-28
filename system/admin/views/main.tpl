@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="/admin/css/colors/{style}.css">
 
 
-    <script src='http://cdn.tinymce.com/4/tinymce.min.js'></script>
+    <script src='/admin/plugins/tinymce/js/tinymce/tinymce.min.js'></script>
+    <script src="/admin/plugins/tinymce/js/tinymce/langs/uk.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="modal">
