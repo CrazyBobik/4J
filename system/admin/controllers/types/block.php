@@ -34,8 +34,10 @@ class Admin_Controllers_Types_Block extends Ajax{
             '{id_value}',
             '{side_value}',
 			'{text_value}',
-			'{is_text_value}'
+			'{is_text_value}',
+			'{choiceFile}'
         );
+		$choice = new Admin_Controllers_ChoiceFile(false);
         $replace = array(
             empty($id) ? 'add' : 'update',
             $tree['title'],
@@ -44,7 +46,8 @@ class Admin_Controllers_Types_Block extends Ajax{
             $tree['id'],
             $entity->getSide(),
 			$entity->getText(),
-			$entity->getIs_text()
+			$entity->getIs_text(),
+			$choice->genHTML()
         );
 
         $typeModel = new Admin_Models_Type();
@@ -128,7 +131,6 @@ class Admin_Controllers_Types_Block extends Ajax{
             if($id){
 				$json['error'] = false;
 				$json['mess'] = 'Добавлено';
-				$json['tout'] = 0;
 				$json['callback'] = 'function callback(){reloadMenu();}';
 			} else{
 				$json['error'] = true;
@@ -171,14 +173,13 @@ class Admin_Controllers_Types_Block extends Ajax{
         $entity->setSide($this->isAjax() ? strip_tags($_POST['block_side']) : $data['block_side']);
 		$entity->setText($this->isAjax() ? strip_tags($_POST['block_text']) : $data['block_text']);
 		$entity->setIsText($this->isAjax() ? strip_tags($_POST['block_is_text']) : $data['block_is_text']);
-//        $result = $this->blockModel->updateBlock($tree, $entity);
-var_dump(strip_tags($_POST['block_text']));
+        $result = $this->blockModel->updateBlock($tree, $entity);
+
         if ($this->isAjax()){
 			$json = array();
 			if($result){
 				$json['error'] = false;
 				$json['mess'] = 'Добавлено';
-				$json['tout'] = 0;
 				$json['callback'] = 'function callback(){reloadMenu();}';
 			} else{
 				$json['error'] = true;

@@ -32,10 +32,8 @@ $(function () {
                     timeout = result.tout;
                 }
                 if (typeof(result.callback) == "string"){
-                    setTimeout(function(){
-                        eval(result.callback);
-                        callback();
-                    }, timeout);
+                    eval(result.callback);
+                    callback();
                 }
                 if (result.redirect !== undefined){
                     setTimeout(function(){location.href = result.redirect}, timeout);

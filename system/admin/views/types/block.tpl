@@ -1,4 +1,10 @@
 <div class="view_type">
+    <form class="ajax-form" action="/admin/choicefile/fileUpload" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="ajax" value="1">
+        <input id="upload-new-file" type="file" name="file" style="display: none"
+               onchange="$(this).closest('form').submit();">
+    </form>
+
     <form action="/admin/block/{action}Block" method="post" class="ajax-form" enctype="multipart/form-data">
         <input type="hidden" name="ajax" value="1">
         <input type="hidden" name="id" id="block_id" value="{id_value}">
@@ -38,6 +44,10 @@
 
             <div class="row-item">
                 <textarea class="in in-area" name="block_text" id="block_text">{text_value}</textarea>
+
+                <div class="choice-img">
+                   {choiceFile}
+                </div>
             </div>
         </div>
         <div class="row">

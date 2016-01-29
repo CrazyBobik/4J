@@ -112,7 +112,6 @@ class Admin_Controllers_Types_Page extends Ajax{
             if($id){
                 $json['error'] = false;
                 $json['mess'] = 'Добавлено';
-                $json['tout'] = 0;
                 $json['callback'] = 'function callback(){reloadMenu();}';
             } else{
                 $json['error'] = true;
@@ -156,12 +155,22 @@ class Admin_Controllers_Types_Page extends Ajax{
 		$entity->setSeoKeywords($this->isAjax() ? strip_tags($_POST['seo_keywords']) : $data['seo_keywords']);
 		$entity->setSeoDescription($this->isAjax() ? strip_tags($_POST['seo_description']) : $data['seo_description']);
 
-        $result = $this->pageModel->updatePage($tree, $entity);
+        $id = $this->pageModel->updatePage($tree, $entity);
 
         if ($this->isAjax()){
-            $this->putAjax($result);
+            $json = array();
+            if($id){
+                $json['error'] = false;
+                $json['mess'] = 'Добавлено';
+                $json['callback'] = 'function callback(){reloadMenu();}';
+            } else{
+                $json['error'] = true;
+                $json['mess'] = 'Ошибка';
+            }
+
+            $this->putJSON($json);
         }
 
-        return $result;
+        return $id;
     }
 }

@@ -50,6 +50,10 @@
                 Текстовое поле
                 <i class="fa fa-plus"></i>
             </div>
+            <div class="one-type btn btn-green btn-auto" data-type="tinymce">
+                Текстовое поле(TinyMCE)
+                <i class="fa fa-plus"></i>
+            </div>
             <div class="one-type btn btn-green btn-auto" data-type="checkbox">
                 Чекбокс
                 <i class="fa fa-plus"></i>

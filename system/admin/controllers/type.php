@@ -86,6 +86,7 @@ class Admin_Controllers_Type extends Ajax{
         $this->typeModel->addType($title, $name, $json, $seo);
 
         $result['error'] = false;
+        $result['clear'] = false;
         $result['mess'] = 'Тип добавлен';
 
         if($this->isAjax()){
@@ -133,6 +134,7 @@ class Admin_Controllers_Type extends Ajax{
         $this->typeModel->updateType($id, $title, $name, $json, $seo);
 
         $result['error'] = false;
+        $result['clear'] = false;
         $result['mess'] = 'Тип обновлен';
 
         if($this->isAjax()){

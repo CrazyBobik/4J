@@ -271,12 +271,14 @@ class Admin_Models_Type{
 
     public function genView($name, $fields, $seo){
         $toReplace = array(
+            '{formFile}',
             '{name}',
             '{class_name}',
             '{fields}',
             '{seo}',
             '{tree}'
         );
+        $formFile = '';
         $fieldsHTML = '';
         $seoHTML = '';
         $cnt = count($fields);
@@ -284,6 +286,14 @@ class Admin_Models_Type{
             switch($fields[$i]['type']){
                 case 'textarea':
                     $file = file_get_contents(TPL.'/generation/form/textarea.tpl');
+
+                    break;
+                case 'tinymce':
+                    $file = file_get_contents(TPL.'/generation/form/tinymce.tpl');
+                    if(empty($formFile)){
+                        $choice = new Admin_Controllers_ChoiceFile(false);
+                        $formFile = "\r\n".$choice->genHiddenForm();
+                    }
 
                     break;
                 case 'checkbox':
@@ -390,6 +400,7 @@ class Admin_Models_Type{
         $tree = $this->genTreeRows();
 
         $replace = array(
+            $formFile,
             $name,
             ucfirst($name),
             $fieldsHTML,
@@ -428,12 +439,14 @@ class Admin_Models_Type{
             '{seo_get}',
             '{entity_set}',
             '{seo_set}',
-            '{deleteImg}'
+            '{deleteImg}',
+            '{choice}'
         );
         $to_repl = '';
         $entityGet = '';
         $entitySet = '';
         $delImg = '';
+        $choice = '';
         $cnt = count($fields);
         for($i = 0; $i < $cnt; $i++){
             $to_repl .= '\'{'.$fields[$i]['name'].'_value}\','."\r\n\t\t\t";
@@ -453,6 +466,11 @@ class Admin_Models_Type{
                 $entitySet .= '$entity->set'.ucfirst($fields[$i]['name'])
                     .'($this->isAjax() ? strip_tags($_POST[\''.$name.'_'.$fields[$i]['name'].'\']) : $data[\''
                     .$name.'_'.$fields[$i]['name'].'\']);'."\r\n\t\t";
+            }
+            if($fields[$i]['type'] === 'tinymce'){
+                $to_repl .= '\'{choiceFile}\','."\r\n\t\t\t";
+                $entityGet .= '$choice->genHTML(),'."\r\n\t\t\t";
+                $choice = '$choice = new Admin_Controllers_ChoiceFile(false);';
             }
         }
         $seoGet = '';
@@ -483,7 +501,8 @@ class Admin_Models_Type{
             $seoGet,
             $entitySet,
             $seoSet,
-            $delImg
+            $delImg,
+            $choice
         );
         $file = file_get_contents(TPL_GEN_TYPE.'/controller.tpl');
         $result = str_replace($toReplace, $replace, $file);

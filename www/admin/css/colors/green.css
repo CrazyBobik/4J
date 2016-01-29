@@ -17,6 +17,9 @@
 .dropdown-item:hover{
     background-color: #008d4c;
 }
+.one-img:hover{
+    color: #008d4c;
+}
 .logo:hover{
     background-color: #008749;
 }

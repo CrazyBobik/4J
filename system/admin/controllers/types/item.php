@@ -105,7 +105,6 @@ class Admin_Controllers_Types_Item extends Ajax{
             if($id){
                 $json['error'] = false;
                 $json['mess'] = 'Добавлено';
-                $json['tout'] = 0;
                 $json['callback'] = 'function callback(){reloadMenu();}';
             } else{
                 $json['error'] = true;
@@ -146,12 +145,22 @@ class Admin_Controllers_Types_Item extends Ajax{
 
         $entity = new Entity_Item();
         
-        $result = $this->itemModel->updateItem($tree, $entity);
+        $id = $this->itemModel->updateItem($tree, $entity);
 
         if ($this->isAjax()){
-            $this->putAjax($result);
+            $json = array();
+            if($id){
+                $json['error'] = false;
+                $json['mess'] = 'Добавлено';
+                $json['callback'] = 'function callback(){reloadMenu();}';
+            } else{
+                $json['error'] = true;
+                $json['mess'] = 'Ошибка';
+            }
+
+            $this->putJSON($json);
         }
 
-        return $result;
+        return $id;
     }
 }

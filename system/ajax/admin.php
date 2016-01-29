@@ -50,7 +50,6 @@ class Admin extends Ajax{
 				Libs_Session::start()->setParam('admin_id', $res['id']);
 
 				$json['callback'] = 'window.location.reload()';
-				$json['tout'] = 0;
 			}
 		} else {
 			$json['error'] = true;

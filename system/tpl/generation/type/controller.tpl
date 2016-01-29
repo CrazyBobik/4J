@@ -34,6 +34,7 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
             '{id_value}',
             {to_replace}
         );
+        {choice}
         $replace = array(
             empty($id) ? 'add' : 'update',
             $tree['title'],
@@ -105,7 +106,6 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
             if($id){
                 $json['error'] = false;
                 $json['mess'] = 'Добавлено';
-                $json['tout'] = 0;
                 $json['callback'] = 'function callback(){reloadMenu();}';
             } else{
                 $json['error'] = true;
@@ -158,7 +158,6 @@ class Admin_Controllers_Types_{class_name} extends Ajax{
             if($result){
                 $json['error'] = false;
                 $json['mess'] = 'Обновлено';
-                $json['tout'] = 0;
                 $json['callback'] = 'function callback(){reloadMenu();}';
             } else{
                 $json['error'] = true;

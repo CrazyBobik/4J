@@ -37,10 +37,8 @@ $(function () {
                     timeout = result.tout;
                 }
                 if (typeof(result.callback) == "string"){
-                    setTimeout(function(){
-                        eval(result.callback);
-                        callback();
-                    }, timeout);
+                    eval(result.callback);
+                    callback();
                 }
                 if (result.redirect !== undefined){
                     setTimeout(function(){location.href = result.redirect}, timeout);
@@ -161,14 +159,13 @@ $(function () {
         });
     });
 
-
-
-
-
-    center.on('click', '.image', function(){
-        var val = $(this).attr('src');
+    center.on('click', '.one-img.choice', function(){
+        var val = $(this).find('img').attr('src');
         val = '<img src="' + val + '">';
         tinymce.activeEditor.execCommand('mceInsertContent', false, val);
+    });
+    center.on('click', '.one-img.upload', function(){
+        $('#upload-new-file').click();
     });
 });
 
@@ -285,11 +282,25 @@ function changeCenter(html){
             selector: 'textarea',
             plugins : 'autolink autoresize link image lists preview table code wordcount',
             autoresize_min_height: 250,
-            autoresize_max_height: 500,
-            image_dimensions: false
+            autoresize_max_height: 500
         });
         $('textarea').each(function(){
             $(this).closest('.row').find('.row-item').css('width', '100%');
         });
     });
+}
+function reloadChoiceFile(){
+    $.ajax({
+        url: '/admin/choicefile/genHTML',
+        method: 'POST',
+        data:{
+            ajax: 1
+        },
+        success: function (html) {
+            $('.choice-img').fadeOut(300, function () {
+                $(this).html(html).fadeIn(300);
+            });
+        }
+    });
+
 }

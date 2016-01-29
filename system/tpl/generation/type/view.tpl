@@ -1,4 +1,4 @@
-<div class="view_type">
+<div class="view_type">{formFile}
     <form action="/admin/{name}/{action}{class_name}" method="post" class="ajax-form" enctype="multipart/form-data">
         <input type="hidden" name="ajax" value="1">
         <input type="hidden" name="id" id="{name}_id" value="{id_value}">
