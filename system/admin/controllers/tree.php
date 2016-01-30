@@ -5,7 +5,7 @@
  * Date: 02.01.2016
  * Time: 23:03
  */
-class Admin_Controllers_Tree extends Ajax{
+class Admin_Controllers_Tree extends Parents_Ajax{
 
 
     /**

@@ -53,17 +53,14 @@ $(function () {
         var val = $(this).val();
 
         $.ajax({
-            url: '/admin/type/getType',
+            url: '/admin/type/getType/ajax',
             method: 'POST',
             data: {
-                id: val,
-                ajax: 1
+                id: val
             },
             dataType: 'html',
             success: function (html) {
-                setTimeout(function () {
-                    $('#center').html(html).slideDown(500);
-                }, 500);
+                changeCenter(html);
             }
         }, 'html');
     });
@@ -72,15 +69,14 @@ $(function () {
             var val = $('#select-type').val();
 
             $.ajax({
-                url: '/admin/type/deleteType',
+                url: '/admin/type/deleteType/ajax',
                 method: 'POST',
                 data: {
-                    id: val,
-                    ajax: 1
+                    id: val
                 },
                 dataType: 'html',
                 success: function (html) {
-                    $('#center').html(html);
+                    addType();
                 }
             }, 'html');
         }
@@ -120,16 +116,16 @@ $(function () {
 
         if(val !== '') {
             $.ajax({
-                url: '/admin/' + val + '/get' + val,
+                url: '/admin/' + val + '/get' + val + '/ajax',
                 method: 'POST',
                 data: {
-                    pid: $('#tree-leaf-pid').val(),
-                    ajax: 1
+                    pid: $('#tree-leaf-pid').val()
                 },
                 dataType: 'html',
                 success: function (html) {
                     setTimeout(function () {
                         $('#add-tree-leaf-form').html(html).slideDown(500);
+                        initTinyMCE();
                     }, 500);
                 }
             }, 'html');
@@ -145,10 +141,9 @@ $(function () {
         var lang = $(this).data('lang');
 
         $.ajax({
-            url: '/admin/helpers/changeLang',
+            url: '/admin/helpers/changeLang/ajax',
             method: 'POST',
             data:{
-                ajax: 1,
                 lang: lang
             },
             success: function (result) {
@@ -181,7 +176,7 @@ function modalOpen(elem){
     var method = elem.data('method');
 
     $.ajax({
-        url: '/admin/modal/'+method,
+        url: '/admin/modal/' + method + '/ajax',
         dataType: 'json',
         success: function (data) {
             $('#modal').show();
@@ -277,30 +272,31 @@ function removeParent(elem){
 function changeCenter(html){
     $('#center').fadeOut(300, function () {
         $(this).html(html).fadeIn(300);
-
-        tinymce.init({
-            selector: 'textarea',
-            plugins : 'autolink autoresize link image lists preview table code wordcount',
-            autoresize_min_height: 250,
-            autoresize_max_height: 500
-        });
-        $('textarea').each(function(){
-            $(this).closest('.row').find('.row-item').css('width', '100%');
-        });
+        initTinyMCE();
     });
 }
+
 function reloadChoiceFile(){
     $.ajax({
-        url: '/admin/choicefile/genHTML',
-        method: 'POST',
-        data:{
-            ajax: 1
-        },
+        url: '/admin/choicefile/genHTML/ajax',
         success: function (html) {
             $('.choice-img').fadeOut(300, function () {
                 $(this).html(html).fadeIn(300);
             });
         }
     });
+}
 
+function initTinyMCE(){
+    var selector = '.tinymce textarea';
+
+    tinymce.init({
+        selector: selector,
+        plugins: 'autolink autoresize link image lists preview table code wordcount',
+        autoresize_min_height: 250,
+        autoresize_max_height: 500
+    });
+    $(selector).each(function(){
+        $(this).closest('.row').find('.row-item').css('width', '100%');
+    });
 }

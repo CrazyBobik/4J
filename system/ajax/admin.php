@@ -5,7 +5,7 @@
  * Date: 11.10.2015
  * Time: 13:01
  */
-class Admin extends Ajax{
+class Admin extends Parents_Ajax{
 
 	/**
 	 * Admin constructor.

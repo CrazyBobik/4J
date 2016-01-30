@@ -1,8 +1,8 @@
 <?php
 
-class Admin_Controllers_Blocks_Head extends Controllers_Controller{
+class Admin_Controllers_Blocks_Head extends Parents_ControllerAdmin{
 
-    public function index(){
+    public function __construct(){
         $tpl = $this->getTPL('blocks/head/head');
         $toReplace = array(
             '{lang}',
@@ -17,9 +17,5 @@ class Admin_Controllers_Blocks_Head extends Controllers_Controller{
         );
         $html = str_replace($toReplace, $replace, $tpl);
         $this->render($html);
-    }
-
-    public function getTPL($name){
-        return file_get_contents(ADMIN.'/views/'.$name.'.tpl');
     }
 }

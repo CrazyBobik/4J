@@ -5,7 +5,7 @@
  * Date: 29.01.2016
  * Time: 16:23
  */
-class Admin_Controllers_ChoiceFile extends Ajax{
+class Admin_Controllers_ChoiceFile extends Parents_AjaxUpload{
 
 	public function __construct($isAjax = true){
 		parent::__construct($isAjax);

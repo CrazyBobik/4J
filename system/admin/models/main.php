@@ -7,6 +7,10 @@
  * Time: 13:11
  */
 class Admin_Models_Main{
+	/**
+	 * @param $link
+	 * @return mixed
+     */
 	public function routers($link){
 		$link = rtrim($link, '\/');
 		$blocks = array();
@@ -18,10 +22,7 @@ class Admin_Models_Main{
 			exit();
 		}
 		if ($link == '/admin'){
-			$blocks[] = array('name' => 'Blocks_Head', 'side' => 'header');
-			$blocks[] = array('name' => 'Blocks_Menu', 'side' => 'left');
 			$blocks[] = array('name' => 'Blocks_Center', 'side' => 'center');
-			$blocks[] = array('name' => 'Blocks_SettingsPanel', 'side' => 'right');
 			return $blocks;
 		}
 
@@ -36,10 +37,7 @@ class Admin_Models_Main{
 			$name = 'Admin_Controllers_'.$blocks[$i]['name'];
 
 			ob_start();
-			$controller = new $name($blocks[$i]['ajax']);
-			if(isset($blocks[$i]['method']) && !empty($blocks[$i]['method'])){
-				echo $controller->$blocks[$i]['method']();
-			}
+			new $name();
 
 			switch ($blocks[$i]['side']){
 				case 'header':
@@ -68,11 +66,11 @@ class Admin_Models_Main{
 		$link = Libs_URL::get()->getPiceURL(1);
 
 		if (class_exists('Admin_Controllers_'.$link)){
-			return $link;
+			return 'Admin_Controllers_'.$link;
 		} else if (class_exists('Admin_Controllers_Types_'.$link)){
-			return 'Types_'.$link;
+			return 'Admin_Controllers_Types_'.$link;
 		} else if (class_exists('Admin_Controllers_Blocks_'.$link)){
-			return 'Blocks_'.$link;
+			return 'Admin_Controllers_Blocks_'.$link;
 		}
 
 		return false;

@@ -1,8 +1,8 @@
 <?php
 
-class Controllers_Blocks_{class_name} extends Controllers_Controller{
+class Controllers_Blocks_{class_name} extends Parents_Controller{
 
-	public function index(){
+	public function __construct(){
         $tpl = $this->getTPL('blocks/{name}/{name}');
         $html = $tpl;
         $this->render($html);

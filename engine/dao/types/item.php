@@ -11,7 +11,7 @@ class DAO_Types_Item extends DAO_MainDAO implements DAO_Interface_Item{
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        return new Entity_Item($stmt->fetch(PDO::FETCH_ASSOC));
+        return $stmt->fetchObject('Entity_Item');
     }
 
     /**
@@ -25,13 +25,14 @@ class DAO_Types_Item extends DAO_MainDAO implements DAO_Interface_Item{
             throw new ErrorException('I think it will never work =(');
         }
 
-        
+        $f = $item->getF();
 
         $stmt = $this->DB->prepare('INSERT INTO `site_item`
-                                        ()
+                                        (`item_f`)
                                         VALUES
-                                        ()');
-        
+                                        (:f)');
+        $stmt->bindParam(':f', $f);
+		
         $stmt->execute();
         $id = $this->DB->lastInsertId();
 
@@ -69,13 +70,14 @@ class DAO_Types_Item extends DAO_MainDAO implements DAO_Interface_Item{
     */
     public function update($item){
         $id = $item->getId();
-        
+        $f = $item->getF();
 
         $stmt = $this->DB->prepare('UPDATE `site_item` SET
-                                    
+                                    `item_f`=:f
                                     WHERE `item_id`=:id');
         $stmt->bindParam(':id', $id);
-        
+        $stmt->bindParam(':f', $f);
+		
         return $stmt->execute();
     }
 }

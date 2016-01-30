@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controllers_Types_Page extends Ajax{
+class Admin_Controllers_Types_Page extends Parents_AjaxUpload{
 	/**
 	 * @var Admin_Models_Types_Page
 	 */
@@ -99,6 +99,32 @@ class Admin_Controllers_Types_Page extends Ajax{
         $title = $this->isAjax() ? strip_tags($_POST['title']) : $data['title'];
         $name = $this->isAjax() ? strip_tags($_POST['name']) : $data['name'];
         $pid = $this->isAjax() ? intval($_POST['pid']) : $data['pid'];
+        $validator = new Libs_Validator(array(
+            'title' => 'Титулка',
+            'name' => 'Имя',
+            'pid' => 'Ид родителя'
+        ));
+        $data = array(
+            'title' => $title,
+            'name' => $name,
+            'pid' => $pid
+        );
+        $valid = array(
+            'title' => array('required' => true),
+            'name' => array('required' => true),
+            'pid' => array('required' => true)
+        );
+        if(!$validator->isValid($data, $valid)){
+            if ($this->isAjax()){
+                $json = array(
+                    'error' => true,
+                    'mess' => $validator->getErrors()
+                );
+                $this->putJSON($json);
+            }
+
+            return $validator->getErrors();
+        }
 
         $entity = new Entity_Page();
         $entity->setSeoTitle($this->isAjax() ? strip_tags($_POST['seo_title']) : $data['seo_title']);
@@ -130,6 +156,20 @@ class Admin_Controllers_Types_Page extends Ajax{
     */
     public function deletePage($id = null){
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
+        $validator = new Libs_Validator(array('id' => 'Ид'));
+        $data = array('id' => $id);
+        $valid = array('id' => array('required' => true));
+        if(!$validator->isValid($data, $valid)){
+            if ($this->isAjax()){
+                $json = array(
+                    'error' => true,
+                    'mess' => $validator->getErrors()
+                );
+                $this->putJSON($json);
+            }
+
+            return $validator->getErrors();
+        }
 
         $result = $this->pageModel->deletePage($id);
 
@@ -149,6 +189,35 @@ class Admin_Controllers_Types_Page extends Ajax{
         $tree->setId($this->isAjax() ? strip_tags($_POST['id']) : $data['id']);
         $tree->setTitle($this->isAjax() ? strip_tags($_POST['title']) : $data['tree_title']);
         $tree->setName($this->isAjax() ? strip_tags($_POST['name']) : $data['tree_name']);
+        $id = $tree->getId();
+        $title = $tree->getTitle();
+        $name = $tree->getName();
+        $validator = new Libs_Validator(array(
+            'title' => 'Титулка',
+            'name' => 'Имя',
+            'pid' => 'Ид родителя'
+        ));
+        $data = array(
+            'title' => $title,
+            'name' => $name,
+            'id' => $id
+        );
+        $valid = array(
+            'title' => array('required' => true),
+            'name' => array('required' => true),
+            'id' => array('required' => true)
+        );
+        if(!$validator->isValid($data, $valid)){
+            if ($this->isAjax()){
+                $json = array(
+                    'error' => true,
+                    'mess' => $validator->getErrors()
+                );
+                $this->putJSON($json);
+            }
+
+            return $validator->getErrors();
+        }
 
         $entity = new Entity_Page();
         $entity->setSeoTitle($this->isAjax() ? strip_tags($_POST['seo_title']) : $data['seo_title']);
@@ -161,7 +230,8 @@ class Admin_Controllers_Types_Page extends Ajax{
             $json = array();
             if($id){
                 $json['error'] = false;
-                $json['mess'] = 'Добавлено';
+                $json['mess'] = 'Обновлено';
+                $json['clear'] = false;
                 $json['callback'] = 'function callback(){reloadMenu();}';
             } else{
                 $json['error'] = true;

@@ -40,10 +40,9 @@ $(function () {
             var type = $(this).closest('.main-menu-item').data('type');
 
             $.ajax({
-                url: '/admin/' + type + '/delete' + type,
+                url: '/admin/' + type + '/delete' + type + '/ajax',
                 data: {
-                    id: id,
-                    ajax: 1
+                    id: id
                 },
                 method: 'POST',
                 dataType: 'html',
@@ -59,10 +58,9 @@ $(function () {
         var type = $(this).parent().data('type');
 
         $.ajax({
-            url: '/admin/' + type + '/get' + type,
+            url: '/admin/' + type + '/get' + type + '/ajax',
             data: {
-                id: id,
-                ajax: 1
+                id: id
             },
             method: 'POST',
             dataType: 'html',
@@ -111,11 +109,7 @@ $(function () {
 
 function reloadMenu(){
     $.ajax({
-        url: '/admin/helpers/reloadMenu',
-        method: 'POST',
-        data:{
-            ajax: 1
-        },
+        url: '/admin/helpers/reloadMenu/ajax',
         success: function (result) {
             $('nav').html(result);
         }

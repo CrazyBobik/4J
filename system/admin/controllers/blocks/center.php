@@ -1,14 +1,10 @@
 <?php
 
-class Admin_Controllers_Blocks_Center extends Controllers_Controller{
+class Admin_Controllers_Blocks_Center extends Parents_ControllerAdmin{
 
-    public function index(){
+    public function __construct(){
         $tpl = $this->getTPL('blocks/center/center');
         $html = $tpl;
         $this->render($html);
-    }
-
-    public function getTPL($name){
-        return file_get_contents(ADMIN.'/views/'.$name.'.tpl');
     }
 }

@@ -6,7 +6,7 @@
  * Date: 10.12.2015
  * Time: 21:03
  */
-class Admin_Controllers_Type extends Ajax{
+class Admin_Controllers_Type extends Parents_Ajax{
 
     /**
      * @var Admin_Models_Type
@@ -64,6 +64,30 @@ class Admin_Controllers_Type extends Ajax{
     public function addType($data = null){
         $name = $this->isAjax() ? strip_tags($_POST['name']) : $data['name'];
         $title = $this->isAjax() ? strip_tags($_POST['title']) : $data['title'];
+        $validator = new Libs_Validator(array(
+            'title' => 'Титулка',
+            'name' => 'Имя'
+        ));
+        $data = array(
+            'title' => $title,
+            'name' => $name
+        );
+        $valid = array(
+            'title' => array('required' => true),
+            'name' => array('required' => true)
+        );
+        if(!$validator->isValid($data, $valid)){
+            if ($this->isAjax()){
+                $json = array(
+                    'error' => true,
+                    'mess' => $validator->getErrors()
+                );
+                $this->putJSON($json);
+            }
+
+            return $validator->getErrors();
+        }
+
         $seo = $this->isAjax() ? intval($_POST['seo']) == 1 : intval($data['seo']) == 1;
         $json = array();
         $cnt = $this->isAjax() ? count($_POST['cnt']) : count($data['cnt']);
@@ -98,6 +122,20 @@ class Admin_Controllers_Type extends Ajax{
 
     public function deleteType($id = null){
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
+        $validator = new Libs_Validator(array('id' => 'Ид'));
+        $data = array('id' => $id);
+        $valid = array('id' => array('required' => true));
+        if(!$validator->isValid($data, $valid)){
+            if ($this->isAjax()){
+                $json = array(
+                    'error' => true,
+                    'mess' => $validator->getErrors()
+                );
+                $this->putJSON($json);
+            }
+
+            return $validator->getErrors();
+        }
 
         $result = $this->typeModel->deleteType($id);
 
@@ -112,6 +150,33 @@ class Admin_Controllers_Type extends Ajax{
         $id = $this->isAjax() ? strip_tags($_POST['id']) : $data['id'];
         $name = $this->isAjax() ? strip_tags($_POST['name']) : $data['name'];
         $title = $this->isAjax() ? strip_tags($_POST['title']) : $data['title'];
+        $validator = new Libs_Validator(array(
+            'title' => 'Титулка',
+            'name' => 'Имя',
+            'pid' => 'Ид родителя'
+        ));
+        $data = array(
+            'title' => $title,
+            'name' => $name,
+            'id' => $id
+        );
+        $valid = array(
+            'title' => array('required' => true),
+            'name' => array('required' => true),
+            'id' => array('required' => true)
+        );
+        if(!$validator->isValid($data, $valid)){
+            if ($this->isAjax()){
+                $json = array(
+                    'error' => true,
+                    'mess' => $validator->getErrors()
+                );
+                $this->putJSON($json);
+            }
+
+            return $validator->getErrors();
+        }
+
         $seo = $this->isAjax() ? intval($_POST['seo']) == 1 : intval($data['seo']) == 1;
         $json = array();
         $cnt = $this->isAjax() ? count($_POST['cnt']) : count($data['cnt']);

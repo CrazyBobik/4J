@@ -6,7 +6,7 @@
  * Date: 11.10.2015
  * Time: 12:34
  */
-class Admin_Controllers_Main extends Controllers_Controller{
+class Admin_Controllers_Main extends Parents_ControllerAdmin{
 
     private $blocks = array(
         array(
@@ -29,10 +29,6 @@ class Admin_Controllers_Main extends Controllers_Controller{
     public function __construct(){
         $this->model = new Admin_Models_Main();
 
-        parent::__construct();
-    }
-
-    public function index(){
         if(Libs_Session::start()->isAdmin()){
             $langM = new Modules_Controllers_Lang();
             $langM->setConfigs();
@@ -45,17 +41,25 @@ class Admin_Controllers_Main extends Controllers_Controller{
              * если путджсон или аджакс то дальше в главном ниче не выполнится иначе
              * в главном контролере подключаем лейаут и возвращаем все
              */
+            $center = false;
             if($result){
-                $this->blocks = $result;
+                $cnt = count($result);
+                for($i = 0; $i < $cnt; $i++){
+                    $this->blocks[] = $result[$i];
+                }
             } else{
                 if($controller = $this->model->correctAddr()){
+                    $ajax = Libs_URL::get()->getPiceURL(3) === 'ajax';
                     $link = Libs_URL::get()->getPiceURL(2);
-                    $this->blocks[] = array(
-                        'name' => $controller,
-                        'side' => 'center',
-                        'method' => $link,
-                        'ajax' => isset($_POST['ajax']) && !empty($_POST['ajax'])
-                    );
+                    if(isset($link) && !empty($link)){
+                        $center = new $controller($ajax);
+                        $center = $center->$link();
+                    } else{
+                        ob_start();
+                        new $controller($ajax);
+                        $center = ob_get_clean();
+                        ob_end_clean();
+                    }
                 } else{
                     header('HTTP/1.0 404 Not Found');
                     header('Location: /404');
@@ -71,16 +75,22 @@ class Admin_Controllers_Main extends Controllers_Controller{
                 '{footer}'
             );
             $replace = $this->model->getBlocks($this->blocks);
+            if($center !== false){
+                $replace[2] = $center;
+            }
+            $replace = array(
+                $replace[0],
+                $replace[1],
+                $replace[2],
+                $replace[3],
+                $replace[4]
+            );
 
             $layout = str_replace($toReplace, $replace, $layout);
-            echo $layout;
+            $this->render($layout);
         } else{
-            echo $this->getTPL('login');
+            $this->render($this->getTPL('login'));
         }
-    }
-
-    public function getTPL($name){
-        return file_get_contents(ADMIN.'/views/'.$name.'.tpl');
     }
 
     public function getLayoutWithStyle(){

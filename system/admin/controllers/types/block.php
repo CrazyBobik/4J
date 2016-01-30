@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controllers_Types_Block extends Ajax{
+class Admin_Controllers_Types_Block extends Parents_AjaxUpload{
 	/**
 	 * @var Admin_Models_Types_Block
 	 */
@@ -35,7 +35,8 @@ class Admin_Controllers_Types_Block extends Ajax{
             '{side_value}',
 			'{text_value}',
 			'{is_text_value}',
-			'{choiceFile}'
+			'{choiceFile}',
+            '{uniqID}'
         );
 		$choice = new Admin_Controllers_ChoiceFile(false);
         $replace = array(
@@ -47,7 +48,8 @@ class Admin_Controllers_Types_Block extends Ajax{
             $entity->getSide(),
 			$entity->getText(),
 			$entity->getIs_text(),
-			$choice->genHTML()
+			$choice->genHTML(),
+            uniqid()
         );
 
         $typeModel = new Admin_Models_Type();
@@ -102,6 +104,32 @@ class Admin_Controllers_Types_Block extends Ajax{
         $title = $this->isAjax() ? strip_tags($_POST['title']) : $data['title'];
         $name = $this->isAjax() ? strip_tags($_POST['name']) : $data['name'];
         $pid = $this->isAjax() ? intval($_POST['pid']) : $data['pid'];
+        $validator = new Libs_Validator(array(
+            'title' => 'Титулка',
+            'name' => 'Имя',
+            'pid' => 'Ид родителя'
+        ));
+        $data = array(
+            'title' => $title,
+            'name' => $name,
+            'pid' => $pid
+        );
+        $valid = array(
+            'title' => array('required' => true),
+            'name' => array('required' => true),
+            'pid' => array('required' => true)
+        );
+        if(!$validator->isValid($data, $valid)){
+            if ($this->isAjax()){
+                $json = array(
+                    'error' => true,
+                    'mess' => $validator->getErrors()
+                );
+                $this->putJSON($json);
+            }
+
+            return $validator->getErrors();
+        }
 
         $entity = new Entity_Block();
         $entity->setSide($this->isAjax() ? strip_tags($_POST['block_side']) : $data['block_side']);
@@ -149,6 +177,20 @@ class Admin_Controllers_Types_Block extends Ajax{
     */
     public function deleteBlock($id = null){
         $id = $this->isAjax() ? intval($_POST['id']) : $id;
+        $validator = new Libs_Validator(array('id' => 'Ид'));
+        $data = array('id' => $id);
+        $valid = array('id' => array('required' => true));
+        if(!$validator->isValid($data, $valid)){
+            if ($this->isAjax()){
+                $json = array(
+                    'error' => true,
+                    'mess' => $validator->getErrors()
+                );
+                $this->putJSON($json);
+            }
+
+            return $validator->getErrors();
+        }
 
         $result = $this->blockModel->deleteBlock($id);
 
@@ -168,6 +210,35 @@ class Admin_Controllers_Types_Block extends Ajax{
         $tree->setId($this->isAjax() ? strip_tags($_POST['id']) : $data['id']);
         $tree->setTitle($this->isAjax() ? strip_tags($_POST['title']) : $data['tree_title']);
         $tree->setName($this->isAjax() ? strip_tags($_POST['name']) : $data['tree_name']);
+        $id = $tree->getId();
+        $title = $tree->getTitle();
+        $name = $tree->getName();
+        $validator = new Libs_Validator(array(
+            'title' => 'Титулка',
+            'name' => 'Имя',
+            'pid' => 'Ид родителя'
+        ));
+        $data = array(
+            'title' => $title,
+            'name' => $name,
+            'id' => $id
+        );
+        $valid = array(
+            'title' => array('required' => true),
+            'name' => array('required' => true),
+            'id' => array('required' => true)
+        );
+        if(!$validator->isValid($data, $valid)){
+            if ($this->isAjax()){
+                $json = array(
+                    'error' => true,
+                    'mess' => $validator->getErrors()
+                );
+                $this->putJSON($json);
+            }
+
+            return $validator->getErrors();
+        }
 
         $entity = new Entity_Block();
         $entity->setSide($this->isAjax() ? strip_tags($_POST['block_side']) : $data['block_side']);
@@ -179,7 +250,8 @@ class Admin_Controllers_Types_Block extends Ajax{
 			$json = array();
 			if($result){
 				$json['error'] = false;
-				$json['mess'] = 'Добавлено';
+				$json['mess'] = 'Обновлено';
+                $json['clear'] = false;
 				$json['callback'] = 'function callback(){reloadMenu();}';
 			} else{
 				$json['error'] = true;

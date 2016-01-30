@@ -5,7 +5,7 @@
  * Date: 04.10.2015
  * Time: 2:55
  */
-class Test extends Ajax{
+class Test extends Parents_Ajax{
 
 	public function funcTest(){
 //		$result['messID'] = '#mess';

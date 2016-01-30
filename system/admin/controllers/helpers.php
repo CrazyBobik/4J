@@ -5,7 +5,7 @@
  * Date: 19.01.2016
  * Time: 22:05
  */
-class Admin_Controllers_Helpers extends Ajax{
+class Admin_Controllers_Helpers extends Parents_Ajax{
     /**
      * Ajax constructor.
      * @param $isAjax

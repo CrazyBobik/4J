@@ -1,5 +1,4 @@
-<form action="/admin/type/{action}Type" class="ajax-form" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="ajax" value="1">
+<form action="/admin/type/{action}Type/ajax" class="ajax-form" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" id="type_id" value="{id_value}">
 
     <div class="row">

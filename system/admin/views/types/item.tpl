@@ -1,6 +1,5 @@
 <div class="view_type">
-    <form action="/admin/item/{action}Item" method="post" class="ajax-form" enctype="multipart/form-data">
-        <input type="hidden" name="ajax" value="1">
+    <form action="/admin/item/{action}Item/ajax" method="post" class="ajax-form" enctype="multipart/form-data">
         <input type="hidden" name="id" id="item_id" value="{id_value}">
         
         <div class="row">
@@ -20,6 +19,7 @@
         <input type="hidden" value="{tree_pid}" name="pid" id="tree_pid">
 
 
+        <input type="hidden" value="{f_value}" name="item_f" id="item_f">
 
         <div class="row">
             <input type="submit" value="Отправить" class="btn btn-green">

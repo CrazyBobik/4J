@@ -29,17 +29,7 @@ $(function () {
     });
 
     $('.add-type').on('click', function () {
-        $.ajax({
-            url: '/admin/type/getType',
-            method: 'POST',
-            data: {
-                ajax: 1
-            },
-            dataType: 'html',
-            success: function (html) {
-                changeCenter(html);
-            }
-        }, 'html');
+        addType();
     });
 
     $('.style-btn').on('click', function(){
@@ -66,4 +56,14 @@ function toggleConfig(){
     } else{
         config.css({'width': '0'});
     }
+}
+
+function addType(){
+    $.ajax({
+        url: '/admin/type/getType/ajax',
+        dataType: 'html',
+        success: function (html) {
+            changeCenter(html);
+        }
+    }, 'html');
 }

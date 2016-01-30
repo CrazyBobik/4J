@@ -1,12 +1,10 @@
 <div class="view_type">
     <form class="ajax-form" action="/admin/choicefile/fileUpload" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="ajax" value="1">
         <input id="upload-new-file" type="file" name="file" style="display: none"
                onchange="$(this).closest('form').submit();">
     </form>
 
-    <form action="/admin/block/{action}Block" method="post" class="ajax-form" enctype="multipart/form-data">
-        <input type="hidden" name="ajax" value="1">
+    <form action="/admin/block/{action}Block/ajax" method="post" class="ajax-form" enctype="multipart/form-data">
         <input type="hidden" name="id" id="block_id" value="{id_value}">
         
         <div class="row">
@@ -40,10 +38,10 @@
             </div>
         </div>
         <div class="row">
-            <label for="block_text" class="row-item">Текст</label>
+            <label for="block_text{uniqID}" class="row-item">Текст</label>
 
-            <div class="row-item">
-                <textarea class="in in-area" name="block_text" id="block_text">{text_value}</textarea>
+            <div class="row-item tinymce">
+                <textarea class="in in-area" name="block_text" id="block_text{uniqID}">{text_value}</textarea>
 
                 <div class="choice-img">
                    {choiceFile}

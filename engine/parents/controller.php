@@ -6,12 +6,8 @@
  * Time: 23:12
  */
 
-abstract class Controllers_Controller{
+abstract class Parents_Controller{
 	protected $model;
-
-	public function __construct(){
-		$this->index();
-	}
 
 	public function getTPL($name){
 	 	return file_get_contents(MVC.'/views/'.$name.'.tpl');
@@ -20,6 +16,4 @@ abstract class Controllers_Controller{
 	public function render($html){
 		echo $html;
 	}
-
-	abstract public function index();
 }
