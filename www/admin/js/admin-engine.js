@@ -162,6 +162,8 @@ $(function () {
     center.on('click', '.one-img.upload', function(){
         $('#upload-new-file').click();
     });
+
+    initTinyMCE();
 });
 
 function showFormResult(clazz, mess, element){

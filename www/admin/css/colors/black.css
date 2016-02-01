@@ -15,7 +15,7 @@
 .main-menu-toggle:hover,
 .side-bar-item:hover,
 .dropdown-item:hover{
-    background-color: #f8f8f8;
+    background-color: #f4f4f4;
 }
 .one-img:hover{
     color: #f8f8f8;
@@ -61,4 +61,16 @@
 .sub-menu,
 .sub-menu .toggle-sub-menu{
     background-color: #2c3b41;
+}
+::-webkit-scrollbar {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+::-webkit-scrollbar:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(34, 45, 50, 0.3);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(34, 45, 50, 0.5);
 }

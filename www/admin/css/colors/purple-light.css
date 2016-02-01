@@ -67,3 +67,15 @@
 #main-menu {
     border-right: solid 1px #C7C7C7;
 }
+::-webkit-scrollbar {
+    background-color: rgba(96, 92, 168, 0.3);
+}
+::-webkit-scrollbar:hover {
+    background-color: rgba(96, 92, 168, 0.5);
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(84, 80, 150, 0.5);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(84, 80, 150, 0.8);
+}

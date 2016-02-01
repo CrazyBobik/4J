@@ -62,3 +62,15 @@
 .sub-menu .toggle-sub-menu{
     background-color: #2c3b41;
 }
+::-webkit-scrollbar {
+    background-color: rgba(60, 141, 188, 0.3);
+}
+::-webkit-scrollbar:hover {
+    background-color: rgba(60, 141, 188, 0.5);
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(26, 34, 38, 0.3);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(26, 34, 38, 0.5);
+}
