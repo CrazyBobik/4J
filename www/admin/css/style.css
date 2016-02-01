@@ -362,6 +362,7 @@ body{
 .del{
     color: #d9d9d9;
     cursor: pointer;
+    transition: color .3s ease-in-out;
 }
 .del:hover{
     color: #f00;

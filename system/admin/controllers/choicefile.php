@@ -12,37 +12,16 @@ class Admin_Controllers_ChoiceFile extends Parents_AjaxUpload{
 	}
 
 	public function genHTML(){
-		$file = $this->getTPL('oneitem');
-		$html = '';
-
-		$allFiles = glob(UPLOAD.'/*');
-		$cnt = count($allFiles);
-		for($i = 0; $i < $cnt; $i++){
-			$name = preg_replace('/.*\//ui', '', $allFiles[$i]);
-			$toReplace = array(
-				'{class}',
-				'{title}',
-				'{element}'
-			);
-			$replace = array(
-				'choice',
-				'Выбрать этот файл',
-				'<img src="/upload/'.$name.'" alt="">'
-			);
-			$html .= str_replace($toReplace, $replace, $file);
+		if($this->isAjax()){
+			$this->putAjax($this->genItems());
 		}
+		return $this->genItems();
+	}
 
-		$toReplace = array(
-			'{class}',
-			'{title}',
-			'{element}'
-		);
-		$replace = array(
-			'upload',
-			'Загрузить новый файл',
-			'<i class="fa fa-camera"></i>'
-		);
-		$html .= str_replace($toReplace, $replace, $file);
+	public function genGalleryHTML(){
+		$html = '<div class="gallery">';
+		$html .= $this->genItems();
+		$html .= '</div>';
 
 		if($this->isAjax()){
 			$this->putAjax($html);
@@ -72,7 +51,51 @@ class Admin_Controllers_ChoiceFile extends Parents_AjaxUpload{
 		$this->putJSON($json);
 	}
 
+	public function removeFile($name){
+		parent::removeFile(strip_tags($_POST['name']));
+	}
+
 	private function getTPL($name){
 		return file_get_contents(ADMIN.'/views/choicefile/'.$name.'.tpl');
+	}
+
+	private function genItems(){
+		$file = $this->getTPL('oneitem');
+		$html = '';
+
+		$allFiles = glob(UPLOAD.'/*');
+		$cnt = count($allFiles);
+		for($i = 0; $i < $cnt; $i++){
+			$name = preg_replace('/.*\//ui', '', $allFiles[$i]);
+			$toReplace = array(
+				'{class}',
+				'{title}',
+				'{element}',
+				'{del}'
+			);
+			$replace = array(
+				'choice',
+				'Выбрать этот файл',
+				'<img src="/upload/'.$name.'" alt="">',
+				'<i class="fa fa-close del del-img" data-name="'.$name.'"></i>'
+			);
+			$html .= str_replace($toReplace, $replace, $file);
+		}
+
+		$toReplace = array(
+			'{class}',
+			'{title}',
+			'{element}',
+			'{del}'
+		);
+		$replace = array(
+			'upload',
+			'Загрузить новый файл',
+			'<i class="fa fa-camera"></i>',
+			'',
+		);
+		$html .= str_replace($toReplace, $replace, $file);
+
+		return $html;
 	}
 }

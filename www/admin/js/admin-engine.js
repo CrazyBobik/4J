@@ -163,6 +163,21 @@ $(function () {
         $('#upload-new-file').click();
     });
 
+    center.on('click', '.del-img', function () {
+        var elem = $(this);
+        var name = $(this).data('name');
+        $.ajax({
+            url: '/admin/choicefile/removeFile/ajax',
+            method: 'POST',
+            data: {name: name},
+            success: function () {
+                elem.parent().slideUp(300, function () {
+                    $(this).remove();
+                });
+            }
+        })
+    });
+
     initTinyMCE();
 });
 

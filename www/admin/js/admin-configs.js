@@ -30,6 +30,7 @@ $(function () {
 
     $('.add-type').on('click', function () {
         addType();
+        toggleConfig();
     });
 
     $('.style-btn').on('click', function(){
@@ -45,6 +46,11 @@ $(function () {
                 location.reload();
             }
         });
+    });
+
+    $('.show-gallery').on('click', function () {
+        getGallery();
+        toggleConfig();
     });
 });
 
@@ -66,4 +72,13 @@ function addType(){
             changeCenter(html);
         }
     }, 'html');
+}
+
+function getGallery(){
+    $.ajax({
+        url: '/admin/choicefile/genGalleryHTML/ajax',
+        success: function (html) {
+            changeCenter(html);
+        }
+    });
 }
