@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
 
-    <script src="/user/js/jquery-2.1.1.min.js" type="text/javascript"></script>
-    <script src="/user/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-    <script src="/user/js/jquery.form.min.js" type="text/javascript"></script>
-    <script src="/admin/js/admin-engine.js" type="text/javascript"></script>
-    <script src="/admin/js/admin-menu.js" type="text/javascript"></script>
-    <script src="/admin/js/admin-configs.js" type="text/javascript"></script>
+    <script src="/user/js/jquery-2.1.1.min.js"></script>
+    <script src="/user/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/user/js/jquery.form.min.js"></script>
+    <script src="/admin/js/admin-engine.js"></script>
+    <script src="/admin/js/admin-menu.js"></script>
+    <script src="/admin/js/admin-configs.js"></script>
+    <script src="/admin/js/cookie.js"></script>
 
     <link rel="stylesheet" href="/admin/plugins/font-awesome-4.5.0/css/font-awesome.min.css">
 
@@ -20,7 +21,8 @@
 
 
     <script src='/admin/plugins/tinymce/js/tinymce/tinymce.min.js'></script>
-    <script src="/admin/plugins/tinymce/js/tinymce/langs/uk.js" type="text/javascript"></script>
+    <script src="/admin/plugins/tinymce/js/tinymce/langs/uk.js"></script>
+    <script src="/admin/plugins/jcookie/jquery.cookie.js"></script>
 </head>
 <body>
 <div id="modal">

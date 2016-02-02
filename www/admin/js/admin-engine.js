@@ -304,6 +304,15 @@ function reloadChoiceFile(){
     });
 }
 
+function reloadGalleryFile(){
+    $.ajax({
+        url: '/admin/choicefile/genGalleryHTML/ajax',
+        success: function (html) {
+            changeCenter(html);
+        }
+    });
+}
+
 function initTinyMCE(){
     var selector = '.tinymce textarea';
 

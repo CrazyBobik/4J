@@ -8,13 +8,10 @@ $(function () {
     var foot = $('#footer');
 
     menu.on('click', '.toggle-sub-menu', function () {
-        $(this).parent().next('.sub-menu').slideToggle(500);
-        if($(this).hasClass('up')){
-            $(this).removeClass('up');
-            $(this).find('.fa').css('transform', 'rotate(0)');
-        } else{
-            $(this).addClass('up');
-            $(this).find('.fa').css('transform', 'rotate(180deg)');
+        if ($(this).hasClass('up')) {
+            closeMenu($(this));
+        } else {
+            openMenu($(this));
         }
     });
 
@@ -35,7 +32,7 @@ $(function () {
     });
 
     menu.on('click', '.del-tree-leaf', function () {
-        if(confirm('Вы уверены что хотите удалить этот элемент?')) {
+        if (confirm('Вы уверены что хотите удалить этот элемент?')) {
             var id = $(this).closest('.main-menu-item').data('id');
             var type = $(this).closest('.main-menu-item').data('type');
 
@@ -75,7 +72,7 @@ $(function () {
     });
 
     $('.main-menu-toggle').on('click', function () {
-        if(parseInt(menu.css('width')) == 50) {
+        if (parseInt(menu.css('width')) == 50) {
             menu.css('width', '230px');
             $('#main-menu-bg').css('width', '230px');
             $('.logo').css({'width': '230px', 'padding': '0 7px'});
@@ -88,8 +85,8 @@ $(function () {
             $('.main-menu-item span').fadeIn(300);
             $('.toggle-sub-menu').fadeIn(300);
             $('.head-bar').css('margin-left', '230px');
-            $('.sub-menu').slideDown(300);
-        } else{
+            openCookieMenu();
+        } else {
             menu.css('width', '50px');
             $('#main-menu-bg').css('width', '50px');
             $('.logo').css({'width': '50px', 'padding': '0 7px'});
@@ -102,16 +99,50 @@ $(function () {
             $('.main-menu-item span').fadeOut(300);
             $('.toggle-sub-menu').fadeOut(300);
             $('.head-bar').css('margin-left', '50px');
-            $('.sub-menu').slideUp(300);
+            closeAllMenu();
         }
     });
+
+    openCookieMenu();
 });
 
-function reloadMenu(){
+function reloadMenu() {
     $.ajax({
         url: '/admin/helpers/reloadMenu/ajax',
         success: function (result) {
             $('nav').html(result);
         }
+    });
+}
+
+function openMenu(toggle) {
+    toggle.parent().next('.sub-menu').slideDown(300);
+    toggle.addClass('up');
+    toggle.find('.fa').css('transform', 'rotate(180deg)');
+    addCoockieArray('menuID', toggle.parent().data('id'));
+}
+
+function closeMenu(toggle) {
+    toggle.parent().next('.sub-menu').slideUp(300);
+    toggle.removeClass('up');
+    toggle.find('.fa').css('transform', 'rotate(0)');
+    removeCoockieArray('menuID', toggle.parent().data('id'));
+}
+
+function closeAllMenu() {
+    $('.sub-menu').each(function () {
+        var arr = $(this).prev().find('.toggle-sub-menu');
+        if (arr.hasClass('up')) {
+            arr.parent().next('.sub-menu').slideUp(300);
+            arr.removeClass('up');
+            arr.find('.fa').css('transform', 'rotate(0)');
+        }
+    });
+}
+
+function openCookieMenu() {
+    var ids = getCoockieArray('menuID');
+    ids.forEach(function (id) {
+        openMenu($('.main-menu-item[data-id="' + id + '"] .toggle-sub-menu'));
     });
 }

@@ -22,6 +22,7 @@ class Admin_Controllers_ChoiceFile extends Parents_AjaxUpload{
 		$html = '<div class="gallery">';
 		$html .= $this->genItems();
 		$html .= '</div>';
+		$html .= $this->genHiddenForm(1);
 
 		if($this->isAjax()){
 			$this->putAjax($html);
@@ -29,18 +30,22 @@ class Admin_Controllers_ChoiceFile extends Parents_AjaxUpload{
 		return $html;
 	}
 
-	public function genHiddenForm(){
+	public function genHiddenForm($val = 0){
 		$html = $this->getTPL('form');
-		return $html;
+		return str_replace('{value}', $val, $html);
 	}
 
 	public function fileUpload(){
 		if($this->uploadFile('file')){
 			$json = array(
 				'error' => false,
-				'mess' => 'Файл загружен',
-				'callback' => 'function callback(){reloadChoiceFile();}'
+				'mess' => 'Файл загружен'
 			);
+			if(intval($_POST['gallery']) == 1){
+				$json['callback'] = 'function callback(){reloadGalleryFile();}';
+			} else{
+				$json['callback'] = 'function callback(){reloadChoiceFile();}';
+			}
 		} else{
 			$json = array(
 				'error' => true,
