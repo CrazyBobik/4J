@@ -73,7 +73,5 @@
             <input type="submit" value="Отправить" class="btn btn-green">
         </div>
     </form>
-    <div id="mess-result-info" style="display: none">
-        <div id="mess-result-text"></div>
-    </div>
+    <div id="mess-result-info" class="msg-window" style="display: none"></div>
 </div>

@@ -4,7 +4,5 @@
 
     <input type="submit" value="зарегистрироватся">
 
-    <div id="mess-result-info" style="display: none;">
-        <div id="mess-result-text"></div>
-    </div>
+    <div id="mess-result-info" class="msg-window" style="display: none;"></div>
 </form>

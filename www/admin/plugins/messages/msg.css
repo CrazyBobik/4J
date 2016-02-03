@@ -1,0 +1,49 @@
+.msg-window {
+    position: relative;
+    margin: 10px auto;
+    display: block;
+    width: 90%;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: Calibri, Tahoma, Geneva, sans-serif;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px 5px;
+    -webkit-box-shadow: 5px 5px 10px -5px #000;
+       -moz-box-shadow: 5px 5px 10px -5px #000;
+            box-shadow: 5px 5px 10px -5px #000;
+}
+.msg-window.critical {
+    background: #FFCCAA;
+    border: 1px solid #FF3334;
+}
+.msg-window.success {
+    background: #C6ECCE;
+    border: solid 1px #218c20;
+}
+.msg-window.info {
+    background: #9FDAEE;
+    border: 1px solid #2BB0D7;
+}
+.msg-window.help {
+    background: #9FDAEE;
+    border: 1px solid #2BB0D7;
+}
+.msg-window.warning {
+    background: #FFFFAA;
+    border: 1px solid #FFAD33;
+}
+
+.mess-img {
+    position: absolute;
+    top: -24px;
+    left: -24px;
+    width: 48px;
+    height: 48px;
+    display: none;
+}
+.critical .mess-img {background: url("critical.png") no-repeat;}
+.success .mess-img{background: url("sucсess.png") no-repeat;}
+.help .mess-img{background: url("help.png") no-repeat;}
+.info .mess-img{background: url("info.png") no-repeat;}
+.warning .mess-img{background: url("warning.png") no-repeat;}

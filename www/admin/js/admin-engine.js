@@ -20,7 +20,7 @@ $(function () {
 
                 var clazz;
                 if(result.error === true){
-                    clazz = 'error';
+                    clazz = 'critical';
                 } else {
                     clazz = 'success';
                     if (result.clear === undefined || result.clear == true){
@@ -182,11 +182,15 @@ $(function () {
 });
 
 function showFormResult(clazz, mess, element){
-    element.removeClass();
+    element.hide(300);
+    element.find('.mess-img').fadeOut(0);
+    element.removeClass('critical info warning success help');
     element.addClass(clazz);
-    element.find('#mess-result-text').html(mess);
+    element.html('<div class="mess-img"></div>' + mess);
 
-    element.show(500);
+    element.show(300, function () {
+        $(this).find('.mess-img').fadeIn(300);
+    });
 }
 
 function modalOpen(elem){

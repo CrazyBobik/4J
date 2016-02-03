@@ -12,6 +12,7 @@
     <script src="/admin/js/cookie.js"></script>
 
     <link rel="stylesheet" href="/admin/plugins/font-awesome-4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/admin/plugins/messages/msg.css">
 
     <link rel="stylesheet" href="/admin/css/style.css">
     <link rel="stylesheet" href="/admin/css/modal.css">
@@ -22,7 +23,6 @@
 
     <script src='/admin/plugins/tinymce/js/tinymce/tinymce.min.js'></script>
     <script src="/admin/plugins/tinymce/js/tinymce/langs/uk.js"></script>
-    <script src="/admin/plugins/jcookie/jquery.cookie.js"></script>
 </head>
 <body>
 <div id="modal">
