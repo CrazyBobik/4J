@@ -9,7 +9,6 @@
     <script src="/admin/js/admin-engine.js"></script>
     <script src="/admin/js/admin-menu.js"></script>
     <script src="/admin/js/admin-configs.js"></script>
-    <script src="/admin/js/cookie.js"></script>
 
     <link rel="stylesheet" href="/admin/plugins/font-awesome-4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/admin/plugins/messages/msg.css">
@@ -23,6 +22,8 @@
 
     <script src='/admin/plugins/tinymce/js/tinymce/tinymce.min.js'></script>
     <script src="/admin/plugins/tinymce/js/tinymce/langs/uk.js"></script>
+    <script src="/admin/plugins/sortable/jquery-ui-sortable.min.js"></script>
+    <script src="/admin/plugins/cookie/cookie.js"></script>
 </head>
 <body>
 <div id="modal">

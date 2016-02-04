@@ -104,6 +104,7 @@ $(function () {
     });
 
     openCookieMenu();
+    initDragAndDropBlock();
 });
 
 function reloadMenu() {
@@ -111,6 +112,8 @@ function reloadMenu() {
         url: '/admin/helpers/reloadMenu/ajax',
         success: function (result) {
             $('nav').html(result);
+            openCookieMenu();
+            initDragAndDropBlock();
         }
     });
 }
@@ -143,6 +146,21 @@ function closeAllMenu() {
 function openCookieMenu() {
     var ids = getCoockieArray('menuID');
     ids.forEach(function (id) {
-        openMenu($('.main-menu-item[data-id="' + id + '"] .toggle-sub-menu'));
+        var toggle = $('.main-menu-item[data-id="' + id + '"] .toggle-sub-menu');
+        if(toggle.length > 0) {
+            toggle.parent().next('.sub-menu').slideDown(300);
+            toggle.addClass('up');
+            toggle.find('.fa').css('transform', 'rotate(180deg)');
+        } else{
+            removeCoockieArray('menuID', id);
+        }
+    });
+}
+
+function initDragAndDropBlock(){
+    $('.main-menu-item[data-type="page"] + .sub-menu').sortable({
+        stop: function(event, ui){
+            console.debug(ui.item.attr("data-id"));
+        }
     });
 }
