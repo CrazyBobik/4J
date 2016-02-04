@@ -10,6 +10,7 @@
     <script src="/admin/js/admin-menu.js"></script>
     <script src="/admin/js/admin-configs.js"></script>
     <script src="/admin/js/cookie.js"></script>
+    <script src="/admin/js/ajax.js"></script>
 
     <link rel="stylesheet" href="/admin/plugins/font-awesome-4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/admin/plugins/messages/msg.css">

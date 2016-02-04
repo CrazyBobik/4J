@@ -49,7 +49,7 @@ class Admin extends Parents_Ajax{
 			} else{
 				Libs_Session::start()->setParam('admin_id', $res['id']);
 
-				$json['callback'] = 'window.location.reload()';
+				$json['callback'] = 'function callback(){window.location.reload()}';
 			}
 		} else {
 			$json['error'] = true;

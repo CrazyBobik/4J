@@ -1,0 +1,65 @@
+html{
+    height: 1px;
+    min-height: 100%;
+}
+body{
+    margin: 0;
+    height: 100%;
+    display: flex;
+    font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+    background: url("/admin/img/login-bg2.jpg") no-repeat 50% 50%;
+    background-size: cover;
+}
+form{
+    margin: auto;
+    width: 300px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.logo{
+    padding: 15px;
+    font-size: 25px;
+}
+.container{
+    border-top: solid 1px #48565E;
+    border-bottom: solid 1px #48565E;
+}
+.container input{
+    padding: 15px;
+    width: 100%;
+    display: block;
+    font-size: 18px;
+    color: #9B9C9D;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
+.container input:active,
+.container input:hover,
+.container input:focus,
+input[type="submit"]:hover{
+    background-color: rgba(82, 83, 86, 0.7);
+}
+input[type="submit"]{
+    padding: 15px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    cursor: pointer;
+}
+#mess-result-info{
+    padding: 15px;
+    display: block;
+    border-top: solid 3px #AE0000;
+    border-bottom: solid 3px #AE0000;
+    background-color: rgba(255, 143, 143, 0.36);
+}
