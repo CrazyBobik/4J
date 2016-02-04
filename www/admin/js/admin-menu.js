@@ -111,9 +111,12 @@ function reloadMenu() {
     $.ajax({
         url: '/admin/helpers/reloadMenu/ajax',
         success: function (result) {
-            $('nav').html(result);
-            openCookieMenu();
-            initDragAndDropBlock();
+            $('#main-menu').fadeOut(300,function () {
+                $(this).html(result).fadeIn(300, function(){
+                    openCookieMenu();
+                });
+                initDragAndDropBlock();
+            });
         }
     });
 }
@@ -160,7 +163,17 @@ function openCookieMenu() {
 function initDragAndDropBlock(){
     $('.main-menu-item[data-type="page"] + .sub-menu').sortable({
         stop: function(event, ui){
-            console.debug(ui.item.attr("data-id"));
+            var index = ui.item.parent().find('.main-menu-item').index(ui.item);
+            var id = ui.item.data('id');
+
+            $.ajax({
+                url: '/admin/tree/moveBlock',
+                method: 'POST',
+                data: {
+                    id: id,
+                    index: index
+                }
+            });
         }
     });
 }

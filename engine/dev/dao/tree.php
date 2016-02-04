@@ -52,6 +52,53 @@ class Dev_DAO_Tree extends DAO_MainDAO implements Dev_DAO_Interface_Tree{
 		return $this->DB->lastInsertId();
 	}
 
+	public function moveBlock($id, $index){
+		$daoTree = new DAO_Tree();
+		$moveElem = $daoTree->getOne($id);
+		$parent = $daoTree->getOne($moveElem['pid']);
+
+		$childs = $daoTree->getChild($parent['id']);
+
+		$stmt = $this->DB->prepare('UPDATE `site_tree`
+									SET `left_key`=:lkey, `right_key`=:rkey
+									WHERE `id`=:id');
+		$stmt->bindParam(':lkey', $childs[$index]['left_key']);
+		$stmt->bindParam(':rkey', $childs[$index]['right_key']);
+		$stmt->bindParam(':id', $id);
+		$stmt->execute();
+		if($moveElem['left_key'] > $childs[$index]['left_key']){
+			$stmt = $this->DB->prepare('UPDATE `site_tree`
+									SET `left_key`=`left_key`+2,`right_key`=`right_key`+2
+									WHERE `left_key`>:pleft
+									AND `right_key`<:pright
+									AND `left_key`>=:left
+									AND `left_key`<:mleft
+									AND `id`!=:id');
+			$stmt->bindParam(':pleft', $parent['left_key']);
+			$stmt->bindParam(':pright', $parent['right_key']);
+			$stmt->bindParam(':left', $childs[$index]['left_key']);
+			$stmt->bindParam(':mleft', $moveElem['left_key']);
+			$stmt->bindParam(':id', $id);
+			$stmt->execute();
+		} else{
+			$stmt = $this->DB->prepare('UPDATE `site_tree`
+									SET `left_key`=`left_key`-2,`right_key`=`right_key`-2
+									WHERE `left_key`>:pleft
+									AND `right_key`<:pright
+									AND `left_key`<=:left
+									AND `left_key`>:mleft
+									AND `id`!=:id');
+			$stmt->bindParam(':pleft', $parent['left_key']);
+			$stmt->bindParam(':pright', $parent['right_key']);
+			$stmt->bindParam(':left', $childs[$index]['left_key']);
+			$stmt->bindParam(':mleft', $moveElem['left_key']);
+			$stmt->bindParam(':id', $id);
+			$stmt->execute();
+		}
+
+		return true;
+	}
+
 	/**
 	 * @param Entity_Tree $elem
 	 * @return bool
@@ -71,10 +118,17 @@ class Dev_DAO_Tree extends DAO_MainDAO implements Dev_DAO_Interface_Tree{
 		$del->bindParam(':right', $rk);
 		$q1 = $del->execute();
 
-		$del = $this->DB->prepare('UPDATE `site_tree` SET `left_key`=
-									IF(`left_key`>:left, `left_key`–(:right-:left+1), `left_key`),
-									`right_key`=`right_key`–(:right-:left+1)
-									WHERE `right_key` > :right');
+		$del = $this->DB->prepare('UPDATE `site_tree`
+								   SET `right_key`=`right_key`-(:right-:left+1)
+								   WHERE `right_key`>:right AND `left_key`<:left');
+		$del->bindParam(':left', $lk);
+		$del->bindParam(':right', $rk);
+
+		$del->execute();
+		$del = $this->DB->prepare('UPDATE `site_tree`
+								   SET `left_key`=`left_key`-(:right-:left+1),
+								   	   `right_key`=`right_key`-(:right-:left+1)
+								   WHERE `left_key`>:right');
 		$del->bindParam(':left', $lk);
 		$del->bindParam(':right', $rk);
 		$del->execute();

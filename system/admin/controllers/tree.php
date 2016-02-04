@@ -42,6 +42,16 @@ class Admin_Controllers_Tree extends Parents_Ajax{
         $this->putAjax($result);
     }
 
+    public function moveBlock(){
+        $id = intval($_POST['id']);
+        $index = intval($_POST['index']);
+
+        if($id > 0){
+            $dao = new Dev_DAO_Tree();
+            $this->putAjax($dao->moveBlock($id, $index));
+        }
+    }
+
     public function getTPL($name){
         return file_get_contents(ADMIN.'/views/'.$name.'.tpl');
     }

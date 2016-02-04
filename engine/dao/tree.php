@@ -59,6 +59,12 @@ class DAO_Tree extends DAO_MainDAO implements DAO_Interface_Tree{
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function getParent($id){
+		$pid = $this->getOne($id, 't.pid');
+
+		return $this->getOne($pid['pid']);
+	}
+
 
 	/**
 	 * @param Entity_Tree $tree
